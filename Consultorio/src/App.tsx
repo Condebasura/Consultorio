@@ -4,11 +4,14 @@ import './App.css'
 function App() {
  return(
   <>
-  <div className='caja row'>
-    <div className='selector col-lg-2 me-2 border border-2 vh-100'>
-Selects
+  <div className='caja row '>
+    <div className='selector col-lg-1   vh-100'>
+<li className='list-group-item text-white'>Dashbord</li>
+      
+
+    
     </div>
-    <div className='inputs col-lg-9 ms-2 border border-2 vh-100 '>
+    <div className='inputs col-lg-11  border border-2 bg-white vh-100 '>
 Inputs
     </div>
 
