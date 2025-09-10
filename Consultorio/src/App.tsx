@@ -2,12 +2,13 @@
 import './App.css'
 
 function App() {
- return(
+ // Crear un componente para el li
+  return(
   <>
   <div className='caja row '>
-    <div className='selector col-lg-1   vh-100'>
-<li className='list-group-item text-white'>Dashbord</li>
+    <div className='selector ps-0 pe-0 col-lg-1 m-0  vh-100'>
       
+<li className='list-group-item bg-primary p-1 text-white mt-2 '>Dashboard</li>
 
     
     </div>
