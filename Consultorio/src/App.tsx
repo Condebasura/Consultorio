@@ -7,7 +7,7 @@ function App() {
   return(
   <>
   <div className='caja row '>
-    <div className='selector ps-0 pe-0 col-lg-1 m-0  vh-100'>
+    <div className='selector ps-0  col-lg-1 m-0  vh-100'>
       
 <Libtn className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'/>
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'/>
@@ -15,8 +15,12 @@ function App() {
 
     
     </div>
-    <div className='inputs col-lg-11  border border-2 bg-white vh-100 '>
-Inputs
+    <div className='inputs row col-lg-11  border border-2   vh-100 '>
+ <div className=' shadow  col-lg-12 m-2 bg-white '>
+  
+ </div>
+ <div className=' shadow col-lg-3 ms-2 bg-white'></div>
+ <div className=' shadow col-lg-8 ms-2 bg-white '></div>
     </div>
 
   </div>

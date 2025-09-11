@@ -3,9 +3,14 @@ margin: 0;
  max-width: 100% !important;
  background-color: rgb(41, 41, 48);
 }
+.seccion{
+    cursor: pointer;
 
-.seccions:hover{
+}
+.seccions:active{
     background-color: rgb(36, 114, 231);
     color: white!important;
-    cursor: pointer;
+}
+.inputs{
+    background-color: azure;
 }
