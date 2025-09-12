@@ -3,7 +3,7 @@ margin: 0;
  max-width: 100% !important;
  background-color: rgb(41, 41, 48);
 }
-.seccion{
+.seccions, li{
     cursor: pointer;
 
 }
