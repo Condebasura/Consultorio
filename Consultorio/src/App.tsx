@@ -26,7 +26,7 @@ function App() {
  <div className='subSeccions shadow col-lg-3 ms-2 bg-white'>
 {Tipos === 'Pacientes' && <Ul 
 titulo='Pacientes'
-names={['Alta', 'Editar']}
+names={['Alta Paciente', 'Editar Paciente']}
 onSelect={setAction}
 
 />}
@@ -38,11 +38,35 @@ onSelect={setAction}
 />}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
-  {action === 'Alta' && (<Formulario
+  {action === 'Alta Paciente' && (<Formulario
   
   titulo='Alta'
-  campos={['Nombre','Apellido']}
+  campos={[
+    {name: "Nombre"},
+    {name:"Apellido"},
+    {name: "DNI", type:"number"},
+    {name:"Telefono", type:"number"},
+    {name:"Email", type:"email"},
+    {name:"direccion"},
+    {name:"Obra Social"},
+    {name:"N° de Afiliado", type:"number"}
+  ]}
   
+  />)}
+
+  {action === 'Editar Paciente' && (<Formulario
+   titulo='Editar'
+   campos={[
+  {name: "Nombre"},
+    {name:"Apellido"},
+    {name: "DNI", type:"number"},
+    {name:"Telefono", type:"number"},
+    {name:"Email", type:"email"},
+    {name:"direccion"},
+    {name:"Obra Social"},
+    {name:"N° de Afiliado", type:"number"}
+       
+   ]}
   />)}
 
   
