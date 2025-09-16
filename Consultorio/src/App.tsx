@@ -20,7 +20,7 @@ function App() {
     
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-100 '>
- <div className=' shadow  col-lg-12 m-2 bg-white '>
+ <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
   
  </div>
  <div className='subSeccions shadow col-lg-3 ms-2 bg-white'>
@@ -57,6 +57,7 @@ onSelect={setAction}
   {action === 'Editar Paciente' && (<Formulario
    titulo='Editar'
    campos={[
+    {name: "Buscar", type: "search"},
   {name: "Nombre"},
     {name:"Apellido"},
     {name: "DNI", type:"number"},
