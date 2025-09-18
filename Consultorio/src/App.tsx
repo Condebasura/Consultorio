@@ -3,6 +3,7 @@ import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
+import InputWrapper from './components/InputWrapper';
 
 function App() {
  
@@ -68,6 +69,20 @@ onSelect={setAction}
     {name:"N° de Afiliado", type:"number"}
        
    ]}
+  />)}
+
+  {action === 'Crear' &&(<Formulario
+  titulo='Crear'
+  campos={[
+    {name:'Nombre'},
+    {name: 'Apellido'},
+    {name:'DNI',type:'number'},
+    {name:'Telefono', type:'number'},
+    {name:'Fecha', type:'Date'},
+    {name:'Hora', type:'time'},
+    
+  ]}
+  
   />)}
 
   
