@@ -53,7 +53,7 @@ const handleChange = (campo: string , valor: string)=>{
             
              
            
-         <button type="submit" className="btn btn-success col-1 m-3">Enviar</button>
+         <button type="submit" className="btn btn-success col-1 m-3 ">Enviar</button>
     </form>
         </>
 )
