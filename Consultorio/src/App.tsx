@@ -3,10 +3,19 @@ import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
-import InputWrapper from './components/InputWrapper';
+import Selector from './components/Select';
+import React from 'react';
 
 function App() {
- 
+
+  const Medico = [
+  { id: 123, nombre: "Dr. Pérez" },
+  { id: 265, nombre: "Dra. Gómez" },
+  { id: 389, nombre: "Dr. López" },
+]
+ const [medicosTurno, setMedicosTurno] = React.useState(Medico);
+
+const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);
   return(
@@ -82,7 +91,13 @@ onSelect={setAction}
     {name:'Hora', type:'time'},
     
   ]}
+  children={<Selector
   
+  name='medico'
+  medicos={medicosTurno}
+  value={medicoSeleccionado}
+  onChange={(e)=> setMedicoSeleccionado(Number(e.target.value))}
+  />}
   />)}
 
   
