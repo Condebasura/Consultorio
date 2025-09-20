@@ -19,11 +19,11 @@ export default function Table({Datos}: CampoProps){
 
     return(
         <>
-        <table className=" border border-1 m-3">
+        <table className=" border border-1 m-3  ">
             <thead className="d-flex ">
 
-            <tr className="p-2">
-                <th className="p-2 ms-2">  Fecha/Hora  </th>
+            <tr className="p-2 ">
+                <th className="p-2 ms-2 ">  Fecha/Hora  </th>
                 <th className="p-2 ms-2">Apellido/Nombre</th>
                 <th className="p-2 ms-2">DNI</th>
                 <th className="p-2 ms-2">Medico</th>
@@ -32,11 +32,19 @@ export default function Table({Datos}: CampoProps){
             </thead>
             <tbody>
                 
-                { // Resolver el tema de colocar los datos segun la cantidad de turnos en la tabla
-                Datos.map((data)=>(
-                    <tr>
+                { 
+                Datos.map((data , index)=>(
+                    
+                    <tr className="d-flex " key={index}>
+
+                    <td className="p-2 "> {data.fecha} / {data.hora}</td>
+                    <td className="p-2 ">{data.apellido} / {data.nombre}</td>
+                    <td className="p-2 ">{data.dni}</td>
+                    <td className="p-2 ">{data.medico}</td>
+                    <td className="p-2 ">{data.observaciones}</td>
                     
                     </tr>
+                    
                 ))}
                 <td></td>
             </tbody>
