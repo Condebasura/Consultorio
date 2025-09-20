@@ -5,6 +5,7 @@ import Ul from './components/Subseccions';
 import Formulario from './components/Form';
 import Selector from './components/Select';
 import React from 'react';
+import Table from './components/TablaTurnos';
 
 function App() {
 
@@ -31,7 +32,7 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-100 '>
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
-  
+  {Tipos === 'Dashboard'&&(<Table/>)}
  </div>
  <div className='subSeccions shadow col-lg-3 ms-2 bg-white'>
 {Tipos === 'Pacientes' && <Ul 
@@ -89,6 +90,7 @@ onSelect={setAction}
     {name:'Telefono', type:'number'},
     {name:'Fecha', type:'Date'},
     {name:'Hora', type:'time'},
+    {name:'Observaciones', type:'textarea'}
     
   ]}
   children={<Selector
@@ -98,6 +100,7 @@ onSelect={setAction}
   value={medicoSeleccionado}
   onChange={(e)=> setMedicoSeleccionado(Number(e.target.value))}
   />}
+  
   />)}
 
   
