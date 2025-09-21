@@ -93,7 +93,7 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
 
     
     </div>
-    <div className='inputs row col-lg-11  border border-2    '>
+    <div className='inputs row col-lg-11  border border-2   h-100  '>
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
   <Table Datos={Turnos}/>
  </div>
