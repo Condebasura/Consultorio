@@ -95,7 +95,9 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
     </div>
     <div className='inputs row col-lg-11  border border-2   h-100  '>
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
-  <Table Datos={Turnos}/>
+  <Table Datos={Turnos}
+  
+  />
  </div>
  <div className='subSeccions shadow col-lg-3 ms-2 bg-white'>
 {Tipos === 'Pacientes' && <Ul 
@@ -163,6 +165,44 @@ onSelect={setAction}
   value={medicoSeleccionado}
   onChange={(e)=> setMedicoSeleccionado(Number(e.target.value))}
   />}
+  
+  />)}
+
+  {action === 'Editar' &&(<Formulario
+  titulo='Editar'
+  campos={[
+    {name:'Buscar', type: 'search'},
+    {name:'Nombre'},
+    {name: 'Apellido'},
+    {name:'DNI',type:'number'},
+    {name:'Telefono', type:'number'},
+    {name:'Fecha', type:'Date'},
+    {name:'Hora', type:'time'},
+    {name:'Observaciones', type:'textarea'}
+    
+  ]}
+  children={<Selector
+  
+  name='medico'
+  medicos={medicosTurno}
+  value={medicoSeleccionado}
+  onChange={(e)=> setMedicoSeleccionado(Number(e.target.value))}
+  />}
+  
+  />)}
+
+  {action === 'Cancelar' &&(<Formulario
+  
+  titulo='Cancelar'
+  campos={[
+    {name:'Buscar', type:'search'},
+    {name:'Nombre'},
+    {name:'Apellido'},
+    {name:'dni', type:'number'},
+    {name:'Fecha', type:'Date'},
+    {name: 'Hora', type:'time'}
+
+  ]}
   
   />)}
 

@@ -1,5 +1,6 @@
 
 
+
 type DatoProps ={
     fecha:string;
     hora:string;
@@ -13,15 +14,16 @@ type DatoProps ={
 
 type CampoProps={
     Datos: DatoProps[];
+   
 }
 
-export default function Table({Datos}: CampoProps){
-
+export default function Table({Datos }: CampoProps){
+ 
     return(
         <>
         <table className=" border border-1 m-3  ">
             <thead className="d-flex ">
-
+     
             <tr className="p-2 ">
                 <th className="p-2 ms-2 ">  Fecha/Hora  </th>
                 <th className="p-2 ms-2">Apellido/Nombre</th>
@@ -34,8 +36,8 @@ export default function Table({Datos}: CampoProps){
                 
                 { 
                 Datos.map((data , index)=>(
-                    
-                    <tr className="d-flex " key={index}>
+                                      
+                    <tr className="d-flex " key={index} >
 
                     <td className="p-2 "> {data.fecha} / {data.hora}</td>
                     <td className="p-2 ">{data.apellido} / {data.nombre}</td>
@@ -45,8 +47,10 @@ export default function Table({Datos}: CampoProps){
                     
                     </tr>
                     
-                ))}
-                <td></td>
+                )
+                )}
+
+               
             </tbody>
         </table>
         </>
