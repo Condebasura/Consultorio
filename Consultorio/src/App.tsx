@@ -100,18 +100,19 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
   />
  </div>
  <div className='subSeccions shadow col-lg-3 ms-2 bg-white'>
-{Tipos === 'Pacientes' && <Ul 
+  
+{Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
 names={['Alta Paciente', 'Editar Paciente']}
 onSelect={setAction}
 
-/>}
+/>)}
 
-{Tipos === 'Turnos' && <Ul
+{Tipos === 'Turnos' && (<Ul
 titulo='Trunos'
 names={['Crear','Editar', 'Cancelar']}
 onSelect={setAction}
-/>}
+/>)}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   {action === 'Alta Paciente' && (<Formulario
