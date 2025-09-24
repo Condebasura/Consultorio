@@ -1,6 +1,7 @@
 import Inputs from "./Input";
 import { useState } from "react";
 
+
 type Campo ={
     name:string;
     type?: string;
@@ -25,20 +26,27 @@ const handleChange = (campo: string , valor: string)=>{
     setValores((prev) =>({...prev, [campo]: valor}));
     // ...prev sirve para copiar las propiedades de un objeto
 }
- /* const handleSubmit = async (e: React.FormEvent)=>{
+ const handleSubmit = async (e: React.FormEvent)=>{
  e.preventDefault();
 
   let url = "";
 
-  if(titulo === 'Alta Paciente'){
-    url = 'console.log()'
+  if(titulo === 'Alta'){
+    url = 'http://localhost:3000/AltaPaciente'
   }
-
-  }*/
+const res = await fetch(url,{
+    method:'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(valores)
+})
+const data =  await res.json();
+const obj = JSON.parse(data);
+console.log(`${titulo}`, obj);
+  }
 
  return(
         <>
-        <form className="form row" >
+        <form onSubmit={handleSubmit} className="form row" >
          <h3 className="text-center">
             {titulo}
             </h3>
