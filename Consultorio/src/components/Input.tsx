@@ -3,6 +3,7 @@ type Props = {
     value: string;
    onChange:(value: string) => void;
   type?: string;
+  
     
 }
 export default function Inputs ({name  , value , onChange, type = "text" }:Props){

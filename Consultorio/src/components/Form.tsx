@@ -5,6 +5,7 @@ import { useState } from "react";
 type Campo ={
     name:string;
     type?: string;
+    
 }
 
 type FormProps={
@@ -18,7 +19,7 @@ type FormProps={
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' }: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,}: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>({});
 
@@ -57,6 +58,7 @@ console.log(`${titulo}`, obj);
             
             name={campo.name}
             type={campo.type}
+            
             value={valores[campo.name] || ''}
             onChange={(e)=> handleChange(campo.name, e)}
             />

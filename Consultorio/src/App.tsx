@@ -124,9 +124,9 @@ onSelect={setAction}
     {name: "DNI", type:"number"},
     {name:"Telefono", type:"number"},
     {name:"Email", type:"email"},
-    {name:"direccion"},
-    {name:"Obra Social"},
-    {name:"N° de Afiliado", type:"number"}
+    {name:"Direccion"},
+    {name:"ObraSocial"},
+    {name:"Afiliado", type:"number"}
   ]}
   
   />)}
@@ -150,6 +150,7 @@ onSelect={setAction}
   {action === 'Crear' &&(<Formulario
   titulo='Crear'
   campos={[
+    {name: 'Buscar', type:'search'},
     {name:'Nombre'},
     {name: 'Apellido'},
     {name:'DNI',type:'number'},
