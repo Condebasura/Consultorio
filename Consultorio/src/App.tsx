@@ -119,14 +119,14 @@ onSelect={setAction}
   
   titulo='Alta'
   campos={[
-    {name: "Nombre"},
-    {name:"Apellido"},
-    {name: "DNI", type:"number"},
-    {name:"Telefono", type:"number"},
-    {name:"Email", type:"email"},
-    {name:"Direccion"},
-    {name:"ObraSocial"},
-    {name:"Afiliado", type:"number"}
+    {name: "Nombre" , required: true},
+    {name:"Apellido" , required: true},
+    {name: "DNI", type:"number", required: true},
+    {name:"Telefono", type:"number", required: true},
+    {name:"Email", type:"email" , required: true},
+    {name:"Direccion" , required: true},
+    {name:"ObraSocial" , required: true},
+    {name:"Afiliado", type:"number" , required: true}
   ]}
   
   />)}
@@ -135,14 +135,14 @@ onSelect={setAction}
    titulo='Editar'
    campos={[
     {name: "Buscar", type: "search"},
-  {name: "Nombre"},
-    {name:"Apellido"},
-    {name: "DNI", type:"number"},
-    {name:"Telefono", type:"number"},
-    {name:"Email", type:"email"},
-    {name:"direccion"},
-    {name:"Obra Social"},
-    {name:"N° de Afiliado", type:"number"}
+  {name: "Nombre" , required: true},
+    {name:"Apellido" , required: true},
+    {name: "DNI", type:"number" , required: true},
+    {name:"Telefono", type:"number" , required: true},
+    {name:"Email", type:"email" , required: true},
+    {name:"direccion" , required: true},
+    {name:"ObraSocial" , required: true},
+    {name:"Afiliado", type:"number" , required: true}
        
    ]}
   />)}
@@ -151,13 +151,13 @@ onSelect={setAction}
   titulo='Crear'
   campos={[
     {name: 'Buscar', type:'search'},
-    {name:'Nombre'},
-    {name: 'Apellido'},
-    {name:'DNI',type:'number'},
-    {name:'Telefono', type:'number'},
-    {name:'Fecha', type:'Date'},
-    {name:'Hora', type:'time'},
-    {name:'Observaciones', type:'textarea'}
+    {name:'Nombre' , required: true},
+    {name: 'Apellido' , required: true},
+    {name:'DNI',type:'number' , required: true},
+    {name:'Telefono', type:'number' , required: true},
+    {name:'Fecha', type:'Date' , required: true},
+    {name:'Hora', type:'time' , required: true},
+    {name:'Observaciones', type:'textarea' , required: true}
     
   ]}
   children={<Selector
@@ -174,13 +174,13 @@ onSelect={setAction}
   titulo='Editar'
   campos={[
     {name:'Buscar', type: 'search'},
-    {name:'Nombre'},
-    {name: 'Apellido'},
-    {name:'DNI',type:'number'},
-    {name:'Telefono', type:'number'},
-    {name:'Fecha', type:'Date'},
-    {name:'Hora', type:'time'},
-    {name:'Observaciones', type:'textarea'}
+    {name:'Nombre' , required: true},
+    {name: 'Apellido' , required: true},
+    {name:'DNI',type:'number' , required: true},
+    {name:'Telefono', type:'number' , required: true},
+    {name:'Fecha', type:'Date' , required: true},
+    {name:'Hora', type:'time' , required: true},
+    {name:'Observaciones', type:'textarea' , required: true}
     
   ]}
   children={<Selector
@@ -198,11 +198,11 @@ onSelect={setAction}
   titulo='Cancelar'
   campos={[
     {name:'Buscar', type:'search'},
-    {name:'Nombre'},
-    {name:'Apellido'},
-    {name:'dni', type:'number'},
-    {name:'Fecha', type:'Date'},
-    {name: 'Hora', type:'time'}
+    {name:'Nombre' , required: true},
+    {name:'Apellido' , required: true},
+    {name:'dni', type:'number' , required: true},
+    {name:'Fecha', type:'Date' , required: true},
+    {name: 'Hora', type:'time' , required: true}
 
   ]}
   

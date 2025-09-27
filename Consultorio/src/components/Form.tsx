@@ -5,6 +5,7 @@ import { useState } from "react";
 type Campo ={
     name:string;
     type?: string;
+    required?: boolean;
     
 }
 
@@ -40,9 +41,12 @@ const res = await fetch(url,{
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(valores)
 })
-const data =  await res.json();
+const data =  await res.text();
 const obj = JSON.parse(data);
-console.log(`${titulo}`, obj);
+console.log(obj.mensaje)
+setValores({})
+
+
   }
 
  return(
@@ -58,6 +62,7 @@ console.log(`${titulo}`, obj);
             
             name={campo.name}
             type={campo.type}
+            required={campo.required}
             
             value={valores[campo.name] || ''}
             onChange={(e)=> handleChange(campo.name, e)}
