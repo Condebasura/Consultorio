@@ -13,6 +13,8 @@ type FormProps={
     titulo: string;
     campos: Campo[];
     nameBtn?: string;
+    url: string;
+    method: "GET" | "POST" | "PUT" | "DELETE";
     children?: React.ReactNode;
     
     
@@ -20,7 +22,7 @@ type FormProps={
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,}: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method}: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>({});
 
@@ -31,15 +33,11 @@ const handleChange = (campo: string , valor: string)=>{
  const handleSubmit = async (e: React.FormEvent)=>{
  e.preventDefault();
 
-  let url = "";
-
-  if(titulo === 'Alta'){
-    url = 'http://localhost:3000/AltaPaciente'
-  }
+ 
 const res = await fetch(url,{
-    method:'POST',
+    method,
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(valores)
+    body: method !== "GET"? JSON.stringify(valores): undefined
 })
 const data =  await res.text();
 const obj = JSON.parse(data);

@@ -128,6 +128,8 @@ onSelect={setAction}
     {name:"ObraSocial" , required: true},
     {name:"Afiliado", type:"number" , required: true}
   ]}
+  url= "http://localhost:3000/AltaPaciente"
+  method='POST'
   
   />)}
 
