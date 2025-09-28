@@ -6,9 +6,11 @@ import Formulario from './components/Form';
 import Selector from './components/Select';
 import React from 'react';
 import Table from './components/TablaTurnos';
+import SearchInput from './components/Search';
 
 
 function App() {
+    const [result , setResult] = useState<any[]>([]);
 const turnos = ([
   {fecha:'20/09',
      hora:'08:15',
@@ -116,6 +118,14 @@ onSelect={setAction}
 />)}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
+ <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente'/>
+  {<ul>
+    {result.map((item , index)=>(
+      <li key={index}>{JSON.stringify(item)}</li>
+    ))}
+    </ul>}
+
+
   {action === 'Alta Paciente' && (<Formulario
   
   titulo='Alta'
@@ -150,8 +160,11 @@ onSelect={setAction}
    ]}
    method='POST'
    url='http://localhost:3000'
+  />
+  
 
-  />)}
+  )}
+  
 
   {action === 'Crear' &&(<Formulario
   titulo='Crear'

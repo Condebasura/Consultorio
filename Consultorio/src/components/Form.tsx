@@ -1,6 +1,6 @@
 import Inputs from "./Input";
 import { useState } from "react";
-import SearchInput from './Search';
+
 
 type Campo ={
     name:string;
