@@ -38,7 +38,8 @@ app.use( helmet.contentSecurityPolicy({
 
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
-    app.post("/AltaPaciente", SecControllers.AltaPaciente)
+    app.post("/AltaPaciente", SecControllers.AltaPaciente);
+    app.post("/SearchPaciente", SecControllers.SearchPaciente)
     app.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })

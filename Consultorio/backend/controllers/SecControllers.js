@@ -26,6 +26,17 @@ const AltaPaciente =  async(req , res)=>{
    }
 }
 
+const SearchPaciente  = async (req, res)=>{
+    try {
+        const paciente = req.body.valor;
+        console.log(paciente);
+
+    } catch (error) {
+        
+    }
+}
+
 export default {
     AltaPaciente,
+    SearchPaciente
 }

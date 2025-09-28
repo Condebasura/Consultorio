@@ -18,8 +18,29 @@ const InsertPaciente = async (paci)=>{
     } catch (err) {
         console.log("Error", err);
     }
+};
+
+const consPaciente = async (paciente)=>{
+    try {
+         return await new Promise((resolve,reject)=>{
+            let sql = 'SELECT * FROM pacientes WHERE apellido LIKE ?';
+            let paci = paciente;
+            bd.all(sql, [`%${paci}`], (err,rows)=>{
+                if(err)
+                {
+                    console.log('El error del reject', err)
+                reject(err)
+                }else{
+                    resolve(rows);
+                }
+            })
+         })        
+    } catch (error) {
+        console.log('El error del catch', error)
+    }
 }
 
 export default {
-    InsertPaciente
+    InsertPaciente,
+    consPaciente
 }

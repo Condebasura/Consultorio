@@ -7,6 +7,7 @@ import Selector from './components/Select';
 import React from 'react';
 import Table from './components/TablaTurnos';
 
+
 function App() {
 const turnos = ([
   {fecha:'20/09',
@@ -133,10 +134,10 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar Paciente' && (<Formulario
+  {action === 'Editar Paciente' &&(<Formulario
    titulo='Editar'
    campos={[
-    {name: "Buscar", type: "search"},
+   
   {name: "Nombre" , required: true},
     {name:"Apellido" , required: true},
     {name: "DNI", type:"number" , required: true},
@@ -147,6 +148,9 @@ onSelect={setAction}
     {name:"Afiliado", type:"number" , required: true}
        
    ]}
+   method='POST'
+   url='http://localhost:3000'
+
   />)}
 
   {action === 'Crear' &&(<Formulario

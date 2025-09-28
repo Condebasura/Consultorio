@@ -1,6 +1,6 @@
 import Inputs from "./Input";
 import { useState } from "react";
-
+import SearchInput from './Search';
 
 type Campo ={
     name:string;
@@ -30,6 +30,7 @@ const handleChange = (campo: string , valor: string)=>{
     setValores((prev) =>({...prev, [campo]: valor}));
     // ...prev sirve para copiar las propiedades de un objeto
 }
+
  const handleSubmit = async (e: React.FormEvent)=>{
  e.preventDefault();
 
@@ -44,11 +45,14 @@ const obj = JSON.parse(data);
 console.log(obj.mensaje)
 setValores({})
 
+ }
 
-  }
+
 
  return(
         <>
+         
+            
         <form onSubmit={handleSubmit} className="form row" >
          <h3 className="text-center">
             {titulo}
@@ -68,6 +72,7 @@ setValores({})
             
             </div>
             ))}
+           
             {children}
             
             
