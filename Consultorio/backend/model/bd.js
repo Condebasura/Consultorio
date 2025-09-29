@@ -25,12 +25,13 @@ const consPaciente = async (paciente)=>{
          return await new Promise((resolve,reject)=>{
             let sql = 'SELECT * FROM pacientes WHERE apellido LIKE ?';
             let paci = paciente;
-            bd.all(sql, [`%${paci}`], (err,rows)=>{
+            bd.all(sql, [`%${paci}%`], (err,rows)=>{
                 if(err)
                 {
                     console.log('El error del reject', err)
                 reject(err)
                 }else{
+                    console.log('Pacientes encontrados', rows)
                     resolve(rows);
                 }
             })

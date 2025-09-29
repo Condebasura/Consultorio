@@ -121,7 +121,10 @@ onSelect={setAction}
  <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente'/>
   {<ul>
     {result.map((item , index)=>(
-      <li key={index}>{JSON.stringify(item)}</li>
+      <div className='row border border-2'>
+
+      <li className='col-3' key={index}>{JSON.stringify(item)}</li>
+      </div>
     ))}
     </ul>}
 

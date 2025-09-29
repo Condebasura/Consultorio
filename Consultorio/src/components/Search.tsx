@@ -11,26 +11,30 @@ type SearchProps = {
 export default function SearchInput({placeholder = "Buscar...", onSearch , url , method }: SearchProps){
     const [query , setQuery] = useState("");
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>)=>{
+    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>)=>{
+           if(e.key === "Enter"){
 
-        const value = e.target.value;
-        setQuery(value)
-        const res = await fetch(url, {
-            method,
+               
+               
+               const res = await fetch(url, {
+                   method,
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({query:value})
+            body: JSON.stringify({apellido:query}),
         })
         const data = await res.json();
-       onSearch(data)
-       console.log("Respuesta backend",data)
-
+    
+        onSearch(data)
+        console.log("Respuesta backend",data)
+        
     };
+}
 
     return(
         <input
          type="search"
           value={query}
-          onChange={handleChange}
+            onChange={(e)=> setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className="form-control"
         />

@@ -28,11 +28,20 @@ const AltaPaciente =  async(req , res)=>{
 
 const SearchPaciente  = async (req, res)=>{
     try {
-        const paciente = req.body.valor;
-        console.log(paciente);
-
-    } catch (error) {
+        const {apellido} = req.body;
         
+        console.log("El apellido desde el front", apellido);
+
+        const data = await bd.consPaciente(apellido)
+        console.log('el data', data)
+        if(!data){
+            res.status(209).json({mensaje:'No existe el paciente'})
+        }else{
+            console.log("El paciente es", data)
+            res.status(200).json(data);
+        }
+    } catch (error) {
+        console.log('Error en la busqueda del paciente', error)
     }
 }
 
