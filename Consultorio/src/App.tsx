@@ -102,8 +102,10 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
   
   />
  </div>
- <div className='subSeccions shadow col-lg-3 ms-2 bg-white'>
-  
+ <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white'>
+  {Tipos === 'Dashboard' && (<SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+)}
+
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
 names={['Alta Paciente', 'Editar Paciente']}
@@ -118,15 +120,9 @@ onSelect={setAction}
 />)}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
- <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente'/>
-  {<ul>
-    {result.map((item , index)=>(
-      <div className='row border border-2'>
-
-      <li className='col-3' key={index}>{JSON.stringify(item)}</li>
-      </div>
-    ))}
-    </ul>}
+  
+ 
+  
 
 
   {action === 'Alta Paciente' && (<Formulario
@@ -147,11 +143,11 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar Paciente' &&(<Formulario
+  {action === 'Editar Paciente'&&(<Formulario
    titulo='Editar'
    campos={[
    
-  {name: "Nombre" , required: true},
+  {name: "Nombre", required: true },
     {name:"Apellido" , required: true},
     {name: "DNI", type:"number" , required: true},
     {name:"Telefono", type:"number" , required: true},
@@ -163,9 +159,7 @@ onSelect={setAction}
    ]}
    method='POST'
    url='http://localhost:3000'
-  />
-  
-
+   />
   )}
   
 

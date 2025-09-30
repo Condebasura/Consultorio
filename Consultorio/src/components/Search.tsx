@@ -30,14 +30,17 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
 }
 
     return(
+        
+
         <input
          type="search"
-          value={query}
-            onChange={(e)=> setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className="form-control"
-        />
+         value={query}
+         onChange={(e)=> setQuery(e.target.value)}
+         onKeyDown={handleKeyDown}
+         placeholder={placeholder}
+         className="form-control "
+         />
+        
        
     )
 }

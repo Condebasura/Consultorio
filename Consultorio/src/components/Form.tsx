@@ -18,11 +18,12 @@ type FormProps={
     children?: React.ReactNode;
     
     
+    
 
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method}: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method }: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>({});
 
@@ -64,9 +65,10 @@ setValores({})
             
             name={campo.name}
             type={campo.type}
+            
             required={campo.required}
             
-            value={valores[campo.name] || ''}
+            value={valores[campo.name] ||''}
             onChange={(e)=> handleChange(campo.name, e)}
             />
             
