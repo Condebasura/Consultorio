@@ -1,10 +1,13 @@
+
+
 type SubProps = {
 titulo: string;
 names: string[];
 onSelect: (name:string)=> void;
+children?: React.ReactNode;
 }
 
-export default function Ul({titulo, names, onSelect}: SubProps){
+export default function Ul({titulo, names, onSelect, children}: SubProps){
 
 return(
     <>
@@ -17,6 +20,7 @@ return(
 </li>
 
 )}
+{children}
     </ul>
     </>
 )

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 
 
 
@@ -21,15 +22,18 @@ export default function Table({Datos }: CampoProps){
  
     return(
         <>
-        <table className=" border border-1 m-3  ">
-            <thead className="d-flex ">
+        <div className="m-3">
+            <h3>Turnos</h3>
+        </div>
+        <table className=" table table-bordered ">
+            <thead >
      
-            <tr className="p-2 ">
-                <th className="p-2 ms-2 ">  Fecha/Hora  </th>
-                <th className="p-2 ms-2">Apellido/Nombre</th>
-                <th className="p-2 ms-2">DNI</th>
-                <th className="p-2 ms-2">Medico</th>
-                <th className="p-2 ms-2">Observaciones</th>
+            <tr >
+                <th >  Fecha/Hora  </th>
+                <th >Apellido/Nombre</th>
+                <th >DNI</th>
+                <th >Medico</th>
+                <th >Observaciones</th>
             </tr>
             </thead>
             <tbody>
@@ -37,13 +41,13 @@ export default function Table({Datos }: CampoProps){
                 { 
                 Datos.map((data , index)=>(
                                       
-                    <tr className="d-flex " key={index} >
+                    <tr  key={index} >
 
-                    <td className="p-2 "> {data.fecha} / {data.hora}</td>
-                    <td className="p-2 ">{data.apellido} / {data.nombre}</td>
-                    <td className="p-2 ">{data.dni}</td>
-                    <td className="p-2 ">{data.medico}</td>
-                    <td className="p-2 ">{data.observaciones}</td>
+                    <td > {data.fecha} / {data.hora}</td>
+                    <td >{data.apellido} / {data.nombre}</td>
+                    <td >{data.dni}</td>
+                    <td >{data.medico}</td>
+                    <td >{data.observaciones}</td>
                     
                     </tr>
                     

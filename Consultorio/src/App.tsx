@@ -7,10 +7,12 @@ import Selector from './components/Select';
 import React from 'react';
 import Table from './components/TablaTurnos';
 import SearchInput from './components/Search';
+import TablePacientes from './components/TablaPacientes';
 
 
 function App() {
     const [result , setResult] = useState<any[]>([]);
+     const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
 const turnos = ([
   {fecha:'20/09',
      hora:'08:15',
@@ -80,6 +82,8 @@ const turnos = ([
   { id: 265, nombre: "Dra. Gómez" },
   { id: 389, nombre: "Dr. López" },
 ]
+
+
  const [medicosTurno, setMedicosTurno] = React.useState(Medico);
 const [Turnos , setTurnos] = useState(turnos)
 const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
@@ -111,7 +115,10 @@ titulo='Pacientes'
 names={['Alta Paciente', 'Editar Paciente']}
 onSelect={setAction}
 
-/>)}
+>
+<SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+
+</Ul>)}
 
 {Tipos === 'Turnos' && (<Ul
 titulo='Trunos'
@@ -121,6 +128,7 @@ onSelect={setAction}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
+  {Tipos === "Dashboard" && (<TablePacientes onEditar={(result)=> setPacienteSeleccionado(result)} DatosPaci={result}/>)}
  
   
 
@@ -155,8 +163,9 @@ onSelect={setAction}
     {name:"direccion" , required: true},
     {name:"ObraSocial" , required: true},
     {name:"Afiliado", type:"number" , required: true}
-       
+      
    ]}
+  
    method='POST'
    url='http://localhost:3000'
    />

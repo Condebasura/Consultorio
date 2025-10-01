@@ -1,5 +1,5 @@
 import Inputs from "./Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 type Campo ={
@@ -16,21 +16,27 @@ type FormProps={
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
     children?: React.ReactNode;
-    
+    valoresIniciales?:Record<string, string>;
     
     
 
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method }: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales }: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
-const [valores , setValores] = useState<Record<string, string>>({});
+const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
 
 const handleChange = (campo: string , valor: string)=>{
     setValores((prev) =>({...prev, [campo]: valor}));
     // ...prev sirve para copiar las propiedades de un objeto
 }
+
+useEffect(()=>{
+    if(valoresIniciales){
+        setValores(valoresIniciales);
+    }
+}, [valoresIniciales]);
 
  const handleSubmit = async (e: React.FormEvent)=>{
  e.preventDefault();
