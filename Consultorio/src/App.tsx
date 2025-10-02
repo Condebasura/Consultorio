@@ -8,6 +8,7 @@ import React from 'react';
 import Table from './components/TablaTurnos';
 import SearchInput from './components/Search';
 import TablePacientes from './components/TablaPacientes';
+import MiniTabla from './components/MiniTabla';
 
 
 function App() {
@@ -107,8 +108,16 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
   />
  </div>
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white'>
-  {Tipos === 'Dashboard' && (<SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
-)}
+  {Tipos === 'Dashboard' && (<Ul 
+  titulo='Buscar'
+  names={[
+    'Pacientes', 'Turnos'
+  ]}
+  onSelect={setAction}
+  > 
+  <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+
+  </Ul>)}
 
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
@@ -117,8 +126,9 @@ onSelect={setAction}
 
 >
 <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+<MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) }/>
 
-</Ul>)}
+</Ul>) }
 
 {Tipos === 'Turnos' && (<Ul
 titulo='Trunos'
@@ -128,46 +138,47 @@ onSelect={setAction}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
-  {Tipos === "Dashboard" && (<TablePacientes onEditar={(result)=> setPacienteSeleccionado(result)} DatosPaci={result}/>)}
+  {action === "Pacientes" && (<TablePacientes Datos={result} />)}
  
   
-
+ {/*Seguir con la aciones de busqueda entre pacientes y turnos */}
 
   {action === 'Alta Paciente' && (<Formulario
   
   titulo='Alta'
   campos={[
-    {name: "Nombre" , required: true},
-    {name:"Apellido" , required: true},
-    {name: "DNI", type:"number", required: true},
-    {name:"Telefono", type:"number", required: true},
-    {name:"Email", type:"email" , required: true},
-    {name:"Direccion" , required: true},
-    {name:"ObraSocial" , required: true},
-    {name:"Afiliado", type:"number" , required: true}
+    {name: "nombre" , required: true},
+    {name:"apellido" , required: true},
+    {name: "dni", type:"number", required: true},
+    {name:"telefono", type:"number", required: true},
+    {name:"email", type:"email" , required: true},
+    {name:"direccion" , required: true},
+    {name:"obraSocial" , required: true},
+    {name:"afiliado", type:"number" , required: true}
   ]}
   url= "http://localhost:3000/AltaPaciente"
   method='POST'
   
   />)}
 
-  {action === 'Editar Paciente'&&(<Formulario
+  {action === 'Editar Paciente'&& pacienteSeleccionado && (<Formulario
    titulo='Editar'
    campos={[
    
-  {name: "Nombre", required: true },
-    {name:"Apellido" , required: true},
-    {name: "DNI", type:"number" , required: true},
-    {name:"Telefono", type:"number" , required: true},
-    {name:"Email", type:"email" , required: true},
+  {name: "nombre", required: true },
+    {name:"apellido" , required: true},
+    {name: "dni", type:"number" , required: true},
+    {name:"telefono", type:"number" , required: true},
+    {name:"email", type:"email" , required: true},
     {name:"direccion" , required: true},
-    {name:"ObraSocial" , required: true},
-    {name:"Afiliado", type:"number" , required: true}
+    {name:"obraSocial" , required: true},
+    {name:"afiliado", type:"number" , required: true}
       
    ]}
-  
+ 
    method='POST'
    url='http://localhost:3000'
+   valoresIniciales={pacienteSeleccionado}
    />
   )}
   
@@ -176,13 +187,13 @@ onSelect={setAction}
   titulo='Crear'
   campos={[
     {name: 'Buscar', type:'search'},
-    {name:'Nombre' , required: true},
-    {name: 'Apellido' , required: true},
-    {name:'DNI',type:'number' , required: true},
-    {name:'Telefono', type:'number' , required: true},
-    {name:'Fecha', type:'Date' , required: true},
-    {name:'Hora', type:'time' , required: true},
-    {name:'Observaciones', type:'textarea' , required: true}
+    {name:'nombre' , required: true},
+    {name: 'apellido' , required: true},
+    {name:'dni',type:'number' , required: true},
+    {name:'telefono', type:'number' , required: true},
+    {name:'fecha', type:'Date' , required: true},
+    {name:'hora', type:'time' , required: true},
+    {name:'observaciones', type:'textarea' , required: true}
     
   ]}
   children={<Selector
@@ -199,13 +210,13 @@ onSelect={setAction}
   titulo='Editar'
   campos={[
     {name:'Buscar', type: 'search'},
-    {name:'Nombre' , required: true},
-    {name: 'Apellido' , required: true},
-    {name:'DNI',type:'number' , required: true},
-    {name:'Telefono', type:'number' , required: true},
-    {name:'Fecha', type:'Date' , required: true},
-    {name:'Hora', type:'time' , required: true},
-    {name:'Observaciones', type:'textarea' , required: true}
+    {name:'nombre' , required: true},
+    {name: 'apellido' , required: true},
+    {name:'dni',type:'number' , required: true},
+    {name:'telefono', type:'number' , required: true},
+    {name:'fecha', type:'Date' , required: true},
+    {name:'hora', type:'time' , required: true},
+    {name:'observaciones', type:'textarea' , required: true}
     
   ]}
   children={<Selector

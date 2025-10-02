@@ -12,11 +12,11 @@ type DataTabProps = {
 }
 
 type datosProp = {
-    DatosPaci: DataTabProps[];
-  onEditar: (DatosPaci: any) =>void;
+    Datos: DataTabProps[];
+  
 }
 
-export default function TablePacientes({DatosPaci, onEditar}: datosProp){
+export default function TablePacientes({Datos}: datosProp){
  
     return(
 
@@ -24,7 +24,7 @@ export default function TablePacientes({DatosPaci, onEditar}: datosProp){
         <div className="m-3">
             <h3>Pacientes</h3>
         </div>
-        <table className=" table table-bordered">
+        <table className=" table table-bordered ">
             <thead >
                 <tr >
                 <th >Nombre</th>
@@ -35,14 +35,15 @@ export default function TablePacientes({DatosPaci, onEditar}: datosProp){
                 <th >Direccion</th>
                 <th >ObraSocial</th>
                 <th >Afiliado</th>
+                
 
                 </tr>
 
             </thead>
               <tbody>
                 {
-                    DatosPaci.map((items , index)=>(
-                        <tr key={index}>
+                    Datos.map((items )=>(
+                        <tr key={items.dni}>
                              <td >{items.nombre}</td>
                              <td >{items.apellido}</td>
                              <td >{items.dni}</td>
@@ -52,12 +53,7 @@ export default function TablePacientes({DatosPaci, onEditar}: datosProp){
                              <td >{items.obraSocial}</td>
                              <td >{items.afiliado}</td>
                              
-                            <td>
-                                <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>
-                             Editar
-                             
-                                </button>
-                            </td>
+                            
 
                         </tr>
                     ))
