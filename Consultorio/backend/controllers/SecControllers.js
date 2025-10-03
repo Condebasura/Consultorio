@@ -30,14 +30,14 @@ const SearchPaciente  = async (req, res)=>{
     try {
         const {apellido} = req.body;
         
-        console.log("El apellido desde el front", apellido);
+        
 
         const data = await bd.consPaciente(apellido)
-        console.log('el data', data)
-        if(!data){
-            res.status(209).json({mensaje:'No existe el paciente'})
+        
+        if(apellido === "" ){
+            res.status(404).json({mensaje:'No existe el paciente'})
         }else{
-            console.log("El paciente es", data)
+           
             res.status(200).json(data);
         }
     } catch (error) {

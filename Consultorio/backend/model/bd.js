@@ -31,7 +31,7 @@ const consPaciente = async (paciente)=>{
                     console.log('El error del reject', err)
                 reject(err)
                 }else{
-                    console.log('Pacientes encontrados', rows)
+                    
                     resolve(rows);
                 }
             })
@@ -39,6 +39,24 @@ const consPaciente = async (paciente)=>{
     } catch (error) {
         console.log('El error del catch', error)
     }
+}
+
+const validarPaciente = (id)=>{
+
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT * FROM pacientes WHERE id = ?';
+
+        bd.get(sql , [id], (err , row)=>{
+            if(err){
+                console.log(err.mensaje)
+                 reject(err)
+            }    
+            if(row){
+                comnsole.log(row)
+                resolve(row)
+            }
+        })
+    })
 }
 
 export default {

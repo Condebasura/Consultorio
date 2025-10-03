@@ -12,7 +12,7 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
     const [query , setQuery] = useState("");
 
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>)=>{
-           if(e.key === "Enter"){
+           if(e.key === "Enter"  ){
 
                
                
@@ -22,10 +22,13 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
             body: JSON.stringify({apellido:query}),
         })
         const data = await res.json();
-    
+       if(query === "" || data === 0){
+        console.log("no se coloco ningun valor")
+       }else{
+
         onSearch(data)
         console.log("Respuesta backend",data)
-        
+       } 
     };
 }
 
