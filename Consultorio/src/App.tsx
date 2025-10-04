@@ -101,13 +101,13 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
 
     
     </div>
-    <div className='inputs row col-lg-11  border border-2   h-100  '>
+    <div className='inputs row col-lg-11  border border-2   vh-200  '>
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
   <Table Datos={Turnos}
   
   />
  </div>
- <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white'>
+ <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
   {Tipos === 'Dashboard' && (<Ul 
   titulo='Buscar'
   names={[
@@ -161,7 +161,7 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar Paciente'&& pacienteSeleccionado && (<Formulario
+  {action === 'Editar Paciente' && pacienteSeleccionado && (<Formulario
    titulo='Editar'
    campos={[
    
@@ -186,7 +186,7 @@ onSelect={setAction}
   {action === 'Crear' &&(<Formulario
   titulo='Crear'
   campos={[
-    {name: 'Buscar', type:'search'},
+    
     {name:'nombre' , required: true},
     {name: 'apellido' , required: true},
     {name:'dni',type:'number' , required: true},
