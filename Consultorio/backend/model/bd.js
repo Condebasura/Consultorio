@@ -52,14 +52,33 @@ const validarPaciente = (id)=>{
                  reject(err)
             }    
             if(row){
-                comnsole.log(row)
+                console.log(row)
                 resolve(row)
             }
         })
     })
 }
 
+const UpdatePaciente =  (paciente)=>{
+    return new Promise((resolve, reject)=>{
+
+        const sql = 'UPDATE pacientes SET id = ? , nombre = ? , apellido = ? , dni = ? , telefono = ? , email = ? , direccion = ? , obraSocial = ?, afiliado = ?  WHERE id = ?';
+        bd.run(sql, [paciente.id, paciente.nombre , paciente.apellido , paciente.dni, paciente.telefono , paciente.email , paciente.direccion, paciente.obraSocial , paciente.afiliado, paciente.id], (err)=>{
+            if(err){
+                reject(err);
+                console.log(err.mensaje)
+            }else{
+                resolve("el paciente se actualizo correctamente")
+                console.log("el paciente se actualizo correctamente")
+            }
+        })
+        
+    })
+}
+
 export default {
     InsertPaciente,
-    consPaciente
+    consPaciente, 
+    validarPaciente,
+     UpdatePaciente
 }

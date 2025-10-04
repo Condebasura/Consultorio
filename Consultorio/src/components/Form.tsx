@@ -47,9 +47,9 @@ const res = await fetch(url,{
     headers: {'Content-Type': 'application/json'},
     body: method !== "GET"? JSON.stringify(valores): undefined
 })
-const data =  await res.text();
-const obj = JSON.parse(data);
-console.log(obj.mensaje)
+const data =  await res.json();
+
+console.log(data.mensaje)
 setValores({})
 
  }

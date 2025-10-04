@@ -14,9 +14,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: '*', 
-    methods:"GET" | "POST" | "PUT" | "DELETE",
-    allowedHeaders: 'Content-Type, Autorization',
+    origin: 'http://localhost:5173', 
+    methods:["GET" , "POST" , "PUT" , "DELETE"],
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 
@@ -39,7 +39,8 @@ app.use( helmet.contentSecurityPolicy({
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
     app.post("/AltaPaciente", SecControllers.AltaPaciente);
-    app.post("/SearchPaciente", SecControllers.SearchPaciente)
+    app.post("/SearchPaciente", SecControllers.SearchPaciente);
+    app.put("/UpdatePaciente/:id", SecControllers.ActualizarPaciente);
     app.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })

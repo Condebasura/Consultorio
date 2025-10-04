@@ -157,7 +157,7 @@ onSelect={setAction}
     {name:"afiliado", type:"number" , required: true}
   ]}
   url= "http://localhost:3000/AltaPaciente"
-  method='POST'
+  method="POST"
   
   />)}
 
@@ -176,9 +176,9 @@ onSelect={setAction}
       
    ]}
  
-   method='POST'
-   url='http://localhost:3000'
    valoresIniciales={pacienteSeleccionado}
+   method="PUT"
+   url={`http://localhost:3000/UpdatePaciente/${pacienteSeleccionado.id}`}
    />
   )}
   

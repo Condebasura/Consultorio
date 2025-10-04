@@ -2,14 +2,14 @@ import bd from "../model/bd.js";
 
 const AltaPaciente =  async(req , res)=>{
     const paci = {
-        nombre: req.body.Nombre,
-        apellido: req.body.Apellido,
-        dni: req.body.DNI,
-        telefono: req.body.Telefono,
-        email: req.body.Email,
-        direccion: req.body.Direccion,
-        obrasocial: req.body.ObraSocial,
-        afiliado: req.body.Afiliado,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        dni: req.body.dni,
+        telefono: req.body.telefono,
+        email: req.body.email,
+        direccion: req.body.direccion,
+        obrasocial: req.body.obraSocial,
+        afiliado: req.body.afiliado,
 
     }
 
@@ -43,9 +43,41 @@ const SearchPaciente  = async (req, res)=>{
     } catch (error) {
         console.log('Error en la busqueda del paciente', error)
     }
+};
+
+ const ActualizarPaciente = async (req, res)=>{
+try {
+    
+    const validar = await bd.validarPaciente(req.params.id)
+    
+    
+    if (!validar) {
+        return res.status(404).json({ mensaje: "Paciente no encontrado" });
+    }
+    
+    const paciente = {
+        id: validar.id,
+        nombre: req.body.nombre, 
+        apellido: req.body.apellido,
+        dni: req.body.dni,
+        telefono: req.body.telefono,
+        email: req.body.email,
+        direccion: req.body.direccion,
+        obraSocial: req.body.obraSocial,
+        afiliado: req.body.afiliado,
+        
+    }
+    await bd.UpdatePaciente(paciente);
+    return res.status(200).json({mensaje: 'Paciente actualizado con exito'});
+    
+} catch (error) {
+ console.log("error al actualizar el paciente" , error)    
+   return res.status(500).json({ mensaje: "Error interno del servidor" });
 }
+ }
 
 export default {
     AltaPaciente,
-    SearchPaciente
+    SearchPaciente,
+     ActualizarPaciente
 }

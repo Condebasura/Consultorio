@@ -22,8 +22,8 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
             body: JSON.stringify({apellido:query}),
         })
         const data = await res.json();
-       if(query === "" || data === 0){
-        console.log("no se coloco ningun valor")
+       if(query === "" || data.length === 0){
+     console.log("sin resultados")
        }else{
 
         onSearch(data)
