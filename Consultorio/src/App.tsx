@@ -79,12 +79,12 @@ const turnos = ([
     },
 ])
   const Medico = [
-  { id: 123, nombre: "Dr. Pérez" },
-  { id: 265, nombre: "Dra. Gómez" },
-  { id: 389, nombre: "Dr. López" },
+  { id: 1, nombre: "Dr. Pérez" },
+  { id: 2, nombre: "Dra. Gómez" },
+  { id: 3, nombre: "Dr. López" },
 ]
 
-
+{/*COntinuar con el tema de el medico en la bd , armar un identificador, o crear la tabla medicos para hacerlo mas completo*/}
  const [medicosTurno, setMedicosTurno] = React.useState(Medico);
 const [Turnos , setTurnos] = useState(turnos)
 const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
@@ -126,7 +126,7 @@ onSelect={setAction}
 
 >
 <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
-<MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) }/>
+<MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Editar'}/>
 
 </Ul>) }
 
@@ -134,14 +134,18 @@ onSelect={setAction}
 titulo='Trunos'
 names={['Crear','Editar', 'Cancelar']}
 onSelect={setAction}
-/>)}
+>
+<SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+<MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
+
+</Ul>)}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
   {action === "Pacientes" && (<TablePacientes Datos={result} />)}
  
   
- {/*Seguir con la aciones de busqueda entre pacientes y turnos */}
+ 
 
   {action === 'Alta Paciente' && (<Formulario
   
@@ -183,7 +187,7 @@ onSelect={setAction}
   )}
   
 
-  {action === 'Crear' &&(<Formulario
+  {action === 'Crear'&& pacienteSeleccionado &&(<Formulario
   titulo='Crear'
   campos={[
     
@@ -193,16 +197,17 @@ onSelect={setAction}
     {name:'telefono', type:'number' , required: true},
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
-    {name:'observaciones', type:'textarea' , required: true}
+    {name:'observaciones', type:'textarea' , required: true},
+    {name: "medicoId", type:"selector", opciones: medicosTurno, required: true}
+
     
   ]}
-  children={<Selector
-  
-  name='medico'
-  medicos={medicosTurno}
-  value={medicoSeleccionado}
-  onChange={(e)=> setMedicoSeleccionado(Number(e.target.value))}
-  />}
+ 
+
+  method='POST'
+  url='http://localhost:3000/CrearTurno'
+  valoresIniciales={
+  pacienteSeleccionado}
   
   />)}
 

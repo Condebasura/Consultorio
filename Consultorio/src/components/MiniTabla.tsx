@@ -6,10 +6,12 @@ type DataTabProps = {
 
 type datosProp = {
     DatosPaci: DataTabProps[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onEditar: (DatosPaci: any) => void;
+    name?: string;
 }
 
-export default function MiniTabla({DatosPaci , onEditar}: datosProp){
+export default function MiniTabla({DatosPaci , onEditar, name}: datosProp){
 
 return(
     <>
@@ -34,7 +36,7 @@ return(
                 </tr>
                 <tr>
                     <th>Editar</th>
-                    <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>Editar</button>
+                    <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>{name}</button>
                 </tr>
         </tr>
             ))

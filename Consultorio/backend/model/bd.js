@@ -6,7 +6,20 @@ const saltRounds = 10;
 
 bd.run('CREATE TABLE IF NOT EXISTS  pacientes (id TEXT PRIMARY KEY, nombre TEXT , apellido TEXT , dni INTEGRER , telefono INTEGRER , email TEXT ,  direccion TEXT , obraSocial TEXT , afiliado INTEGRER )');
 
+bd.run('CREATE TABLE IF NOT EXISTS turnos (id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , dni TEXT , telefono TEXT, fecha TEXT, hora TEXT , observaciones TEXT , medico TEXT)');
 
+
+const AsignarTurno = async (paci)=>{
+    try {
+        const id = uuidv4();
+        let stmt = bd.prepare('INSERT INTO turnos(id , nombre , apellido, dni, telefono, fecha, hora , observaciones , medico) VALUES(?,?,?,?,?,?,?,?,?)');
+        stmt.run(id, paci.nombre , paci.apellido, paci.dni, paci.telefono, paci.fecha, paci.hora , paci.observaciones , paci.medico);
+        stmt.finalize();
+        return "Turno asignado correctmente";
+    } catch (error) {
+        console.log("Ocurrio un error al asignar el turno", error)
+    }
+}
 
 const InsertPaciente = async (paci)=>{
     try {
@@ -80,5 +93,6 @@ export default {
     InsertPaciente,
     consPaciente, 
     validarPaciente,
-     UpdatePaciente
+     UpdatePaciente,
+     AsignarTurno
 }

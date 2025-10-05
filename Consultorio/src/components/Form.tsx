@@ -1,11 +1,13 @@
 import Inputs from "./Input";
 import { useEffect, useState } from "react";
+import Selector from "./Select";
 
 
 type Campo ={
     name:string;
     type?: string;
     required?: boolean;
+    opciones?: {id: number, nombre: string}[];
     
 }
 
@@ -66,18 +68,27 @@ setValores({})
             </h3>
             {campos.map((campo)=>(
              <div key={campo.name} className="col-lg-6">
-              
-            <Inputs 
-            
-            name={campo.name}
-            type={campo.type}
-            
-            required={campo.required}
-            
-            value={valores[campo.name] ||''}
-            onChange={(e)=> handleChange(campo.name, e)}
-            />
-            
+                {campo.type === "selector" ?(
+                    <Selector
+                    name={campo.name}
+                    medicos={campo.opciones || []}
+                    value={valores[campo.name] || ""}
+                    onChange={(e)=> handleChange(campo.name , e.target.value)}
+                    
+                    />
+                    
+                ) : (<Inputs 
+                    
+                    name={campo.name}
+                    type={campo.type}
+                    
+                    required={campo.required}
+                    
+                    value={valores[campo.name] ||''}
+                    onChange={(e)=> handleChange(campo.name, e)}
+                    />
+                    
+                )}
             </div>
             ))}
            

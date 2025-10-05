@@ -76,8 +76,40 @@ try {
 }
  }
 
+ const CrearTurno = async (req , res)=>{
+
+    try {
+        
+        
+    
+    const paci = {
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        dni: req.body.dni,
+        telefono: req.body.telefono,
+        fecha: req.body.fecha,
+        hora: req.body.hora,
+        observaciones: req.body.observaciones,
+        medico: req.body
+    }
+
+    console.log(paci)
+
+    const datos = await bd.AsignarTurno(paci);
+    
+    if(!datos){
+        return res.status(409).json({mensaje:'No fue posible asignar el turno o esta ocupado'})
+    }else{
+        return res.status(200).json({mensaje: 'El turno fue asignado correctamente'})
+    }
+}
+ catch (error) {
+    return res.status(500).json({mensaje: 'Error interno del servidor', error})
+ }
+ }
 export default {
     AltaPaciente,
     SearchPaciente,
-     ActualizarPaciente
+     ActualizarPaciente,
+     CrearTurno
 }

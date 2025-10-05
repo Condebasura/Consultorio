@@ -4,6 +4,7 @@ type SearchProps = {
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
     placeholder?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSearch: (result: any )=> void;
     
 };
