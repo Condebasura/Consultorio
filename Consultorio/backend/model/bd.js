@@ -8,18 +8,9 @@ bd.run('CREATE TABLE IF NOT EXISTS  pacientes (id TEXT PRIMARY KEY, nombre TEXT 
 
 bd.run('CREATE TABLE IF NOT EXISTS turnos (id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , dni TEXT , telefono TEXT, fecha TEXT, hora TEXT , observaciones TEXT , medico TEXT)');
 
+bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , matricula TEXT , especialidad TEXT )")
 
-const AsignarTurno = async (paci)=>{
-    try {
-        const id = uuidv4();
-        let stmt = bd.prepare('INSERT INTO turnos(id , nombre , apellido, dni, telefono, fecha, hora , observaciones , medico) VALUES(?,?,?,?,?,?,?,?,?)');
-        stmt.run(id, paci.nombre , paci.apellido, paci.dni, paci.telefono, paci.fecha, paci.hora , paci.observaciones , paci.medico);
-        stmt.finalize();
-        return "Turno asignado correctmente";
-    } catch (error) {
-        console.log("Ocurrio un error al asignar el turno", error)
-    }
-}
+
 
 const InsertPaciente = async (paci)=>{
     try {
@@ -87,6 +78,49 @@ const UpdatePaciente =  (paciente)=>{
         })
         
     })
+};
+
+
+
+const AsignarTurno = async (paci)=>{
+    try {
+        const id = uuidv4();
+        let stmt = bd.prepare('INSERT INTO turnos(id , nombre , apellido, dni, telefono, fecha, hora , observaciones , medico) VALUES(?,?,?,?,?,?,?,?,?)');
+        stmt.run(id, paci.nombre , paci.apellido, paci.dni, paci.telefono, paci.fecha, paci.hora , paci.observaciones , paci.medico);
+        stmt.finalize();
+        return "Turno asignado correctmente";
+    } catch (error) {
+        console.log("Ocurrio un error al asignar el turno", error)
+    }
+};
+
+
+const IngresarMedico = async (medico)=>{
+    try {
+        const id = uuidv4();
+        let stmt = bd.prepare('INSERT INTO medicos(id , nombre , apellido , matricula , especialidad) VALUES(?,?,?,?,?)');
+
+        stmt.run(id , medico.nombre , medico.apellido , medico.matricula , medico.especialidad);
+        stmt.finalize();
+        return 'Medico ingrsado con exito';
+    } catch (error) {
+        console.log('Ocurrio un error al ingresar el  medico', error)
+    }
+
+};
+
+const ConsMedico = ()=>{
+bd.all('SELECT * FROM medicos', (err , rows)=>{
+    if(err){
+        console.log(err.mensaje)
+    }else{
+        console.log('Medicos encontrados', + rows.length);
+        rows.forEach((row)=>{
+            console.log(row)
+            return row
+        })
+    }
+})
 }
 
 export default {
@@ -94,5 +128,7 @@ export default {
     consPaciente, 
     validarPaciente,
      UpdatePaciente,
-     AsignarTurno
+     AsignarTurno, 
+     IngresarMedico,
+     ConsMedico,
 }

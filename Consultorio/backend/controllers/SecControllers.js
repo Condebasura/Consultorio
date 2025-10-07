@@ -74,14 +74,15 @@ try {
  console.log("error al actualizar el paciente" , error)    
    return res.status(500).json({ mensaje: "Error interno del servidor" });
 }
- }
+ };
+
+
 
  const CrearTurno = async (req , res)=>{
 
     try {
         
-        
-    
+       
     const paci = {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
@@ -90,9 +91,8 @@ try {
         fecha: req.body.fecha,
         hora: req.body.hora,
         observaciones: req.body.observaciones,
-        medico: req.body
+        medico:  req.body.medicoNombre
     }
-
     console.log(paci)
 
     const datos = await bd.AsignarTurno(paci);
@@ -104,12 +104,55 @@ try {
     }
 }
  catch (error) {
+    console.log(error)
     return res.status(500).json({mensaje: 'Error interno del servidor', error})
  }
- }
+ };
+
+ const ConsultMedico = async (req, res)=>{
+try {
+    
+    
+    
+    const medicos =  bd.ConsMedico();
+    console.log(medicos)
+    
+} catch (error) {
+    
+}
+ };
+
+ 
+ const IngresoMedico = async (req, res)=>{
+try {
+    
+    const medico = {
+        nombre: req.body.nombre,
+        apellido: req.body.apellido, 
+        matricula: req.body.matricula,
+        especialidad: req.body.especialidad
+    }
+    
+    const data =  await bd.IngresarMedico(medico);
+    
+    if(!data){
+        return res.status(409).json({mensaje:'No fue posible ingresar el medico'})
+        
+    }else{
+        return res.status(200).json({mensaje: 'Medico ingresado correctamente'})
+    }
+    
+} 
+catch (error) {
+    return res.status(500).json({mensaje: 'Error interno del servidor', error})
+    
+}
+ };
 export default {
     AltaPaciente,
     SearchPaciente,
      ActualizarPaciente,
-     CrearTurno
+     CrearTurno,
+     IngresoMedico, 
+     ConsultMedico
 }

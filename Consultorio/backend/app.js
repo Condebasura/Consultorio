@@ -41,7 +41,9 @@ app.use( helmet.contentSecurityPolicy({
     app.post("/AltaPaciente", SecControllers.AltaPaciente);
     app.post("/SearchPaciente", SecControllers.SearchPaciente);
     app.put("/UpdatePaciente/:id", SecControllers.ActualizarPaciente);
-    app.post("/CrearTurno", SecControllers.CrearTurno)
+    app.post("/CrearTurno", SecControllers.CrearTurno);
+    app.post("/IngresarMedico", SecControllers.IngresoMedico)
+    app.get('/ConsMedico', SecControllers.ConsultMedico)
     app.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })

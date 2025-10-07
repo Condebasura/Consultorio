@@ -78,14 +78,10 @@ const turnos = ([
       observaciones: "Control de presión arterial",
     },
 ])
-  const Medico = [
-  { id: 1, nombre: "Dr. Pérez" },
-  { id: 2, nombre: "Dra. Gómez" },
-  { id: 3, nombre: "Dr. López" },
-]
+  
 
-{/*COntinuar con el tema de el medico en la bd , armar un identificador, o crear la tabla medicos para hacerlo mas completo*/}
- const [medicosTurno, setMedicosTurno] = React.useState(Medico);
+
+ const [medicosTurno, setMedicosTurno] = React.useState('');
 const [Turnos , setTurnos] = useState(turnos)
 const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
   const [Tipos, setTipos] = useState('Dashboard');
@@ -98,6 +94,7 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
 <Libtn className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
+  <Libtn className='Medicos list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
 
     
     </div>
@@ -139,6 +136,15 @@ onSelect={setAction}
 <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
+
+
+{Tipos === 'Medicos' && (<Ul 
+titulo='Medicos'
+names={['Ingresar_M','Editar_M', 'Eliminar_M' ]}
+onSelect={setAction}
+/>)}
+
+
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
@@ -186,7 +192,7 @@ onSelect={setAction}
    />
   )}
   
-
+{/*Continuar con el armado de selector de medicos para la creacion e turnos*/}
   {action === 'Crear'&& pacienteSeleccionado &&(<Formulario
   titulo='Crear'
   campos={[
@@ -198,7 +204,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoId", type:"selector", opciones: medicosTurno, required: true}
+    {name: "medicoNombre", type:"selector", opciones: medicosTurno, required: true}
 
     
   ]}
@@ -247,6 +253,21 @@ onSelect={setAction}
 
   ]}
   
+  />)}
+
+  {action === "Ingresar_M" && (<Formulario
+  
+  titulo='Agregar Medico'
+  campos={[
+    {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "matricula", required: true},
+    {name: "especialidad" , required: true}
+
+  ]}
+method='POST'
+url='http://localhost:3000/IngresarMedico'
+
   />)}
 
   
