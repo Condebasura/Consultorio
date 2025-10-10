@@ -14,6 +14,12 @@ import MiniTabla from './components/MiniTabla';
 function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
+     const Medicos = ([
+      {nombre: 'Mariano Daras', id: 1},
+      {nombre: 'ROdrigo vagoneta', id: 2},
+      {nombre: 'Pablo cos', id: 3},
+     ])
+     
 const turnos = ([
   {fecha:'20/09',
      hora:'08:15',
@@ -81,7 +87,7 @@ const turnos = ([
   
 
 
- const [medicosTurno, setMedicosTurno] = React.useState('');
+ const [medicosTurno, setMedicosTurno] = React.useState(Medicos);
 const [Turnos , setTurnos] = useState(turnos)
 const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
   const [Tipos, setTipos] = useState('Dashboard');

@@ -16,7 +16,7 @@ type SelectMedicoProps ={
 
 
 
-export default function Selector({medicos,name, value, onChange}: SelectMedicoProps){
+export default function Selec({medicos,name, value, onChange}: SelectMedicoProps){
 
     return(
         <>
