@@ -110,16 +110,17 @@ const IngresarMedico = async (medico)=>{
 };
 
 const ConsMedico = ()=>{
-bd.all('SELECT * FROM medicos', (err , rows)=>{
-    if(err){
-        console.log(err.mensaje)
-    }else{
-        console.log('Medicos encontrados', + rows.length);
-        rows.forEach((row)=>{
-            console.log(row)
-            return row
+    return new Promise((resolve, reject)=>{
+
+        bd.all('SELECT * FROM medicos', (err , rows)=>{
+            if(err){
+                console.log(err.mensaje)
+                reject(err)
+            }else{
+               
+                resolve(rows)
+            }
         })
-    }
 })
 }
 

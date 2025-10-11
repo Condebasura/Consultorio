@@ -114,8 +114,16 @@ try {
     
     
     
-    const medicos =  bd.ConsMedico();
-    console.log(medicos)
+    const datos = await bd.ConsMedico();
+    console.log(datos)
+
+    if(!datos){
+        console.log("No se encontraron medicos");
+        return res.status(409).json({mensaje: "No se encontraron medicos"})
+    }else{
+        console.log(datos);
+        return  res.status(200).json(datos);
+    }
     
 } catch (error) {
     

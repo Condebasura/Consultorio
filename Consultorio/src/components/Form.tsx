@@ -1,6 +1,6 @@
 import Inputs from "./Input";
 import { useEffect, useState } from "react";
-import Selector from "./Select";
+import Selec from "./Select";
 
 
 type Campo ={
@@ -8,6 +8,8 @@ type Campo ={
     type?: string;
     required?: boolean;
     opciones?: {id: number, nombre: string}[];
+    url?: string;
+    
     
 }
 
@@ -69,11 +71,11 @@ setValores({})
             {campos.map((campo)=>(
              <div key={campo.name} className="col-lg-6">
                 {campo.type === "selector" ?(
-                    <Selector
-                    name={campo.name}
-                    medicos={campo.opciones || []}
-                    value={valores[campo.name] || ""}
-                    onChange={(e)=> handleChange(campo.name , e.target.value)}
+                    <Selec
+                   url={campo.url ?? ""}
+                   
+                    seleccionado={valores[campo.name] || ""}
+                    onChange={(valor)=> handleChange(campo.name , valor)}
                     
                     />
                     

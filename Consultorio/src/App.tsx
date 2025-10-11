@@ -3,7 +3,6 @@ import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
-import Selector from './components/Select';
 import React from 'react';
 import Table from './components/TablaTurnos';
 import SearchInput from './components/Search';
@@ -14,17 +13,13 @@ import MiniTabla from './components/MiniTabla';
 function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
-     const Medicos = ([
-      {nombre: 'Mariano Daras', id: 1},
-      {nombre: 'ROdrigo vagoneta', id: 2},
-      {nombre: 'Pablo cos', id: 3},
-     ])
      
-const turnos = ([
-  {fecha:'20/09',
-     hora:'08:15',
-      apellido:'Pérez',
-       nombre:'Juan',
+     
+     const turnos = ([
+       {fecha:'20/09',
+        hora:'08:15',
+        apellido:'Pérez',
+        nombre:'Juan',
         dni: '30123456',
         medico:'Dr. González',
          observaciones: 'Control de rutina'
@@ -87,7 +82,8 @@ const turnos = ([
   
 
 
- const [medicosTurno, setMedicosTurno] = React.useState(Medicos);
+
+
 const [Turnos , setTurnos] = useState(turnos)
 const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
   const [Tipos, setTipos] = useState('Dashboard');
@@ -199,7 +195,7 @@ onSelect={setAction}
   )}
   
 {/*Continuar con el armado de selector de medicos para la creacion e turnos*/}
-  {action === 'Crear'&& pacienteSeleccionado &&(<Formulario
+  {action === 'Crear' &&(<Formulario
   titulo='Crear'
   campos={[
     
@@ -210,7 +206,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoNombre", type:"selector", opciones: medicosTurno, required: true}
+    {name: "medicoId", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
 
     
   ]}
@@ -219,7 +215,7 @@ onSelect={setAction}
   method='POST'
   url='http://localhost:3000/CrearTurno'
   valoresIniciales={
-  pacienteSeleccionado}
+  pacienteSeleccionado || {}}
   
   />)}
 
@@ -233,16 +229,12 @@ onSelect={setAction}
     {name:'telefono', type:'number' , required: true},
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
-    {name:'observaciones', type:'textarea' , required: true}
+    {name:'observaciones', type:'textarea' , required: true},
+    {name: "medicoId", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
     
   ]}
-  children={<Selector
-  
-  name='medico'
-  medicos={medicosTurno}
-  value={medicoSeleccionado}
-  onChange={(e)=> setMedicoSeleccionado(Number(e.target.value))}
-  />}
+ 
+
   
   />)}
 
