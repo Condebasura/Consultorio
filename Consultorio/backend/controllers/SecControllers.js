@@ -45,6 +45,26 @@ const SearchPaciente  = async (req, res)=>{
     }
 };
 
+const SearchTurno  = async (req, res)=>{
+    try {
+        const {apellido} = req.body;
+        
+        
+
+        const data = await bd.consTurno(apellido)
+        
+        if(apellido === "" ){
+            res.status(404).json({mensaje:'No existe el paciente'})
+        }else{
+           
+            res.status(200).json(data);
+        }
+    } catch (error) {
+        console.log('Error en la busqueda del paciente', error)
+    }
+};
+
+
  const ActualizarPaciente = async (req, res)=>{
 try {
     
@@ -91,7 +111,7 @@ try {
         fecha: req.body.fecha,
         hora: req.body.hora,
         observaciones: req.body.observaciones,
-        medico:  req.body.medicoNombre
+        medico:  req.body.medicoApellido
     }
     console.log(paci)
 
@@ -115,13 +135,13 @@ try {
     
     
     const datos = await bd.ConsMedico();
-    console.log(datos)
+    
 
     if(!datos){
         console.log("No se encontraron medicos");
         return res.status(409).json({mensaje: "No se encontraron medicos"})
     }else{
-        console.log(datos);
+        
         return  res.status(200).json(datos);
     }
     
@@ -129,6 +149,19 @@ try {
     
 }
  };
+
+ const ConsultarTurno = async (req,res)=>{
+    try {
+         const DatosT = await bd.ConsultarTurno()
+         if(!DatosT){
+            return res.status(209).json({mensaje: 'Ocurrio un error al cargar los datos'})
+         }else{
+            return res.status(200).json(DatosT)
+         }
+    } catch (error) {
+        return res.status(500).json({mensaje: 'Error interno en el servidor', error})
+    }
+ }
 
  
  const IngresoMedico = async (req, res)=>{
@@ -162,5 +195,7 @@ export default {
      ActualizarPaciente,
      CrearTurno,
      IngresoMedico, 
-     ConsultMedico
+     ConsultMedico,
+     ConsultarTurno,
+     SearchTurno
 }

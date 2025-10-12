@@ -12,6 +12,7 @@ type SelectMedicoProps ={
    url: string;
    opciones?:Medico[];
     seleccionado: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange: (value: any) => void;
 }
 
@@ -62,7 +63,7 @@ export default function Selec({url,seleccionado, onChange}: SelectMedicoProps){
                  <option value=''>Selecione un Medico</option>
                 {medicos.map((medico)=>(
                     
-                    <option key={medico.id} value={medico.id} className='form-control ' id='floatingInput' >{medico.nombre} {medico.apellido} {`(${medico.especialidad})`}</option>
+                    <option key={medico.id} value={medico.apellido} className='form-control ' id='floatingInput' >{medico.nombre} {medico.apellido} {`(${medico.especialidad})`}</option>
     
     ))}
             </select> 

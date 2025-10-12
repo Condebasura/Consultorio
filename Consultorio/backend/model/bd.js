@@ -124,6 +124,40 @@ const ConsMedico = ()=>{
 })
 }
 
+const ConsultarTurno = ()=>{
+    return new Promise((resolve, reject)=>{
+        bd.all('SELECT * FROM turnos', (err,rows)=>{
+            if(err){
+                console.log(err.mensaje)
+                reject(err)
+            }else{
+                resolve(rows)
+            }
+        })
+    })
+} ;
+
+const consTurno = async (paciente)=>{
+    try {
+         return await new Promise((resolve,reject)=>{
+            let sql = 'SELECT * FROM turnos WHERE apellido LIKE ?';
+            let paci = paciente;
+            bd.all(sql, [`%${paci}%`], (err,rows)=>{
+                if(err)
+                {
+                    console.log('El error del reject', err)
+                reject(err)
+                }else{
+                    
+                    resolve(rows);
+                }
+            })
+         })        
+    } catch (error) {
+        console.log('El error del catch', error)
+    }
+}
+
 export default {
     InsertPaciente,
     consPaciente, 
@@ -132,4 +166,6 @@ export default {
      AsignarTurno, 
      IngresarMedico,
      ConsMedico,
+     ConsultarTurno,
+     consTurno
 }

@@ -106,6 +106,8 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
   
   />
  </div>
+ {/*Armar la consulta de turnos del dia , para que se muestren segun el dia y la hora que se aproxima*/}
+ 
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
   {Tipos === 'Dashboard' && (<Ul 
   titulo='Buscar'
@@ -114,7 +116,8 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
   ]}
   onSelect={setAction}
   > 
-  <SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+  {action === "Pacientes" ? <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />: <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchTurno' />}
+ 
 
   </Ul>)}
 
@@ -150,9 +153,9 @@ onSelect={setAction}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
-  {action === "Pacientes" && (<TablePacientes Datos={result} />)}
+  {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
-  
+  {action === "Turnos" && (<Table Datos={result || ''}/>)}
  
 
   {action === 'Alta Paciente' && (<Formulario
@@ -194,7 +197,7 @@ onSelect={setAction}
    />
   )}
   
-{/*Continuar con el armado de selector de medicos para la creacion e turnos*/}
+
   {action === 'Crear' &&(<Formulario
   titulo='Crear'
   campos={[
@@ -206,7 +209,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoId", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
+    {name: "medicoApellido", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
 
     
   ]}
