@@ -158,6 +158,39 @@ const consTurno = async (paciente)=>{
     }
 }
 
+const ValidarTurno = (id)=>{
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT * FROM turnos WHERE id = ?';
+        bd.get(sql , [id], (err , row)=>{
+            if(err){
+                console.log(err)
+                reject(err);
+            }else{
+                console.log(row)
+                resolve(row)
+            }
+        })
+    })
+}
+
+  const UpdateTurno = (paciente)=>{
+    return new Promise((resolve, reject)=>{
+         const sql = 'UPDATE turnos SET id = ? , nombre = ? , apellido = ? ,  dni = ? , telefono = ? , fecha = ? , hora = ? , observaciones = ? , medico = ?  WHERE id = ?';
+
+         bd.run(sql, [paciente.id , paciente.nombre , paciente.apellido , paciente.dni , paciente.telefono , paciente.fecha , paciente.hora , paciente.observaciones , paciente.medico , paciente.id],
+            (err)=>{
+                if(err){
+                    reject(err)
+                    console.log(err.mensaje)
+                }else{
+                    resolve('Turno modificado correctamente');
+                    console.log('Turno modificado correctamente');
+                }
+            }
+         )
+    })
+  }
+
 export default {
     InsertPaciente,
     consPaciente, 
@@ -167,5 +200,7 @@ export default {
      IngresarMedico,
      ConsMedico,
      ConsultarTurno,
-     consTurno
+     consTurno,
+     ValidarTurno, 
+     UpdateTurno
 }

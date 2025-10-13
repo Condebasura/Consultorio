@@ -137,7 +137,7 @@ titulo='Trunos'
 names={['Crear','Editar', 'Cancelar']}
 onSelect={setAction}
 >
-<SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
+{action === "Crear" ? <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />: <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchTurno' />}
 <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
@@ -222,10 +222,10 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar' &&(<Formulario
+  {action === 'Editar'&& pacienteSeleccionado &&(<Formulario
   titulo='Editar'
   campos={[
-    {name:'Buscar', type: 'search'},
+  
     {name:'nombre' , required: true},
     {name: 'apellido' , required: true},
     {name:'dni',type:'number' , required: true},
@@ -233,11 +233,13 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoId", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
+    {name: "medicoApellido", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
     
   ]}
  
-
+  valoresIniciales={pacienteSeleccionado}
+  method='PUT'
+  url={`http://localhost:3000/UpdateTurno/${pacienteSeleccionado.id}`}
   
   />)}
 

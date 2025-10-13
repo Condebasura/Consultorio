@@ -129,6 +129,36 @@ try {
  }
  };
 
+ const ActualizarTurno = async (req, res)=>{
+    try {
+        const validar = await bd.ValidarTurno(req.params.id)
+
+        if(!validar){
+            return res.status(404).json({mensaje: "Turno no encontrado"});
+        }
+
+        const  paciente = {
+            id: validar.id,
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            dni: req.body.dni,
+            telefono: req.body.telefono,
+            fecha: req.body.fecha,
+            hora: req.body.hora, 
+            observaciones: req.body.observaciones,
+            medico: req.body.medicoApellido,
+        }
+
+        console.log("En el back", paciente)
+
+        await bd.UpdateTurno(paciente)
+        return res.status(200).json({mensaje: 'Turno actualizado correctamente'})
+    } catch (error) {
+   return res.status(500).json({ mensaje: "Error interno del servidor", error });
+        
+    }
+ }
+
  const ConsultMedico = async (req, res)=>{
 try {
     
@@ -197,5 +227,6 @@ export default {
      IngresoMedico, 
      ConsultMedico,
      ConsultarTurno,
-     SearchTurno
+     SearchTurno, 
+     ActualizarTurno
 }

@@ -1,4 +1,5 @@
 type DataTabProps = {
+    id:string;
      nombre:string;
     apellido: string;
     dni: number;
@@ -20,7 +21,7 @@ return(
         {
            DatosPaci.map((items)=>(
 
-               <tr key={items.dni}>
+               <tr key={items.id}>
                 <tr>
                 <th>Nombre:</th>
                  <td>{items.nombre}</td>
@@ -36,7 +37,10 @@ return(
                 </tr>
                 <tr>
                     <th>Editar</th>
-                    <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>{name}</button>
+                    <td>
+                        <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>{name}</button>
+                        
+                        </td>
                 </tr>
         </tr>
             ))
