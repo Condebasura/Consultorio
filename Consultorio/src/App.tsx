@@ -109,7 +109,7 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
  {/*Armar la consulta de turnos del dia , para que se muestren segun el dia y la hora que se aproxima*/}
  
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
-  {Tipos === 'Dashboard' && (<Ul 
+  {Tipos ===  'Dashboard'  && (<Ul 
   titulo='Buscar'
   names={[
     'Pacientes', 'Turnos'

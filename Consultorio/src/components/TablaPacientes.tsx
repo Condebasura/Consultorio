@@ -42,7 +42,7 @@ export default function TablePacientes({Datos}: datosProp){
             </thead>
               <tbody>
                 {
-                    Datos.map((items )=>(
+                  Datos.map((items )=>(
                         <tr key={items.dni}>
                              <td >{items.nombre}</td>
                              <td >{items.apellido}</td>
@@ -57,7 +57,7 @@ export default function TablePacientes({Datos}: datosProp){
 
                         </tr>
                     ))
-                }
+                       }
               </tbody>
         </table>
         </>
