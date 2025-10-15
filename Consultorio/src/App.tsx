@@ -102,7 +102,7 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
-  <Table Datos={Turnos}
+  <Table name='Proximos Turnos' Datos={Turnos}
   
   />
  </div>
@@ -155,7 +155,7 @@ onSelect={setAction}
   
   {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
-  {action === "Turnos" && (<Table Datos={result || ''}/>)}
+  {action === "Turnos" && (<Table name='Turnos' Datos={result || ''}/>)}
  
 
   {action === 'Alta Paciente' && (<Formulario

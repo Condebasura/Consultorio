@@ -12,15 +12,16 @@ type DatoProps ={
 
 type CampoProps={
     Datos: DatoProps[];
+    name: string;
    
 }
 
-export default function Table({Datos }: CampoProps){
+export default function Table({Datos , name}: CampoProps){
  
     return(
         <>
         <div className="m-3">
-            <h3>Turnos</h3>
+            <h3>{name}</h3>
         </div>
         <table className=" table table-bordered ">
             <thead >
