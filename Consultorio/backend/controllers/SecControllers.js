@@ -182,12 +182,25 @@ try {
 
  const ConsultarTurno = async (req,res)=>{
     try {
-         const DatosT = await bd.ConsultarTurno()
-         if(!DatosT){
-            return res.status(209).json({mensaje: 'Ocurrio un error al cargar los datos'})
-         }else{
-            return res.status(200).json(DatosT)
-         }
+         const DatosT = await bd.ConsultarTurno();
+
+         const eventos = DatosT.map((t)=>{
+            const [hora , minuto] = t.hora.split(':').map(Number);
+            const fecha = new Date(t.fecha)
+            fecha.setHours(hora, minuto);
+
+            return{
+                id: t.id,
+                title: `${t.nombre} ${t.apellido} - ${t.medico}`,
+                start: fecha,
+                end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
+            }
+         });
+         
+         return res.status(200).json(eventos)
+
+        
+         
     } catch (error) {
         return res.status(500).json({mensaje: 'Error interno en el servidor', error})
     }

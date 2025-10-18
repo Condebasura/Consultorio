@@ -124,11 +124,11 @@ const ConsMedico = ()=>{
 })
 }
 
-const ConsultarTurno = ()=>{
-    return new Promise((resolve, reject)=>{
+const ConsultarTurno = async ()=>{
+    return  await new Promise((resolve, reject)=>{
         bd.all('SELECT * FROM turnos', (err,rows)=>{
             if(err){
-                console.log(err.mensaje)
+                
                 reject(err)
             }else{
                 resolve(rows)
