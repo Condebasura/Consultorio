@@ -1,8 +1,9 @@
-import {Calendar , dateFnsLocalizer} from 'react-big-calendar';
+import {Calendar , dateFnsLocalizer, Views} from 'react-big-calendar';
 import { format , parse , startOfWeek , getDay} from 'date-fns';
 import { es } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useEffect, useState } from 'react';
+
 
 //Localizador de fechas
 
@@ -72,7 +73,7 @@ return(
           week: "Semana",
           day: "Día",
         }}
-        onSelectEvent={(event)=> alert(event.title)}
+        onSelectEvent={(event)=>  <div className='bg bg-secondary'>{event.title}</div>}
         style={{ borderRadius: "10px", boxShadow: "0 0 10px #ccc" }}
         />
     </div>
