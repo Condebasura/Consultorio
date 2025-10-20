@@ -4,8 +4,6 @@ import { es } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useEffect, useState } from 'react';
 
-
-
 //Localizador de fechas
 
 const locales = {
@@ -66,6 +64,7 @@ return(
         localizer={localizer}
         events={enventos}
         date={date}
+        culture='es'
         onNavigate={(newDate)=> setDate(newDate)}
         startAccessor='start'
         endAccessor='end'
