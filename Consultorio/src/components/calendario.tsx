@@ -3,12 +3,15 @@ import { format , parse , startOfWeek , getDay} from 'date-fns';
 import { es } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useEffect, useState } from 'react';
+import { toZonedTime } from 'date-fns-tz';
 
 //Localizador de fechas
 
 const locales = {
     'es':es,
 }
+
+const zonaLocal = 'America/Argentina/Buenos_Aires';
 
 const localizer = dateFnsLocalizer({
     format,
@@ -26,8 +29,10 @@ type Evento = {
 
 }
 
+
 export default function Calendario(){
 
+ 
 const [enventos , setEventos] = useState<Evento[]>([]);
 const [date, setDate] = useState(new Date());
 const [view , setViews] = useState('month')
@@ -39,14 +44,15 @@ useEffect(()=>{
             const res = await fetch("http://localhost:3000/ConsTurno");
            
             const data: any[] = await res.json();
-           
+           console.log("Datos del backend" , data)
             // Convertir los string del backend en Data...
-            const evFormat = data.map((t: any)=>({
+            const evFormat = data.map( (t: any) =>({
                 ...t,
-                start: new Date(t.start),
-                end: new Date(t.end),
+                
+               start: toZonedTime(new Date(t.start), zonaLocal),
+                end: toZonedTime(new Date(t.end), zonaLocal),
             }));
-            
+            console.log('Ejemplo convertido', evFormat[1]);
             setEventos(evFormat)
         }catch(error){
              console.error("Error al cargar turnos:", error);
