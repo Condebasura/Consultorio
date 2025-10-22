@@ -185,9 +185,12 @@ try {
          const DatosT = await bd.ConsultarTurno();
 
          const eventos = DatosT.map((t)=>{
-            const [hora , minuto] = t.hora.split(':').map(Number);
-            const fecha = new Date(t.fecha)
-            fecha.setHours(hora, minuto);
+            // crear las fechas en hora local, asi evitamos restas o sumas automaticas
+              const [year, month, day] = t.fecha.split('-').map(Number);
+              const [hora, minuto] = t.hora.split(':').map(Number);
+              const fecha = new Date(year, month - 1, day, hora, minuto);
+              fecha.setHours(hora, minuto);
+             
 
             return{
                 id: t.id,
