@@ -1,4 +1,5 @@
 import bd from "../model/bd.js";
+import { io } from "../app.js";
 
 const AltaPaciente =  async(req , res)=>{
     const paci = {
@@ -120,8 +121,28 @@ try {
     if(!datos){
         return res.status(409).json({mensaje:'No fue posible asignar el turno o esta ocupado'})
     }else{
-        return res.status(200).json({mensaje: 'El turno fue asignado correctamente'})
+        const turnosActualizados = await bd.ConsultarTurno()
+         const eventos = turnosActualizados.map((t)=>{
+            // crear las fechas en hora local, asi evitamos restas o sumas automaticas
+              const [year, month, day] = t.fecha.split('-').map(Number);
+              const [hora, minuto] = t.hora.split(':').map(Number);
+              const fecha = new Date(year, month - 1, day, hora, minuto);
+              fecha.setHours(hora, minuto);
+             
+
+            return{
+                id: t.id,
+                title: `${t.nombre} ${t.apellido} - ${t.medico}`,
+                start: fecha,
+                end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
+            }
+         });
+        
+        io.emit("Turnos-Actualizados", eventos);
+        return res.status(200).json({mensaje: 'El turno fue asignado correctamente', ok: true})
     }
+
+
 }
  catch (error) {
     console.log(error)

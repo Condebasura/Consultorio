@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import multer from 'multer';
 import { fileURLToPath } from 'url';
+import http from 'http';
+import {Server} from 'socket.io';
 import SecControllers from './controllers/SecControllers.js';
 
 
@@ -12,6 +14,22 @@ const _dirname = (process.platform === 'win32')? fileURLToPath(new URL(".", impo
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST']
+    }
+});
+
+io.on('conection', (socket)=>{
+    console.log("🟢 Cliente conectado", socket.id)
+    
+    io.on("disconect", ()=>{
+        console.log("🔴 Cliente desconectado", socket.id)
+    })
+})
 
 const corsOptions = {
     origin: 'http://localhost:5173', 
@@ -47,10 +65,11 @@ app.use( helmet.contentSecurityPolicy({
     app.get("/ConsTurno", SecControllers.ConsultarTurno);
     app.post("/SearchTurno", SecControllers.SearchTurno);
     app.put("/UpdateTurno/:id", SecControllers.ActualizarTurno);
-    app.listen(port , ()=>{
+    server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })
 
     export {
-        _dirname
+        _dirname, 
+        io
     }

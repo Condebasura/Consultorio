@@ -3,6 +3,7 @@ import { format , parse , startOfWeek , getDay} from 'date-fns';
 import { es } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 
 
 //Localizador de fechas
@@ -38,29 +39,60 @@ const [date, setDate] = useState(new Date());
 const [view , setViews] = useState<View>('month')
 
 useEffect(()=>{
+     
     const fetchTurnos = async ()=>{
         try{
-
             const res = await fetch("http://localhost:3000/ConsTurno");
-           
+            
             const data: any[] = await res.json();
-           console.log("Datos del backend" , data)
-          
+            
             // Convertir los string del backend en Data...
+            
             const evFormat = data.map( (t: any) =>({
                 ...t,
                 
-               start: new Date(t.start),
+                start: new Date(t.start),
                 end: new Date(t.end),
             }));
-            console.log('Ejemplo convertido', evFormat[1]);
-            setEventos(evFormat)
-        }catch(error){
-             console.error("Error al cargar turnos:", error);
+            
+            setEventos(evFormat);
+           
+          // coneccion Socket 
+
+              const socket = io("http://localhost:3000", {
+        transports: ["websocket"],
+     });
+            
+            socket.on("Conect", ()=>{
+                console.log("🟢 Conectado a Socket.IO");
+            });
+            
+            
+            
+            // Convertir los string del backend en Data...
+            socket.on("Turnos-Actualizados", (data: any[])=>{
+            const enFormat = data.map( (t: any) =>({
+                ...t,
+                
+                start: new Date(t.start),
+                end: new Date(t.end),
+            }));
+            
+            setEventos(enFormat);
+            console.log("📅 Turnos actualizados:", enFormat)
+            })
+
+
+            return ()=>{
+                socket.disconnect();
+                 console.log("🔴 Socket desconectado");
+            }
+            }catch(error){
+                console.error("Error al cargar turnos:", error);
+            }
+            
         }
-        
-    }
-    fetchTurnos()
+        fetchTurnos();
 }, []);
 
 return(
