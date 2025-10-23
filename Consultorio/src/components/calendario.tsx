@@ -44,10 +44,12 @@ useEffect(()=>{
         try{
             const res = await fetch("http://localhost:3000/ConsTurno");
             
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const data: any[] = await res.json();
             
             // Convertir los string del backend en Data...
             
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const evFormat = data.map( (t: any) =>({
                 ...t,
                 
@@ -70,7 +72,9 @@ useEffect(()=>{
             
             
             // Convertir los string del backend en Data...
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             socket.on("Turnos-Actualizados", (data: any[])=>{
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const enFormat = data.map( (t: any) =>({
                 ...t,
                 
@@ -121,7 +125,11 @@ return(
         }}
         views={['month', 'week', 'day', 'agenda']}
         defaultView='month'
-        onSelectEvent={(event)=> alert(event.title)}
+        onSelectEvent={(event)=> {
+            setViews('day')
+            setDate(event.start)
+            
+        } }
         
         style={{ borderRadius: "10px", boxShadow: "0 0 10px #ccc" }}
         />

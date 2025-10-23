@@ -189,7 +189,18 @@ const ValidarTurno = (id)=>{
             }
          )
     })
-  }
+  };
+
+const DeleteTruno =(id)=>{
+    let sql = 'DELETE FROM turnos WHERE id = ?';
+    bd.run(sql,[id],(err)=>{
+        if(err){
+            console.log( "error al eliminar")
+        }else{
+            console.log("Turno eliminado")
+        }
+    })
+}
 
 export default {
     InsertPaciente,
@@ -202,5 +213,7 @@ export default {
      ConsultarTurno,
      consTurno,
      ValidarTurno, 
-     UpdateTurno
+     UpdateTurno,
+     DeleteTruno
+
 }

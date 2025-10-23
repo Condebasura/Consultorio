@@ -1,6 +1,29 @@
 import bd from "../model/bd.js";
 import { io } from "../app.js";
 
+
+
+
+function FormatearEventos(turnos){
+
+    return  turnos.map((t)=>{
+            // crear las fechas en hora local, asi evitamos restas o sumas automaticas
+              const [year, month, day] = t.fecha.split('-').map(Number);
+              const [hora, minuto] = t.hora.split(':').map(Number);
+              const fecha = new Date(year, month - 1, day, hora, minuto);
+              fecha.setHours(hora, minuto);
+             
+
+            return{
+                id: t.id,
+                title: `${t.nombre} ${t.apellido} - ${t.medico}`,
+                start: fecha,
+                end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
+            }
+         });
+        
+};
+
 const AltaPaciente =  async(req , res)=>{
     const paci = {
         nombre: req.body.nombre,
@@ -100,6 +123,7 @@ try {
 
 
  const CrearTurno = async (req , res)=>{
+           
 
     try {
         
@@ -121,22 +145,7 @@ try {
     if(!datos){
         return res.status(409).json({mensaje:'No fue posible asignar el turno o esta ocupado'})
     }else{
-        const turnosActualizados = await bd.ConsultarTurno()
-         const eventos = turnosActualizados.map((t)=>{
-            // crear las fechas en hora local, asi evitamos restas o sumas automaticas
-              const [year, month, day] = t.fecha.split('-').map(Number);
-              const [hora, minuto] = t.hora.split(':').map(Number);
-              const fecha = new Date(year, month - 1, day, hora, minuto);
-              fecha.setHours(hora, minuto);
-             
-
-            return{
-                id: t.id,
-                title: `${t.nombre} ${t.apellido} - ${t.medico}`,
-                start: fecha,
-                end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
-            }
-         });
+        const eventos = FormatearEventos(await bd.ConsultarTurno())
         
         io.emit("Turnos-Actualizados", eventos);
         return res.status(200).json({mensaje: 'El turno fue asignado correctamente', ok: true})
@@ -171,12 +180,25 @@ try {
         }
 
         console.log("En el back", paciente)
-
         await bd.UpdateTurno(paciente)
+        const evento = FormatearEventos(await bd.ConsultarTurno())
+        io.emit("Turnos-Actualizados", evento)
         return res.status(200).json({mensaje: 'Turno actualizado correctamente'})
     } catch (error) {
    return res.status(500).json({ mensaje: "Error interno del servidor", error });
         
+    }
+ };
+
+// Continuar con la eliminacion de turno
+
+ const EliminarTurno = async (req, res)=>{
+
+    try {
+        let id = await bd.ConsultarTurno(req.params.id)
+        console.log(id)
+    } catch (error) {
+        console.log("error al eliminar")
     }
  }
 
@@ -203,27 +225,10 @@ try {
 
  const ConsultarTurno = async (req,res)=>{
     try {
-         const DatosT = await bd.ConsultarTurno();
-
-         const eventos = DatosT.map((t)=>{
-            // crear las fechas en hora local, asi evitamos restas o sumas automaticas
-              const [year, month, day] = t.fecha.split('-').map(Number);
-              const [hora, minuto] = t.hora.split(':').map(Number);
-              const fecha = new Date(year, month - 1, day, hora, minuto);
-              fecha.setHours(hora, minuto);
-             
-
-            return{
-                id: t.id,
-                title: `${t.nombre} ${t.apellido} - ${t.medico}`,
-                start: fecha,
-                end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
-            }
-         });
+       const eventos = FormatearEventos(await bd.ConsultarTurno())
          
          return res.status(200).json(eventos)
-
-        
+   
          
     } catch (error) {
         return res.status(500).json({mensaje: 'Error interno en el servidor', error})
@@ -265,5 +270,7 @@ export default {
      ConsultMedico,
      ConsultarTurno,
      SearchTurno, 
-     ActualizarTurno
+     ActualizarTurno,
+     EliminarTurno
+
 }
