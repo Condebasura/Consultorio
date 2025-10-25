@@ -180,13 +180,15 @@ onSelect={setAction}
   titulo='Cancelar'
   campos={[
     
-    {name:'Nombre' , required: true},
-    {name:'Apellido' , required: true},
+    {name:'nombre' , required: true},
+    {name:'apellido' , required: true},
     {name:'dni', type:'number' , required: true},
-    {name:'Fecha', type:'Date' , required: true},
-    {name: 'Hora', type:'time' , required: true}
+    {name:'fecha', type:'Date' , required: true},
+    {name: 'hora', type:'time' , required: true},
+    
 
   ]}
+  nameBtn='Eliminar'
     valoresIniciales={pacienteSeleccionado}
   method='DELETE'
   url={`http://localhost:3000/EliminarTurno/${pacienteSeleccionado.id}`}

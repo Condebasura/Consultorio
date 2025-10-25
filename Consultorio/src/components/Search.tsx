@@ -31,7 +31,7 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
        }else{
 
         onSearch(data)
-        console.log("Respuesta backend",data)
+        
        } 
     };
 }

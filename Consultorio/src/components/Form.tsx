@@ -98,7 +98,7 @@ setValores({})
             
             
            
-         <button type="submit" className="btn btn-success col-1 m-3 ">{nameBtn}</button>
+         <button type="submit" className="btn btn-success col-1 m-3 p-1 ">{nameBtn}</button>
     </form>
         </>
 )

@@ -195,8 +195,12 @@ try {
  const EliminarTurno = async (req, res)=>{
 
     try {
-        let id = await bd.ConsultarTurno(req.params.id)
-        console.log(id)
+        let id = await req.params.id;
+        
+        bd.DeleteTruno(id)
+        
+        const eventos = FormatearEventos(await bd.ConsultarTurno())
+        io.emit("Turnos-Actualizados", eventos);
     } catch (error) {
         console.log("error al eliminar")
     }
