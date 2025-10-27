@@ -4,7 +4,7 @@ import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
 import React from 'react';
-import Table from './components/TablaTurnos';
+
 import SearchInput from './components/Search';
 import TablePacientes from './components/TablaPacientes';
 import MiniTabla from './components/MiniTabla';
@@ -38,20 +38,20 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
   <Calendario/>
  </div>
- {/*Armar la consulta de turnos del dia , para que se muestren segun el dia y la hora que se aproxima*/}
- 
- <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
-  {Tipos ===  'Dashboard'  && (<Ul 
-  titulo='Buscar'
-  names={[
-    'Pacientes', 'Turnos'
-  ]}
-  onSelect={setAction}
-  > 
-  {action === "Pacientes" ? <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />: <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchTurno' />}
  
 
-  </Ul>)}
+ <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
+  {Tipos ===  'Dashboard' &&(<Ul 
+  titulo='Buscar'
+  names={[
+    'Pacientes'
+  ]}
+  onSelect={setAction}
+  
+  > 
+  <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />
+  
+</Ul> )}
 
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
@@ -79,7 +79,11 @@ onSelect={setAction}
 titulo='Medicos'
 names={['Ingresar_M','Editar_M', 'Eliminar_M' ]}
 onSelect={setAction}
-/>)}
+>
+<SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
+
+{/*Encontrar la forma de que en el mismo minitabla me reciba tanto el dni como matricula*/}
+</Ul>)}
 
 
  </div>
@@ -87,7 +91,7 @@ onSelect={setAction}
   
   {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
-  {action === "Turnos" && (<Table name='Turnos' Datos={result || ''}/>)}
+ 
  
 
   {action === 'Alta Paciente' && (<Formulario
@@ -154,7 +158,7 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar'&& pacienteSeleccionado &&(<Formulario
+  {action === 'Editar'&&  pacienteSeleccionado  &&(<Formulario
   titulo='Editar'
   campos={[
   
@@ -169,7 +173,7 @@ onSelect={setAction}
     
   ]}
  
-  valoresIniciales={pacienteSeleccionado}
+  valoresIniciales={pacienteSeleccionado }
   method='PUT'
   url={`http://localhost:3000/UpdateTurno/${pacienteSeleccionado.id}`}
   
@@ -208,7 +212,17 @@ method='POST'
 url='http://localhost:3000/IngresarMedico'
 
   />)}
-
+{/*action === 'Editar_M' && pacienteSeleccionado &&(<Formulario
+    titulo='Editar Medico'
+    campos={[
+     {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "matricula", required: true},
+    {name: "especialidad" , required: true}
+    ]}
+    valoresIniciales={pacienteSeleccionado}
+  
+/>)*/}
   
  </div>
     </div>

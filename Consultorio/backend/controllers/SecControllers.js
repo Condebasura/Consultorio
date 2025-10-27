@@ -76,7 +76,7 @@ const SearchTurno  = async (req, res)=>{
         
 
         const data = await bd.consTurno(apellido)
-        
+        console.log(data)
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{
@@ -265,6 +265,17 @@ catch (error) {
     
 }
  };
+
+ const SearchMed = async (req, res) =>{
+   try {
+    const {apellido} = req.body;
+   const data = await bd.SearchMedico(apellido)
+     console.log(data)
+    
+   } catch (error) {
+    res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
+   }
+ }
 export default {
     AltaPaciente,
     SearchPaciente,
@@ -275,6 +286,7 @@ export default {
      ConsultarTurno,
      SearchTurno, 
      ActualizarTurno,
-     EliminarTurno
+     EliminarTurno, 
+     SearchMed
 
 }

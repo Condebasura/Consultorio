@@ -122,6 +122,20 @@ const ConsMedico = ()=>{
             }
         })
 })
+};
+
+const SearchMedico = (apellido)=>{
+    return new Promise((resolve , reject)=>{
+
+        let sql = 'SELECT * FROM medicos WHERE apellido LIKE ?';
+        bd.all(sql, [`%${apellido}%`], (err , rows)=>{
+            if(err){
+                reject(err.mensaje)
+            }else{
+                resolve(rows)
+            }
+        })
+    })
 }
 
 const ConsultarTurno = async ()=>{
@@ -214,6 +228,7 @@ export default {
      consTurno,
      ValidarTurno, 
      UpdateTurno,
-     DeleteTruno
+     DeleteTruno,
+     SearchMedico
 
 }

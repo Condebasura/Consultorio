@@ -3,6 +3,7 @@ type DataTabProps = {
      nombre:string;
     apellido: string;
     dni: number;
+    
 }
 
 type datosProp = {
@@ -33,7 +34,7 @@ return(
 
                 <tr>
                     <th>Dni:</th>
-                        <td>{items.dni}</td>
+                        <td>{items.dni }</td>
                 </tr>
                 <tr>
                     <th>Editar</th>
