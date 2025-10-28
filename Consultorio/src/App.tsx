@@ -81,6 +81,7 @@ names={['Ingresar_M','Editar_M', 'Eliminar_M' ]}
 onSelect={setAction}
 >
 <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
+  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 {/*Encontrar la forma de que en el mismo minitabla me reciba tanto el dni como matricula*/}
 </Ul>)}
@@ -212,7 +213,7 @@ method='POST'
 url='http://localhost:3000/IngresarMedico'
 
   />)}
-{/*action === 'Editar_M' && pacienteSeleccionado &&(<Formulario
+{action === 'Editar_M' && pacienteSeleccionado &&(<Formulario
     titulo='Editar Medico'
     campos={[
      {name: "nombre", required: true},
@@ -221,8 +222,10 @@ url='http://localhost:3000/IngresarMedico'
     {name: "especialidad" , required: true}
     ]}
     valoresIniciales={pacienteSeleccionado}
+    method='PUT'
+    
   
-/>)*/}
+/>)}
   
  </div>
     </div>

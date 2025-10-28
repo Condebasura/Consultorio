@@ -270,7 +270,11 @@ catch (error) {
    try {
     const {apellido} = req.body;
    const data = await bd.SearchMedico(apellido)
-     console.log(data)
+    if(!data){
+        return res.status(404).json({mensaje:'No se encontro ningun medico'})
+    }else{
+        return res.status(200).json(data);
+    }
     
    } catch (error) {
     res.status(500).json({mensaje: `Error al intentar la busqueda`, error})

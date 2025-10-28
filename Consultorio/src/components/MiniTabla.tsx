@@ -2,7 +2,8 @@ type DataTabProps = {
     id:string;
      nombre:string;
     apellido: string;
-    dni: number;
+    dni?: number;
+    matricula?: number;
     
 }
 
@@ -33,8 +34,8 @@ return(
                 </tr>
 
                 <tr>
-                    <th>Dni:</th>
-                        <td>{items.dni }</td>
+                    <th>Dni/Mat.:</th>
+                        <td>{items.dni ?? items.matricula}</td>
                 </tr>
                 <tr>
                     <th>Editar</th>
