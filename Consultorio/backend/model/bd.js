@@ -136,7 +136,40 @@ const SearchMedico = (apellido)=>{
             }
         })
     })
-}
+};
+
+const ValidMedico = (id)=>{
+    return new Promise((resolve, reject)=>{
+        let sql = 'SELECT * FROM medicos WHERE id = ?';
+        bd.get(sql, [id], (err,row)=>{
+            if(err){
+                console.log(err);
+                reject(err)
+            }else{
+                console.log(row)
+                resolve(row);
+            }
+        }
+        )
+    })
+};
+
+const UpdateMed = (medico)=>{
+    return new Promise((resolve,reject)=>{
+        const sql = 'UPDATE medicos SET id = ? , nombre = ? , apellido = ? , matricula = ?, especialidad = ?';
+        bd.run(sql, [medico.id , medico.nombre, medico.apellido, medico.matricula, medico.especialidad, medico.id],
+            (err)=>{
+                if(err){
+                    reject(err);
+
+                }else{
+                    resolve("Medico actualizado correctamente")
+                    console.log("Medico actualizado correctamente")
+                }
+            }
+        )
+    })
+};
 
 const ConsultarTurno = async ()=>{
     return  await new Promise((resolve, reject)=>{
@@ -229,6 +262,8 @@ export default {
      ValidarTurno, 
      UpdateTurno,
      DeleteTruno,
-     SearchMedico
+     SearchMedico, 
+     ValidMedico,
+     UpdateMed
 
 }

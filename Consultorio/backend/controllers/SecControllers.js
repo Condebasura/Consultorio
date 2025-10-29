@@ -279,6 +279,28 @@ catch (error) {
    } catch (error) {
     res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
    }
+ };
+
+ const EditarMedico = async(req,res)=>{
+  try {
+         const Validar = bd.ValidMedico(req.params.id);
+         if(!Validar){
+            return res.status(404).json({mensaje: 'Medico no encontrado'})
+         }
+         const medico = {
+            id: Validar.id, 
+            nombre: req.body.nombre, 
+            apellido: req.body.apellido,
+            matricula: req.body.matricula,
+            especialidad: req.body.especialidad
+
+         }
+         await bd.UpdateMed(medico);
+         return res.status(200).json({mensaje: 'Medico actualizado'})
+  } catch (error) {
+   return res.status(500).json({ mensaje: "Error interno del servidor", error });
+    
+  }
  }
 export default {
     AltaPaciente,
@@ -291,6 +313,7 @@ export default {
      SearchTurno, 
      ActualizarTurno,
      EliminarTurno, 
-     SearchMed
+     SearchMed, 
+     EditarMedico
 
 }

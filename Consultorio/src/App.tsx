@@ -42,13 +42,15 @@ const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">(
 
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
   {Tipos ===  'Dashboard' &&(<Ul 
-  titulo='Buscar'
+  titulo='Buscar Paciente'
   names={[
-    'Pacientes'
+
   ]}
+  
   onSelect={setAction}
   
   > 
+  
   <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />
   
 </Ul> )}
@@ -90,12 +92,12 @@ onSelect={setAction}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
-  {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
+  {Tipos === "Dashboard"  && (<TablePacientes Datos={result || ""} />)}
  
  
  
 
-  {action === 'Alta Paciente' && (<Formulario
+  { action === 'Alta Paciente' && (<Formulario
   
   titulo='Alta'
   campos={[
@@ -223,6 +225,7 @@ url='http://localhost:3000/IngresarMedico'
     ]}
     valoresIniciales={pacienteSeleccionado}
     method='PUT'
+    url={`http://localhos:3000/UpdateMedico/${pacienteSeleccionado.id}`}
     
   
 />)}
