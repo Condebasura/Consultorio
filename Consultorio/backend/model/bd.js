@@ -143,10 +143,10 @@ const ValidMedico = (id)=>{
         let sql = 'SELECT * FROM medicos WHERE id = ?';
         bd.get(sql, [id], (err,row)=>{
             if(err){
-                console.log(err);
+                
                 reject(err)
-            }else{
-                console.log(row)
+            }if(row){
+                
                 resolve(row);
             }
         }
@@ -156,7 +156,7 @@ const ValidMedico = (id)=>{
 
 const UpdateMed = (medico)=>{
     return new Promise((resolve,reject)=>{
-        const sql = 'UPDATE medicos SET id = ? , nombre = ? , apellido = ? , matricula = ?, especialidad = ?';
+        const sql = 'UPDATE medicos SET id = ? , nombre = ? , apellido = ? , matricula = ?, especialidad = ? WHERE id = ?';
         bd.run(sql, [medico.id , medico.nombre, medico.apellido, medico.matricula, medico.especialidad, medico.id],
             (err)=>{
                 if(err){

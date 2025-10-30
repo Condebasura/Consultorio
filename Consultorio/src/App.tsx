@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
 import './App.css'
 import Libtn from './components/BtnLi';
@@ -225,7 +226,7 @@ url='http://localhost:3000/IngresarMedico'
     ]}
     valoresIniciales={pacienteSeleccionado}
     method='PUT'
-    url={`http://localhos:3000/UpdateMedico/${pacienteSeleccionado.id}`}
+    url={`http://localhost:3000/UpdateMedico/${pacienteSeleccionado.id}`}
     
   
 />)}
