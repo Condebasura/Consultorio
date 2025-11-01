@@ -307,6 +307,17 @@ catch (error) {
    return res.status(500).json({ mensaje: "Error interno del servidor", error });
     
   }
+ };
+
+ const EliminarMedico = async(req, res)=>{
+    try {
+        const id =  await req.params.id;
+       bd.DeleteMedico(id)
+      return res.status(200).json({mensaje: "Medico eliminado correctamente"})
+    } catch (error) {
+        console.log("error al eliminar", error)
+    
+    }
  }
 export default {
     AltaPaciente,
@@ -320,6 +331,7 @@ export default {
      ActualizarTurno,
      EliminarTurno, 
      SearchMed, 
-     EditarMedico
+     EditarMedico, 
+     EliminarMedico
 
 }

@@ -231,6 +231,21 @@ url='http://localhost:3000/IngresarMedico'
   
 />)}
   
+  {action === 'Eliminar_M' && pacienteSeleccionado &&(<Formulario
+  
+  titulo='Eliminar Medico'
+  campos={[
+       {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "matricula", required: true},
+    {name: "especialidad" , required: true}
+    
+  ]}
+  valoresIniciales={pacienteSeleccionado}
+  method='DELETE'
+  url={`http://localhost:3000/EliminarMedico/${pacienteSeleccionado.id}`}
+  
+  />)}
  </div>
     </div>
 

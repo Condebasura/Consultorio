@@ -171,6 +171,18 @@ const UpdateMed = (medico)=>{
     })
 };
 
+
+const DeleteMedico =(id)=>{
+    let sql = 'DELETE FROM medicos WHERE id = ?';
+    bd.run(sql, [id], (err) =>{
+        if(err){
+             console.log("Error al eliminar el medico seleccionado")
+        }else{
+            console.log("Medico eliminado con éxito")
+        }
+    })
+}
+
 const ConsultarTurno = async ()=>{
     return  await new Promise((resolve, reject)=>{
         bd.all('SELECT * FROM turnos', (err,rows)=>{
@@ -264,6 +276,7 @@ export default {
      DeleteTruno,
      SearchMedico, 
      ValidMedico,
-     UpdateMed
+     UpdateMed,
+     DeleteMedico
 
 }
