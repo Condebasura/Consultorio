@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
+import { Children, useState } from 'react'
 import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
@@ -20,7 +20,7 @@ function App() {
 
 
 
-const [medicoSeleccionado, setMedicoSeleccionado] = React.useState<number | "">("");
+
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);
   return(
@@ -86,7 +86,7 @@ onSelect={setAction}
 <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
-{/*Encontrar la forma de que en el mismo minitabla me reciba tanto el dni como matricula*/}
+
 </Ul>)}
 
 
@@ -98,7 +98,7 @@ onSelect={setAction}
  
  
 
-  { action === 'Alta Paciente' && (<Formulario
+  {( action === 'Alta Paciente') && (<Formulario
   
   titulo='Alta'
   campos={[
@@ -116,7 +116,7 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar Paciente' && pacienteSeleccionado && (<Formulario
+  {( action === 'Editar Paciente')&& ( !pacienteSeleccionado )? (<Formulario
    titulo='Editar'
    campos={[
    
@@ -131,7 +131,24 @@ onSelect={setAction}
       
    ]}
  
-   valoresIniciales={pacienteSeleccionado}
+  valoresIniciales={undefined}
+   />
+  ):action === 'Editar Paciente' &&(pacienteSeleccionado) && (<Formulario
+   titulo='Editar'
+   campos={[
+   
+  {name: "nombre", required: true },
+    {name:"apellido" , required: true},
+    {name: "dni", type:"number" , required: true},
+    {name:"telefono", type:"number" , required: true},
+    {name:"email", type:"email" , required: true},
+    {name:"direccion" , required: true},
+    {name:"obraSocial" , required: true},
+    {name:"afiliado", type:"number" , required: true}
+      
+   ]}
+ 
+   valoresIniciales={pacienteSeleccionado ||[] }
    method="PUT"
    url={`http://localhost:3000/UpdatePaciente/${pacienteSeleccionado.id}`}
    />
@@ -162,7 +179,7 @@ onSelect={setAction}
   
   />)}
 
-  {action === 'Editar'&&  pacienteSeleccionado  &&(<Formulario
+  {action === 'Editar'&&  (!pacienteSeleccionado) ?(<Formulario
   titulo='Editar'
   campos={[
   
@@ -177,13 +194,31 @@ onSelect={setAction}
     
   ]}
  
-  valoresIniciales={pacienteSeleccionado }
+  valoresIniciales={undefined }
+  
+  
+  />):action === 'Editar'&& (pacienteSeleccionado) &&(<Formulario
+  titulo='Editar'
+  campos={[
+  
+    {name:'nombre' , required: true},
+    {name: 'apellido' , required: true},
+    {name:'dni',type:'number' , required: true},
+    {name:'telefono', type:'number' , required: true},
+    {name:'fecha', type:'Date' , required: true},
+    {name:'hora', type:'time' , required: true},
+    {name:'observaciones', type:'textarea' , required: true},
+    {name: "medicoApellido", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
+    
+  ]}
+ 
+  valoresIniciales={pacienteSeleccionado || []}
   method='PUT'
   url={`http://localhost:3000/UpdateTurno/${pacienteSeleccionado.id}`}
   
   />)}
 
-  {action === 'Cancelar'&& pacienteSeleccionado &&(<Formulario
+  {action === 'Cancelar'&& (!pacienteSeleccionado) ?(<Formulario
   
   titulo='Cancelar'
   campos={[
@@ -197,7 +232,23 @@ onSelect={setAction}
 
   ]}
   nameBtn='Eliminar'
-    valoresIniciales={pacienteSeleccionado}
+    valoresIniciales={undefined}
+  
+  />): action === 'Cancelar' && (pacienteSeleccionado)&& (<Formulario
+  
+  titulo='Cancelar'
+  campos={[
+    
+    {name:'nombre' , required: true},
+    {name:'apellido' , required: true},
+    {name:'dni', type:'number' , required: true},
+    {name:'fecha', type:'Date' , required: true},
+    {name: 'hora', type:'time' , required: true},
+    
+
+  ]}
+  nameBtn='Eliminar'
+    valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
   url={`http://localhost:3000/EliminarTurno/${pacienteSeleccionado.id}`}
   />)}
@@ -224,7 +275,7 @@ url='http://localhost:3000/IngresarMedico'
     {name: "matricula", required: true},
     {name: "especialidad" , required: true}
     ]}
-    valoresIniciales={pacienteSeleccionado}
+    valoresIniciales={pacienteSeleccionado || []}
     method='PUT'
     url={`http://localhost:3000/UpdateMedico/${pacienteSeleccionado.id}`}
     
@@ -241,7 +292,7 @@ url='http://localhost:3000/IngresarMedico'
     {name: "especialidad" , required: true}
     
   ]}
-  valoresIniciales={pacienteSeleccionado}
+  valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
   url={`http://localhost:3000/EliminarMedico/${pacienteSeleccionado.id}`}
   
