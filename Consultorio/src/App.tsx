@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Children, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
-import React from 'react';
+
 
 import SearchInput from './components/Search';
 import TablePacientes from './components/TablaPacientes';
@@ -43,8 +43,8 @@ function App() {
 
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
   {Tipos ===  'Dashboard' &&(<Ul 
-  titulo='Buscar Paciente'
-  names={[
+  titulo='Buscar'
+  names={['Pacientes'
 
   ]}
   
@@ -93,7 +93,7 @@ onSelect={setAction}
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
   
-  {Tipos === "Dashboard"  && (<TablePacientes Datos={result || ""} />)}
+  {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
  
  
@@ -267,7 +267,19 @@ method='POST'
 url='http://localhost:3000/IngresarMedico'
 
   />)}
-{action === 'Editar_M' && pacienteSeleccionado &&(<Formulario
+{action === 'Editar_M' && (!pacienteSeleccionado)? (<Formulario
+    titulo='Editar Medico'
+    campos={[
+     {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "matricula", required: true},
+    {name: "especialidad" , required: true}
+    ]}
+    valoresIniciales={undefined}
+    method='GET'
+    url=''
+  
+/>): action === 'Editar_M' && (pacienteSeleccionado)&& (<Formulario
     titulo='Editar Medico'
     campos={[
      {name: "nombre", required: true},
@@ -282,7 +294,21 @@ url='http://localhost:3000/IngresarMedico'
   
 />)}
   
-  {action === 'Eliminar_M' && pacienteSeleccionado &&(<Formulario
+  {action === 'Eliminar_M' && (!pacienteSeleccionado)? (<Formulario
+  
+  titulo='Eliminar Medico'
+  campos={[
+       {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "matricula", required: true},
+    {name: "especialidad" , required: true}
+    
+  ]}
+  valoresIniciales={undefined}
+  method='GET'
+  url={''}
+  
+  />): action === 'Eliminar_M' && (pacienteSeleccionado) && (<Formulario
   
   titulo='Eliminar Medico'
   campos={[
