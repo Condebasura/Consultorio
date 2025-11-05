@@ -4,6 +4,8 @@ type DataTabProps = {
     apellido: string;
     dni?: number;
     matricula?: number;
+    fecha?: number;
+    
     
 }
 
@@ -38,7 +40,11 @@ return(
                         <td>{items.dni ?? items.matricula}</td>
                 </tr>
                 <tr>
-                    <th>Editar</th>
+                    <th>Fecha:</th>
+                    <td>{items.fecha ?? "---"} </td>
+                </tr>
+                <tr>
+                    <th></th>
                     <td>
                         <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>{name}</button>
                         

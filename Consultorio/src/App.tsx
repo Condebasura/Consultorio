@@ -10,6 +10,7 @@ import SearchInput from './components/Search';
 import TablePacientes from './components/TablaPacientes';
 import MiniTabla from './components/MiniTabla';
 import Calendario from './components/calendario';
+import Text from './components/texto';
 
 
 function App() {
@@ -92,7 +93,7 @@ onSelect={setAction}
 
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
-  
+  {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
   {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
  
@@ -132,6 +133,8 @@ onSelect={setAction}
    ]}
  
   valoresIniciales={undefined}
+  method='GET'
+  url=''
    />
   ):action === 'Editar Paciente' &&(pacienteSeleccionado) && (<Formulario
    titulo='Editar'
@@ -195,8 +198,9 @@ onSelect={setAction}
   ]}
  
   valoresIniciales={undefined }
-  
-  
+
+  method='GET'
+  url=''
   />):action === 'Editar'&& (pacienteSeleccionado) &&(<Formulario
   titulo='Editar'
   campos={[
@@ -233,7 +237,8 @@ onSelect={setAction}
   ]}
   nameBtn='Eliminar'
     valoresIniciales={undefined}
-  
+  method='GET'
+  url=''
   />): action === 'Cancelar' && (pacienteSeleccionado)&& (<Formulario
   
   titulo='Cancelar'
