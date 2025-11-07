@@ -33,6 +33,7 @@ function App() {
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
   <Libtn className='Medicos list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
+    <Libtn name='Sesion' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
 
     
     </div>
@@ -43,6 +44,7 @@ function App() {
  
 
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
+  
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'
   names={['Pacientes'
@@ -90,6 +92,11 @@ onSelect={setAction}
 
 </Ul>)}
 
+{Tipos === "Sesion" && (<Ul
+titulo='Sesiones'
+names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
+onSelect={setAction}
+/>)}
 
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
@@ -326,6 +333,15 @@ url='http://localhost:3000/IngresarMedico'
   valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
   url={`http://localhost:3000/EliminarMedico/${pacienteSeleccionado.id}`}
+  
+  />)}
+
+  {action === 'Iniciar' && (<Formulario
+  titulo='Iniciar Sesion'
+  campos={[
+    {name: "Usuario", required:true},
+    {name: "Contraseña", type:"password", required: true}
+  ]}
   
   />)}
  </div>
