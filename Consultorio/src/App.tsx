@@ -344,6 +344,25 @@ url='http://localhost:3000/IngresarMedico'
   ]}
   
   />)}
+
+  {action === 'Cerrar' && (<Formulario
+  
+  titulo='Cerrar Sesion'
+campos={[
+  {name: 'Contraseña', required: true, type: 'password'}
+]}
+  nameBtn='Cerrar'
+  />)}
+
+{action === 'Agregar' &&(<Formulario
+ titulo=  "Agregar Usuario"
+ campos={[
+  {name: 'Nombre', required: true},
+  {name: 'Apellido' , required:true},
+  {name:'Dni/Mat.' , required: true}
+ ]}
+
+/>)}
  </div>
     </div>
 
