@@ -318,7 +318,31 @@ catch (error) {
         console.log("error al eliminar", error)
     
     }
+ };
+
+
+ const IngresarUsuario = async (req , res)=>{
+
+    try {
+        const usuario = {
+            nombre: req.body.nombre,
+            contraseña: req.body.contraseña,
+            cargo: req.body.cargo
+        }
+
+        const data = await bd.InsertUsuario(usuario);
+        if(!data){
+           return res.status(409).json({mensaje: "No fue posible ingresar el usuario"})
+        }
+        else{
+ return res.status(200).json({mensaje: "usuario registrado con exito"})
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: "Error interno en el servidor", error})
+    }
  }
+
+
 export default {
     AltaPaciente,
     SearchPaciente,
@@ -332,6 +356,7 @@ export default {
      EliminarTurno, 
      SearchMed, 
      EditarMedico, 
-     EliminarMedico
+     EliminarMedico,
+     IngresarUsuario
 
 }

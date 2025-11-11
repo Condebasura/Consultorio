@@ -357,11 +357,13 @@ campos={[
 {action === 'Agregar' &&(<Formulario
  titulo=  "Agregar Usuario"
  campos={[
-  {name: 'Nombre', required: true},
-  {name: 'Apellido' , required:true},
-  {name:'Dni/Mat.' , required: true}
+  {name: 'nombre', required: true},
+  {name: 'contraseña', type: "password" , required:true},
+  {name:'cargo' , required: true}
  ]}
 
+method='POST'
+url='http://localhost:3000/IngresarUsuario'
 />)}
  </div>
     </div>

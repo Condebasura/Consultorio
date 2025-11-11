@@ -10,6 +10,7 @@ bd.run('CREATE TABLE IF NOT EXISTS turnos (id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , matricula TEXT , especialidad TEXT )")
 
+bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY, nombre TEXT, contraseña TEXT , cargo TEXT)")
 
 
 const InsertPaciente = async (paci)=>{
@@ -259,7 +260,21 @@ const DeleteTruno =(id)=>{
             console.log("Turno eliminado")
         }
     })
-}
+};
+
+
+const InsertUsuario = async(usuario)=>{
+    try {
+        const id = uuidv4();
+        const crakedPassword = await bcrypt.hash(usuario.contraseña , saltRounds)
+        let stmt = bd.prepare('INSERT INTO usuarios(id , nombre , contraseña , cargo) VALUES(?,?,?,?)');
+        stmt.run(id, usuario.nombre, crakedPassword , usuario.cargo);
+        stmt.finalize();
+        return "Usuario ingresado con exito";
+    } catch (error) {
+        console.log("Error", error)
+    }
+};
 
 export default {
     InsertPaciente,
@@ -277,6 +292,7 @@ export default {
      SearchMedico, 
      ValidMedico,
      UpdateMed,
-     DeleteMedico
+     DeleteMedico,
+     InsertUsuario
 
 }
