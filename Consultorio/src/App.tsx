@@ -32,9 +32,9 @@ function App() {
 <Libtn className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
-  <Libtn className='Medicos list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
+  <Libtn className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
     <Libtn name='Sesion' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
-
+<Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'onClick={()=> setTipos('Historial')} />
     
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
@@ -97,6 +97,21 @@ titulo='Sesiones'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 onSelect={setAction}
 />)}
+
+ {Tipos ===  'Historial' &&(<Ul 
+  titulo='Historial'
+  names={['Ver','Agregar (Al Hist.)'
+
+  ]}
+  
+  onSelect={setAction}
+  
+  > 
+  
+  <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />
+  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
+</Ul> )}
+
 
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
@@ -365,6 +380,9 @@ campos={[
 method='POST'
 url='http://localhost:3000/IngresarUsuario'
 />)}
+
+
+
  </div>
     </div>
 
