@@ -26,7 +26,19 @@ export default function TablaHistorial({Datos}: DatProps){
 
                 </tr>
             </thead>
-            
+            <tbody>
+                {
+                    Datos.map((items)=>(
+                        <tr key={items.dni}>
+                            <td>{items.nombre}</td>
+                            <td>{items.apellido}</td>
+                            <td>{items.dni}</td>
+                            <td>{items.historial}</td>
+
+                        </tr>
+                    ))
+                }
+            </tbody>
          </table>
         </>
 

@@ -12,6 +12,7 @@ bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY, nombre TEXT, contraseña TEXT , cargo TEXT)")
 
+bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , dni INTEGRER , historial TEXT ) ")
 
 const InsertPaciente = async (paci)=>{
     try {
@@ -275,6 +276,20 @@ const InsertUsuario = async(usuario)=>{
         console.log("Error", error)
     }
 };
+
+
+
+InsertPaciHisto = async(paci)=>{
+    try {
+        const id = uuidv4();
+        let stmt = bd.prepare('INSERT INTO historial(id , nombre , apellido, dni , historial) VALUES(?,?,?,?)');
+        stmt.run(id, paci.nombre , paci.apellido , paci.dni , paci.historial);
+        stmt.finalize();
+        return "Paciente agragado  con exito";
+    } catch (err) {
+        console.log("Error", err);
+    }
+}
 
 export default {
     InsertPaciente,

@@ -11,6 +11,7 @@ import TablePacientes from './components/TablaPacientes';
 import MiniTabla from './components/MiniTabla';
 import Calendario from './components/calendario';
 import Text from './components/texto';
+import TablaHistorial from './components/TablaHistorial';
 
 
 function App() {
@@ -380,6 +381,8 @@ campos={[
 method='POST'
 url='http://localhost:3000/IngresarUsuario'
 />)}
+
+{action === 'Ver' && (<TablaHistorial Datos={result || ""}/>)}
 
 
 
