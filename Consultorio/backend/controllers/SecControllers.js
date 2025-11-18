@@ -342,6 +342,20 @@ catch (error) {
     }
  }
 
+ const SearchHistorial = async(req,res)=>{
+    try {
+        const {apellido} = req.body;
+        const Data = await bd.ConsultHistorial(apellido);
+        if(!Data){
+            res.status(409).json({mensaje:'Sin resultados'})
+        }else{
+            res.status(200).json({Data})
+        }
+    } catch (error) {
+        res.status(500).json({menasje: 'Error interno del servidor', error})
+    }
+ }
+
 
 export default {
     AltaPaciente,
@@ -357,6 +371,7 @@ export default {
      SearchMed, 
      EditarMedico, 
      EliminarMedico,
-     IngresarUsuario
+     IngresarUsuario,
+     SearchHistorial
 
 }

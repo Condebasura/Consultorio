@@ -116,7 +116,9 @@ onSelect={setAction}
 
  </div>
  <div className='inputsDeSubseccions shadow col-lg-8 ms-2 bg-white '>
+
   {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
+
   {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
  

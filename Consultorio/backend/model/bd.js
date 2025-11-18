@@ -12,7 +12,7 @@ bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY, nombre TEXT, contraseña TEXT , cargo TEXT)")
 
-bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , dni INTEGRER , historial TEXT ) ")
+bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
 
 const InsertPaciente = async (paci)=>{
     try {
@@ -277,9 +277,24 @@ const InsertUsuario = async(usuario)=>{
     }
 };
 
+const ConsultHistorial = async (apellido)=>{
+    try {
+        return await new Promise((resolve , reject)=>{
+            let sql = 'SELECT * FROM historial WHERE apellido LIKE ?';
+            bd.all(sql, [`%${apellido}%`], (err, rows)=>{
+                if(err){
+                    console.log('El error del reject', err)
+                }else{
+                    resolve(rows)
+                }
+            })
+        })
+    } catch (error) {
+        console.log('El error del catch', error)
+    }
+}
 
-
-InsertPaciHisto = async(paci)=>{
+const InsertPaciHisto = async(paci)=>{
     try {
         const id = uuidv4();
         let stmt = bd.prepare('INSERT INTO historial(id , nombre , apellido, dni , historial) VALUES(?,?,?,?)');
@@ -308,6 +323,8 @@ export default {
      ValidMedico,
      UpdateMed,
      DeleteMedico,
-     InsertUsuario
+     InsertUsuario,
+     InsertPaciHisto,
+     ConsultHistorial
 
 }
