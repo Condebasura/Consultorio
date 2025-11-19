@@ -1,15 +1,23 @@
-type DatHistProp = {
-    nombre: string;
-    apellido: string;
-    dni:string;
-    historial: string;
-}
+import { useState , useEffect } from "react";
+import Formulario from "./Form";
+
 
 type DatProps ={
-    Datos: DatHistProp[];
+    
+    valoresIniciales?:Record<string, string>;
 }
 
-export default function TablaHistorial({Datos}: DatProps){
+export default function TablaHistorial({valoresIniciales}: DatProps){
+   
+   const [valores , setValores] = useState<Record<string, string>>(valoresIniciales || {});
+
+   useEffect(() => {
+    if(valoresIniciales){
+        setValores(valoresIniciales)
+    }
+    
+   }, [valoresIniciales]);
+   
     return(
         
         <>
@@ -18,34 +26,42 @@ export default function TablaHistorial({Datos}: DatProps){
          </div>
          <table className="table table-borderer">
             <tbody>
-                {
-                    Datos.map((items)=>(
-                        <tr key={items.dni}>
-                             
+                
+                    
+                        
+                        <tr key={valores.id}>
                              <tr>
                             <th>Nombre: </th>      
-                            <td>{items.nombre}</td>
+                         <td>{valores.nombre}</td>
                             </tr>
                             
                             <tr>
                                 <th>Apellido: </th>
-                            <td>{items.apellido}</td>
+                            <td>{valores.apellido}</td>
                             </tr>
                               <tr>
                               <th>DNI: </th>
-                            <td>{items.dni}</td>
+                            <td>{valores.dni}</td>
                               </tr>
                             
                             <tr>
                                <th>Historial </th>
-                             <td>{items.historial}</td>
+                             <td>{valores.descripcion}</td>
                             </tr>
 
                         </tr>
-                    ))
-                }
+                    
             </tbody>
          </table>
+
+         <Formulario 
+titulo='Agregar Descripcion'
+campos={[
+  {name:'Historial',type:'textarea', required: true}
+]}
+method="PUT"
+url={`http://localhost:3000/AgregarAlHistorial/${valores.id}`}
+/>
         </>
 
     )

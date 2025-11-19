@@ -342,19 +342,27 @@ catch (error) {
     }
  }
 
- const SearchHistorial = async(req,res)=>{
-    try {
-        const {apellido} = req.body;
-        const Data = await bd.ConsultHistorial(apellido);
-        if(!Data){
-            res.status(409).json({mensaje:'Sin resultados'})
-        }else{
-            res.status(200).json({Data})
-        }
-    } catch (error) {
-        res.status(500).json({menasje: 'Error interno del servidor', error})
+const AgregarHistorial = async (req , res)=>{
+try {
+    const validar = await bd.validarPaciente(req.params.id);
+   if(!validar){
+    res.status(409).json({mensaje: "Error al ingresar el historial"})
+   }else{
+
+    const paci ={
+        paciente_id:validar.id,
+        descripcion: req.body.Historial
     }
- }
+
+    await bd.InsertPaciHisto(paci)
+
+    return res.status(200).json({mensaje: "Se agrego al historial"})
+}
+} catch (error) {
+    console.log("error en el servidor", error)
+}
+    
+}
 
 
 export default {
@@ -372,6 +380,7 @@ export default {
      EditarMedico, 
      EliminarMedico,
      IngresarUsuario,
-     SearchHistorial
+     AgregarHistorial
+     
 
 }

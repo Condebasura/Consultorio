@@ -384,7 +384,7 @@ method='POST'
 url='http://localhost:3000/IngresarUsuario'
 />)}
 
-{action === 'Agregar (Al Hist.)' &&(<TablaHistorial Datos={result}/>)}
+{action === 'Agregar (Al Hist.)' &&(<TablaHistorial  valoresIniciales={pacienteSeleccionado || ""}/>)}
 
 
 
