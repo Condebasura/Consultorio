@@ -277,30 +277,15 @@ const InsertUsuario = async(usuario)=>{
     }
 };
 
-const ConsultHistorial = async (apellido)=>{
-    try {
-        return await new Promise((resolve , reject)=>{
-            let sql = 'SELECT * FROM historial WHERE apellido LIKE ?';
-            bd.all(sql, [`%${apellido}%`], (err, rows)=>{
-                if(err){
-                    console.log('El error del reject', err)
-                }else{
-                    resolve(rows)
-                }
-            })
-        })
-    } catch (error) {
-        console.log('El error del catch', error)
-    }
-}
+
 
 const InsertPaciHisto = async(paci)=>{
     try {
         const id = uuidv4();
-        let stmt = bd.prepare('INSERT INTO historial(id , nombre , apellido, dni , historial) VALUES(?,?,?,?)');
-        stmt.run(id, paci.nombre , paci.apellido , paci.dni , paci.historial);
+        let stmt = bd.prepare('INSERT INTO historial(id , paciente_id , descripcion) VALUES(?,?,?)');
+        stmt.run(id, paci.paciente_id ,  paci.descripcion);
         stmt.finalize();
-        return "Paciente agragado  con exito";
+        return "historial agragado  con exito";
     } catch (err) {
         console.log("Error", err);
     }
@@ -325,6 +310,6 @@ export default {
      DeleteMedico,
      InsertUsuario,
      InsertPaciHisto,
-     ConsultHistorial
+     
 
 }

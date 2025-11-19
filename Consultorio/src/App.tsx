@@ -101,7 +101,7 @@ onSelect={setAction}
 
  {Tipos ===  'Historial' &&(<Ul 
   titulo='Historial'
-  names={['Ver','Agregar (Al Hist.)'
+  names={['Agregar (Al Hist.)'
 
   ]}
   
@@ -384,7 +384,7 @@ method='POST'
 url='http://localhost:3000/IngresarUsuario'
 />)}
 
-{action === 'Ver' && (<TablaHistorial Datos={result || ""}/>)}
+{action === 'Agregar (Al Hist.)' &&(<TablaHistorial Datos={result}/>)}
 
 
 

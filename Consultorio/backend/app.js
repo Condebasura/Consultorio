@@ -70,7 +70,7 @@ app.use( helmet.contentSecurityPolicy({
     app.put("/UpdateMedico/:id", SecControllers.EditarMedico);
     app.delete("/EliminarMedico/:id", SecControllers.EliminarMedico);
     app.post("/IngresarUsuario", SecControllers.IngresarUsuario);
-    app.post("/SearchHistorial", SecControllers.SearchHistorial);
+    
     server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })
