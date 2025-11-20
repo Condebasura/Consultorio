@@ -364,7 +364,24 @@ try {
 }
     
 }
+ const GetHistorial = async (req, res)=>{
 
+    try {
+        const validate = await bd.ConsHistorial(req.params.id);
+        if(!validate){
+            return res.status(409).json({mensaje: " No se encontro el id"})
+        }else{
+            const Historial = {
+                paciente_id: validate.id,
+                fecha: req.body.fecha,
+                descripcion: req.body.descripcion,
+            }
+            console.log(Historial)
+        }
+    } catch (error) {
+        
+    }
+ }
 
 export default {
     AltaPaciente,
@@ -381,7 +398,8 @@ export default {
      EditarMedico, 
      EliminarMedico,
      IngresarUsuario,
-     AgregarHistorial
+     AgregarHistorial,
+     GetHistorial
      
 
 }

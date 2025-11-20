@@ -46,7 +46,7 @@ return(
                 <tr>
                     <th></th>
                     <td>
-                        <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items)}>{name}</button>
+                        <button className="btn btn-primary btn-sm" onClick={()=> onEditar(items) } >{name}</button>
                         
                         </td>
                 </tr>
