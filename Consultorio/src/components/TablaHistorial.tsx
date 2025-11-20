@@ -17,6 +17,8 @@ export default function TablaHistorial({valoresIniciales}: DatProps){
     }
     
    }, [valoresIniciales]);
+
+   console.log(valoresIniciales)
    
     return(
         
@@ -30,6 +32,7 @@ export default function TablaHistorial({valoresIniciales}: DatProps){
                     
                         
                         <tr key={valores.id}>
+                        
                              <tr>
                             <th>Nombre: </th>      
                          <td>{valores.nombre}</td>

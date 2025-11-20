@@ -53,11 +53,12 @@ const AltaPaciente =  async(req , res)=>{
 const SearchPaciente  = async (req, res)=>{
     try {
         const {apellido} = req.body;
-        
+       
         
 
-        const data = await bd.consPaciente(apellido)
+        const data = await bd.consPaciente(apellido);
         
+      
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{

@@ -291,6 +291,23 @@ const InsertPaciHisto = async(paci)=>{
     }
 }
 
+const ConsHistorial = (id)=>{
+
+    return new Promise((resolve , reject)=>{
+        let sql = ("SELECT * FROM historial WHERE paciente_id = ? ORDER BY fecha DESC", [id]);
+
+        bd.get(sql, [id], (err, row)=>{
+            if(err){
+                console.log(err.mensaje);
+                reject(err)
+            }if(row){
+                console.log(row);
+                resolve(row)
+            }
+        })
+    })
+}
+
 export default {
     InsertPaciente,
     consPaciente, 
@@ -310,6 +327,7 @@ export default {
      DeleteMedico,
      InsertUsuario,
      InsertPaciHisto,
+     ConsHistorial
      
 
 }
