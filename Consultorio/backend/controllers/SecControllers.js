@@ -364,22 +364,24 @@ try {
 }
     
 }
+
+// Seguir analizando el porque no muestra el historial en el front
  const GetHistorial = async (req, res)=>{
 
     try {
-        const validate = await bd.ConsHistorial(req.params.id);
-        if(!validate){
-            return res.status(409).json({mensaje: " No se encontro el id"})
-        }else{
-            const Historial = {
-                paciente_id: validate.id,
-                fecha: req.body.fecha,
-                descripcion: req.body.descripcion,
-            }
-            console.log(Historial)
-        }
+        const id = await bd.ConsHistorial(req.params.id);
+      console.log(id)
+      
+     const historial = await bd.ConsHistorial(id);
+    console.log(historial);
+     if(!historial || historial.length === 0 ){
+        return res.status(404).json({mensaje: "No hay historial previo "})
+     }else{
+        return res.status(200).json(historial)
+     }  
     } catch (error) {
-        
+        console.log("Error al obtener el historial", error);
+        return res.status(500).json({mensaje: "Error interno del servidor", error})
     }
  }
 

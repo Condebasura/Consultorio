@@ -17,9 +17,22 @@ import TablaHistorial from './components/TablaHistorial';
 function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
-     
-     
+     const [HistorialPaciente, setHistorialPaciente] = useState([]);
 
+
+    const handleSelecionar = async (pacienteSeleccionado: any)=>{
+      setPacienteSeleccionado(pacienteSeleccionado);
+
+      try {
+        const res = await fetch(`http://localhost:3000/VerHistorialPaciente/${pacienteSeleccionado.id}`);
+        const data = await res.json();
+        setHistorialPaciente(data);
+        console.log(data)
+
+      } catch (error) {
+        console.log("Error al traer el historial" ,error)
+      }
+    }
 
 
 
@@ -110,7 +123,7 @@ onSelect={setAction}
   > 
   
   <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />
-  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
+  <MiniTabla DatosPaci={result} onEditar={handleSelecionar} name={'Selecionar'}/>
 </Ul> )}
 
 
@@ -384,7 +397,7 @@ method='POST'
 url='http://localhost:3000/IngresarUsuario'
 />)}
 
-{action === 'Agregar (Al Hist.)' &&(<TablaHistorial  valoresIniciales={pacienteSeleccionado || ""}/>)}
+{action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={pacienteSeleccionado || ""}/>)}
 
 
 

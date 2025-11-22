@@ -54,11 +54,11 @@ const validarPaciente = (id)=>{
 
         bd.get(sql , [id], (err , row)=>{
             if(err){
-                console.log(err.mensaje)
+                
                  reject(err)
             }    
             if(row){
-                console.log(row)
+               
                 resolve(row)
             }
         })
@@ -294,15 +294,15 @@ const InsertPaciHisto = async(paci)=>{
 const ConsHistorial = (id)=>{
 
     return new Promise((resolve , reject)=>{
-        let sql = ("SELECT * FROM historial WHERE paciente_id = ? ORDER BY fecha DESC", [id]);
+        let sql = ("SELECT * FROM historial WHERE paciente_id = ? ORDER BY fecha DESC");
 
-        bd.get(sql, [id], (err, row)=>{
+        bd.all(sql, [id], (err, rows)=>{
             if(err){
                 console.log(err.mensaje);
                 reject(err)
-            }if(row){
-                console.log(row);
-                resolve(row)
+            }if(rows){
+               
+                resolve(rows)
             }
         })
     })

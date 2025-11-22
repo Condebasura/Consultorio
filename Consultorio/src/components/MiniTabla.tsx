@@ -7,6 +7,7 @@ type DataTabProps = {
     fecha?: number;
     
     
+    
 }
 
 type datosProp = {
@@ -43,6 +44,7 @@ return(
                     <th>Fecha:</th>
                     <td>{items.fecha ?? "---"} </td>
                 </tr>
+                
                 <tr>
                     <th></th>
                     <td>
