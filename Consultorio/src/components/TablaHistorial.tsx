@@ -9,9 +9,10 @@ type dataHisto = {
 type DatProps ={
     data: dataHisto[];
     valoresIniciales?:Record<string, string>;
+    DataHisto: any;
 }
 
-export default function TablaHistorial({valoresIniciales, data}: DatProps){
+export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatProps){
    
    const [valores , setValores] = useState<Record<string, string>>(valoresIniciales || {});
 
@@ -22,8 +23,18 @@ export default function TablaHistorial({valoresIniciales, data}: DatProps){
     
    }, [valoresIniciales]);
 
-   console.log(valoresIniciales)
-   console.log(data)
+  
+
+    
+     DataHisto = data.map((item)=>(
+      
+      <td>{item.fecha} {item.descripcion}</td> 
+      
+      
+    ))
+  
+    console.log(data.length)
+       
     return(
         
         <>
@@ -50,16 +61,20 @@ export default function TablaHistorial({valoresIniciales, data}: DatProps){
                               <th>DNI: </th>
                             <td>{valores.dni}</td>
                               </tr>
-                            {
-                              data.map((item)=>(
-                                
+                              <table>
+
+                                <thead>
+
                                 <tr >
                                 <th>Historial </th>
-                             <td>{item.fecha}</td>
-                             <td>{item.descripcion}</td>
                             </tr>
-                              ))
-                            }
+                                </thead>
+                                <tbody>
+                         <tr className="row">
+                          {DataHisto}
+                          </tr>
+                          </tbody>
+                            </table>
 
                         </tr>
                     

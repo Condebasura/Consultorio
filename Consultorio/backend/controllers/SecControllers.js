@@ -365,15 +365,12 @@ try {
     
 }
 
-// Seguir analizando el porque no muestra el historial en el front
+
  const GetHistorial = async (req, res)=>{
 
     try {
-        const id = await bd.ConsHistorial(req.params.id);
-      console.log(id)
-      
-     const historial = await bd.ConsHistorial(id);
-    console.log(historial);
+        const historial = await bd.ConsHistorial(req.params.id);
+    
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})
      }else{

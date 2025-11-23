@@ -26,8 +26,9 @@ function App() {
       try {
         const res = await fetch(`http://localhost:3000/VerHistorialPaciente/${pacienteSeleccionado.id}`);
         const data = await res.json();
+     
         setHistorialPaciente(data);
-        console.log(data)
+        
 
       } catch (error) {
         console.log("Error al traer el historial" ,error)
