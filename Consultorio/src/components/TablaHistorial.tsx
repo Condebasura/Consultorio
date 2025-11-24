@@ -2,6 +2,7 @@ import { useState , useEffect } from "react";
 import Formulario from "./Form";
 
 type dataHisto = {
+  id: string;
   fecha: string;
   descripcion: string;
 }
@@ -9,7 +10,7 @@ type dataHisto = {
 type DatProps ={
     data: dataHisto[];
     valoresIniciales?:Record<string, string>;
-    DataHisto: any;
+    DataHisto?: any;
 }
 
 export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatProps){
@@ -27,8 +28,13 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
 
     
      DataHisto = data.map((item)=>(
-      
-      <td>{item.fecha} {item.descripcion}</td> 
+      <>
+      <tr key={item.id} className="row ">
+
+      <td >{item.fecha}</td> 
+      <td>{item.descripcion}</td> 
+      </tr>
+      </>
       
       
     ))
@@ -70,9 +76,9 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
                             </tr>
                                 </thead>
                                 <tbody>
-                         <tr className="row">
+                         
                           {DataHisto}
-                          </tr>
+                          
                           </tbody>
                             </table>
 

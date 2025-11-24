@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
@@ -17,22 +17,27 @@ import TablaHistorial from './components/TablaHistorial';
 function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
-     const [HistorialPaciente, setHistorialPaciente] = useState([]);
+     const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
 
 
-    const handleSelecionar = async (pacienteSeleccionado: any)=>{
+    const handleSelecionar =  (pacienteSeleccionado: any)=>{
       setPacienteSeleccionado(pacienteSeleccionado);
 
-      try {
-        const res = await fetch(`http://localhost:3000/VerHistorialPaciente/${pacienteSeleccionado.id}`);
-        const data = await res.json();
-     
-        setHistorialPaciente(data);
+       fetch(`http://localhost:3000/VerHistorialPaciente/${pacienteSeleccionado.id}`).then(res => res.json()).then(data =>{
+              if(data && Array.isArray(data)){
+
+                setHistorialPaciente(data);
+              }else{
+
+                setHistorialPaciente([]);
+              }
+            })
+          
+          
+          
         
 
-      } catch (error) {
-        console.log("Error al traer el historial" ,error)
-      }
+     
     }
 
 
