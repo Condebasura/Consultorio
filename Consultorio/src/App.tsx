@@ -31,14 +31,7 @@ function App() {
 
                 setHistorialPaciente([]);
               }
-            })
-          
-          
-          
-        
-
-     
-    }
+            })};
 
 
 
@@ -50,14 +43,20 @@ function App() {
     <div className='selector ps-0  col-lg-1 m-0  '>
       
 <Libtn className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
+
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
+
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
+
   <Libtn className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
+
     <Libtn name='Sesion' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
+
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
+      
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
   <Calendario/>
  </div>
