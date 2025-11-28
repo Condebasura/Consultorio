@@ -375,7 +375,7 @@ url='http://localhost:3000/IngresarMedico'
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "Usuario", required:true},
+    {name: "Usuario",type: "selector",url:'http://localhost:3000/ConsUsuario', required:true},
     {name: "Contraseña", type:"password", required: true}
   ]}
   

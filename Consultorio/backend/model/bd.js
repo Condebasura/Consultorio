@@ -264,6 +264,22 @@ const DeleteTruno =(id)=>{
 };
 
 
+const ConnsultarUsuario = () =>{
+
+        return new Promise((resolve, reject)=>{
+
+        bd.all('SELECT * FROM usuarios', (err , rows)=>{
+            if(err){
+                console.log(err.mensaje)
+                reject(err)
+            }else{
+               
+                resolve(rows)
+            }
+        })
+})
+}
+
 const InsertUsuario = async(usuario)=>{
     try {
         const id = uuidv4();
@@ -327,7 +343,8 @@ export default {
      DeleteMedico,
      InsertUsuario,
      InsertPaciHisto,
-     ConsHistorial
+     ConsHistorial,
+     ConnsultarUsuario
      
 
 }

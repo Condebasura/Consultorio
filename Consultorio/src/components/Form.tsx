@@ -9,6 +9,7 @@ type Campo ={
     required?: boolean;
     opciones?: {id: number, nombre: string}[];
     url?: string;
+   
     
     
 }

@@ -321,6 +321,21 @@ catch (error) {
     }
  };
 
+ const SelectUsuario = async (req,res)=>{
+
+    try {
+        const Data = await bd.ConnsultarUsuario()
+if(!Data){
+    res.status(404).json({mensaje: "Ocurrio un error al cargar los datos"})
+}
+else{
+    res.status(200).json(Data)
+}
+
+    } catch (error) {
+        res.status(500).json({mensaje: "Error del servidor", error})
+    }
+ }
 
  const IngresarUsuario = async (req , res)=>{
 
@@ -398,7 +413,8 @@ export default {
      EliminarMedico,
      IngresarUsuario,
      AgregarHistorial,
-     GetHistorial
+     GetHistorial,
+     SelectUsuario
      
 
 }

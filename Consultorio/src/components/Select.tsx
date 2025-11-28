@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react"
 
-type Medico = {
+type Sujeto = {
     id: string;
     nombre: string;
     apellido: string;
     matricula?: string;
     especialidad?: string;
+    cargo?: string;
 }
 
 type SelectMedicoProps ={
    url: string;
-   opciones?:Medico[];
+   opciones?:Sujeto[];
     seleccionado: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange: (value: any) => void;
+    
 }
 
 
 
-export default function Selec({url,seleccionado, onChange}: SelectMedicoProps){
+export default function Selec({url,seleccionado, onChange, }: SelectMedicoProps){
 
-         const [medicos , setMedico] = useState<Medico[]>([]);
+         const [sujetos , setSujeto] = useState<Sujeto[]>([]);
          const [value, setValue] = useState(seleccionado ||"");
          
            useEffect(()=>{
@@ -32,7 +34,7 @@ export default function Selec({url,seleccionado, onChange}: SelectMedicoProps){
                         const res = await fetch(url);
                         const data = await res.json();
                          
-                      setMedico(data);
+                      setSujeto(data);
           
                        
                     } catch (error) {
@@ -60,10 +62,10 @@ export default function Selec({url,seleccionado, onChange}: SelectMedicoProps){
      value={value} 
       onChange={handleSelect} 
       className="col-6 p-3 border-0 shadow mt-3 "  >
-                 <option value=''>Selecione un Medico</option>
-                {medicos.map((medico)=>(
+                 <option value=''>Seleccione una opcion </option>
+                {sujetos.map((sujeto)=>(
                     
-                    <option key={medico.id} value={medico.apellido} className='form-control ' id='floatingInput' >{medico.nombre} {medico.apellido} {`(${medico.especialidad})`}</option>
+                    <option key={sujeto.id} value={sujeto.apellido} className='form-control ' id='floatingInput' >{sujeto.nombre} {sujeto.apellido} {`(${sujeto.especialidad ?? sujeto.cargo})`}</option>
     
     ))}
             </select> 

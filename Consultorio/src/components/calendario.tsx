@@ -131,7 +131,7 @@ return(
             
         } }
         
-        style={{ borderRadius: "10px", boxShadow: "0 0 10px #ccc" }}
+        style={{ borderRadius: "10px", boxShadow: "0 0 10px #888383ff" }}
         />
     </div>
 )
