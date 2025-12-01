@@ -64,8 +64,9 @@ export default function Selec({url,seleccionado, onChange, }: SelectMedicoProps)
       className="col-6 p-3 border-0 shadow mt-3 "  >
                  <option value=''>Seleccione una opcion </option>
                 {sujetos.map((sujeto)=>(
-                    
-                    <option key={sujeto.id} value={sujeto.apellido} className='form-control ' id='floatingInput' >{sujeto.nombre} {sujeto.apellido} {`(${sujeto.especialidad ?? sujeto.cargo})`}</option>
+                
+                <option key={sujeto.id} value={sujeto.apellido || sujeto.nombre} className='form-control ' id='floatingInput' >{sujeto.nombre} {sujeto.apellido} {`(${sujeto.especialidad ?? sujeto.cargo})`}</option>
+                
     
     ))}
             </select> 

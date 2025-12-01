@@ -10,7 +10,7 @@ bd.run('CREATE TABLE IF NOT EXISTS turnos (id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , matricula TEXT , especialidad TEXT )")
 
-bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY, nombre TEXT, contraseña TEXT , cargo TEXT)")
+bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY, nombre TEXT, password TEXT , cargo TEXT)")
 
 bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
 
@@ -293,6 +293,35 @@ const InsertUsuario = async(usuario)=>{
     }
 };
 
+const SesionUsuario = (user)=>{
+    return new Promise((resolve , reject)=>{
+        let sql = 'SELECT * FROM  usuarios WHERE nombre = ?';
+       
+        let usuario = user.usuario;
+        let password = user.password;
+        bd.get(sql , [usuario], async (err, row)=>{
+           
+            if(err){
+                console.log(err.mensaje);
+                reject(err);
+            }if(!row){
+                resolve(false);
+                return;
+                
+            }
+            try {
+               
+                 const PasswordMatch = await bcrypt.compare(password , row.password);
+                 resolve(PasswordMatch)
+            } catch (bcryptError) {
+                console.error('Error al comparar contraseñas', bcryptError);
+                reject(bcryptError)
+            }
+        })
+
+    })
+}
+
 
 
 const InsertPaciHisto = async(paci)=>{
@@ -344,7 +373,8 @@ export default {
      InsertUsuario,
      InsertPaciHisto,
      ConsHistorial,
-     ConnsultarUsuario
+     ConnsultarUsuario,
+     SesionUsuario
      
 
 }

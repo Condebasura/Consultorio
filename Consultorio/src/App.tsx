@@ -379,6 +379,8 @@ url='http://localhost:3000/IngresarMedico'
     {name: "Contraseña", type:"password", required: true}
   ]}
   
+  method='POST'
+  url='http://localhost:3000/PostUsuario'
   />)}
 
   {action === 'Cerrar' && (<Formulario

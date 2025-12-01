@@ -191,7 +191,7 @@ try {
     }
  };
 
-// Continuar con la eliminacion de turno
+
 
  const EliminarTurno = async (req, res)=>{
 
@@ -335,7 +335,31 @@ else{
     } catch (error) {
         res.status(500).json({mensaje: "Error del servidor", error})
     }
- }
+ };
+
+
+ const PostUsuario = async (req, res)=>{
+
+    try {
+        
+        const user = {
+            usuario: req.body.Usuario,
+            password: req.body.Contraseña,
+        }
+     
+        const pass = await bd.SesionUsuario(user)
+        if(pass){
+            console.log("Las contraseñas coinciden");
+            res.status(200).json({mensaje: "coincide"})
+        }else{
+            console.log("No coinciden")
+        }
+
+    } catch (error) {
+        res.status(500).json({mensaje: 'Error interno del servidor', error})
+        
+    }
+ };
 
  const IngresarUsuario = async (req , res)=>{
 
@@ -414,7 +438,8 @@ export default {
      IngresarUsuario,
      AgregarHistorial,
      GetHistorial,
-     SelectUsuario
+     SelectUsuario,
+     PostUsuario
      
 
 }
