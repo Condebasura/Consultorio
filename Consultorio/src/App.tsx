@@ -46,11 +46,11 @@ function App() {
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
-<Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
+<Libtn className='disabled list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
 
   <Libtn className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
 
-    <Libtn name='Sesion' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
+    <Libtn name='Sesiones' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
@@ -112,7 +112,7 @@ onSelect={setAction}
 </Ul>)}
 
 {Tipos === "Sesion" && (<Ul
-titulo='Sesiones'
+titulo='Sesion'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 onSelect={setAction}
 />)}
@@ -397,7 +397,8 @@ campos={[
  campos={[
   {name: 'nombre', required: true},
   {name: 'contraseña', type: "password" , required:true},
-  {name:'cargo' , required: true}
+  {name:'cargo' , required: true},
+  {name: 'tipo', required: true}
  ]}
 
 method='POST'

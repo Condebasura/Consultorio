@@ -367,7 +367,8 @@ else{
         const usuario = {
             nombre: req.body.nombre,
             contraseña: req.body.contraseña,
-            cargo: req.body.cargo
+            cargo: req.body.cargo,
+            tipo: req.body.tipo
         }
 
         const data = await bd.InsertUsuario(usuario);

@@ -7,8 +7,11 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import http from 'http';
 import {Server} from 'socket.io';
+import session from 'express-session';
+import dotenv from 'dotenv'; 
 import SecControllers from './controllers/SecControllers.js';
 
+dotenv.config();
 
 const _dirname = (process.platform === 'win32')? fileURLToPath(new URL(".", import.meta.url)): path.dirname(new URL(import.meta.url).pathname);
 
@@ -56,6 +59,13 @@ app.use( helmet.contentSecurityPolicy({
 
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
+    app.use(session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false
+    }))
+
+
     app.post("/AltaPaciente", SecControllers.AltaPaciente);
     app.post("/SearchPaciente", SecControllers.SearchPaciente);
     app.put("/UpdatePaciente/:id", SecControllers.ActualizarPaciente);

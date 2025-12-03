@@ -14,3 +14,11 @@ margin: 0;
 .inputs{
     background-color: rgb(214, 231, 222);
 }
+
+.disabled{
+    background-color: rgb(155, 156, 156) !important;
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+}
