@@ -347,12 +347,14 @@ else{
             password: req.body.Contraseña,
         }
      
-        const pass = await bd.SesionUsuario(user)
-        if(pass){
-            console.log("Las contraseñas coinciden");
-            res.status(200).json({mensaje: "coincide"})
+        const Data = await bd.SesionUsuario(user)
+        if(!Data){
+           return res.status(404).json({mensaje: "Credenciales incorrectas"})
         }else{
-            console.log("No coinciden")
+            console.log("Los datos", Data)
+            console.log("Las contraseñas coinciden");
+            return res.status(200).json({mensaje: "coincide"})
+        
         }
 
     } catch (error) {

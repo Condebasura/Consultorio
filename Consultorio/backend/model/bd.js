@@ -303,19 +303,27 @@ const SesionUsuario = (user)=>{
            
             if(err){
                 console.log(err.mensaje);
-                reject(err);
+                return reject(err);
             }if(!row){
-                resolve(false);
-                return;
+                return resolve(false)
                 
             }
-            try {
-               
-                 const PasswordMatch = await bcrypt.compare(password , row.password);
-                 resolve(PasswordMatch)
-            } catch (bcryptError) {
-                console.error('Error al comparar contraseñas', bcryptError);
-                reject(bcryptError)
+            
+                
+                try {
+                    
+                    const PasswordMatch = await bcrypt.compare(password , row.password);
+                   if(!PasswordMatch){
+
+                      return resolve(false);
+                   }
+                    return resolve({ok: true, row})
+                    
+                    
+                } catch (bcryptError) {
+                    console.error('Error al comparar contraseñas', bcryptError);
+                    reject(bcryptError)
+                
             }
         })
 

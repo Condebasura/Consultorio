@@ -20,6 +20,8 @@ type FormProps={
     nameBtn?: string;
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
+    headers?:HeadersInit;
+    body?: string; 
     children?: React.ReactNode;
     valoresIniciales?:Record<string, string>;
     
