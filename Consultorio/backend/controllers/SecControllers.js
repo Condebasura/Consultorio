@@ -353,7 +353,7 @@ else{
         }else{
             console.log("Los datos", Data)
             console.log("Las contraseñas coinciden");
-            return res.status(200).json({mensaje: "coincide"})
+            return res.status(200).json(Data)
         
         }
 

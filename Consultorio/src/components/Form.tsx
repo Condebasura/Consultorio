@@ -56,8 +56,8 @@ const res = await fetch(url,{
 })
 const data =  await res.json();
 
-console.log(data.mensaje)
-setValores({})
+console.log("Datos de Formulario",data)
+setValores({data})
 
  }
 

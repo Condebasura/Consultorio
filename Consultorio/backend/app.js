@@ -11,6 +11,7 @@ import session from 'express-session';
 import dotenv from 'dotenv'; 
 import SecControllers from './controllers/SecControllers.js';
 
+
 dotenv.config();
 
 const _dirname = (process.platform === 'win32')? fileURLToPath(new URL(".", import.meta.url)): path.dirname(new URL(import.meta.url).pathname);

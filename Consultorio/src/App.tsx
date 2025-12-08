@@ -382,7 +382,6 @@ url='http://localhost:3000/IngresarMedico'
   method='POST'
   url='http://localhost:3000/PostUsuario'
   headers={{"Content-Type":"application/json"}} 
-  
   />
   
   
@@ -395,7 +394,9 @@ campos={[
   {name: 'Contraseña', required: true, type: 'password'}
 ]}
   nameBtn='Cerrar'
-  />)}
+  
+  />
+)}
 
 {action === 'Agregar' &&(<Formulario
  titulo=  "Agregar Usuario"
