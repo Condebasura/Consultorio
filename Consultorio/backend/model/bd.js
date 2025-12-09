@@ -317,7 +317,7 @@ const SesionUsuario = (user)=>{
 
                       return resolve(false);
                    }
-                    return resolve({ok: true, row})
+                    return resolve( row)
                     
                     
                 } catch (bcryptError) {

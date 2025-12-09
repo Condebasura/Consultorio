@@ -2,6 +2,11 @@ import Inputs from "./Input";
 import { useEffect, useState } from "react";
 import Selec from "./Select";
 
+type Usuario={
+    nombre:string;
+    cargo:string;
+    rol:string;
+}
 
 type Campo ={
     name:string;
@@ -24,13 +29,13 @@ type FormProps={
     body?: string; 
     children?: React.ReactNode;
     valoresIniciales?:Record<string, string>;
-    
+    onUserData?:(usuario: Usuario)=> void ;
     
 
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales }: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales  , onUserData}: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
 
@@ -54,10 +59,10 @@ const res = await fetch(url,{
     headers: {'Content-Type': 'application/json'},
     body: method !== "GET"? JSON.stringify(valores): undefined
 })
-const data =  await res.json();
+const data: Usuario =  await res.json();
 
-console.log("Datos de Formulario",data)
-setValores({data})
+
+onUserData(data)
 
  }
 

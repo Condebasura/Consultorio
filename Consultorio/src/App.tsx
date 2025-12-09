@@ -18,7 +18,7 @@ function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
      const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
-     
+     const [userData , setUserData] = useState<Usuario |null>(null);
 
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
       setPacienteSeleccionado(pacienteSeleccionado);
@@ -54,13 +54,20 @@ function App() {
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
+ {userData &&(<div className='bg bg-white m-3'>
+  <h5>Usuario Activo</h5>
+  <ul key={userData.id} className='list-group m-0 '>
+  <li className='list-group-item'>Usuario: {userData.nombre}</li>
+  <li className='list-group-item'>Cargo: {userData.cargo}</li>
+
+  </ul>
+ </div>)}
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
       
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
   <Calendario/>
  </div>
- 
 
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
   
@@ -382,6 +389,7 @@ url='http://localhost:3000/IngresarMedico'
   method='POST'
   url='http://localhost:3000/PostUsuario'
   headers={{"Content-Type":"application/json"}} 
+  onUserData={setUserData}
   />
   
   
