@@ -56,7 +56,7 @@ useEffect(()=>{
                 start: new Date(t.start),
                 end: new Date(t.end),
             }));
-            
+            console.log(evFormat)
             setEventos(evFormat);
            
           // coneccion Socket 
