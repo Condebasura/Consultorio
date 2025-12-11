@@ -13,7 +13,7 @@ function FormatearEventos(turnos){
               const fecha = new Date(year, month - 1, day, hora, minuto);
               fecha.setHours(hora, minuto);
              
-
+           
             return{
                 id: t.id,
                 title: `${t.nombre} ${t.apellido} - ${t.medico}`,
@@ -366,8 +366,12 @@ else{
  const IngresarUsuario = async (req , res)=>{
 
     try {
+
+        const validar = await bd.ValidMedico(req.params.id);
+console.log(validar)
         const usuario = {
-            nombre: req.body.nombre,
+            medico_id: validar.id,
+            nombre:  req.body.nombre,
             contraseña: req.body.contraseña,
             cargo: req.body.cargo,
             tipo: req.body.tipo

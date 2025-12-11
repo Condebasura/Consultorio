@@ -405,11 +405,13 @@ campos={[
   
   />
 )}
-
-{action === 'Agregar' &&(<Formulario
+{// Seguir intentando que la busqueda se refleje en el nombre de usuario si se requiere
+}
+{action === 'Agregar' && (<Formulario
  titulo=  "Agregar Usuario"
+ 
  campos={[
-  {name: 'nombre', required: true},
+  {name: "nombre"},
   {name: 'contraseña', type: "password" , required:true},
   {name:'cargo' , required: true},
   {name: 'tipo', required: true}
@@ -417,7 +419,10 @@ campos={[
 
 method='POST'
 url='http://localhost:3000/IngresarUsuario'
-/>)}
+>
+  <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
+  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
+</Formulario>)}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={pacienteSeleccionado || ""}/>)}
 

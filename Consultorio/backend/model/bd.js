@@ -10,7 +10,7 @@ bd.run('CREATE TABLE IF NOT EXISTS turnos (id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , matricula TEXT , especialidad TEXT )")
 
-bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY, nombre TEXT, password TEXT , cargo TEXT , tipo TEXT)")
+bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY,medico_id TEXT NOT NULL, nombre TEXT, password TEXT , cargo TEXT , tipo TEXT, FOREIGN KEY (medico_id) REFERENCES medicos(id))")
 
 bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
 
@@ -284,8 +284,8 @@ const InsertUsuario = async(usuario)=>{
     try {
         const id = uuidv4();
         const crakedPassword = await bcrypt.hash(usuario.contraseña , saltRounds)
-        let stmt = bd.prepare('INSERT INTO usuarios(id , nombre , contraseña , cargo, tipo) VALUES(?,?,?,?,?)');
-        stmt.run(id, usuario.nombre, crakedPassword , usuario.cargo , usuario.tipo);
+        let stmt = bd.prepare('INSERT INTO usuarios(id ,medico_id, nombre , contraseña , cargo, tipo) VALUES(?,?,?,?,?,?)');
+        stmt.run(id, usuario.medico_id ,usuario.nombre, crakedPassword , usuario.cargo , usuario.tipo);
         stmt.finalize();
         return "Usuario ingresado con exito";
     } catch (error) {
