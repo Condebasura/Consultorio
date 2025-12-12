@@ -122,7 +122,11 @@ onSelect={setAction}
 titulo='Sesion'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 onSelect={setAction}
-/>)}
+>
+ <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
+  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
+
+</Ul>)}
 
  {Tipos ===  'Historial' &&(<Ul 
   titulo='Historial'
@@ -405,24 +409,25 @@ campos={[
   
   />
 )}
-{// Seguir intentando que la busqueda se refleje en el nombre de usuario si se requiere
+{// configurar el formulario para que se borre completamete luego de enviar datos asi no se sigue enviando el medico_id cuando no es un medico 
 }
 {action === 'Agregar' && (<Formulario
  titulo=  "Agregar Usuario"
  
  campos={[
-  {name: "nombre"},
-  {name: 'contraseña', type: "password" , required:true},
-  {name:'cargo' , required: true},
+  {name: "apellido", required: true},
+  {name: 'contraseña', type: "password" , required: true},
+  {name:'cargo' , required:true },
   {name: 'tipo', required: true}
  ]}
 
 method='POST'
-url='http://localhost:3000/IngresarUsuario'
->
-  <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
-  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
-</Formulario>)}
+url={`http://localhost:3000/IngresarUsuario/${pacienteSeleccionado?.id || ""}`}
+valoresIniciales={pacienteSeleccionado || ""}
+/>
+ 
+    
+)}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={pacienteSeleccionado || ""}/>)}
 

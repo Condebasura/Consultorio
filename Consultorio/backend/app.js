@@ -80,7 +80,7 @@ app.use( helmet.contentSecurityPolicy({
     app.post("/SearchMedico", SecControllers.SearchMed);
     app.put("/UpdateMedico/:id", SecControllers.EditarMedico);
     app.delete("/EliminarMedico/:id", SecControllers.EliminarMedico);
-    app.post("/IngresarUsuario", SecControllers.IngresarUsuario);
+    app.post("/IngresarUsuario/:id", SecControllers.IngresarUsuario);
     app.put("/AgregarAlHistorial/:id", SecControllers.AgregarHistorial);
     app.get("/VerHistorialPaciente/:id", SecControllers.GetHistorial);
     app.get("/ConsUsuario", SecControllers.SelectUsuario);

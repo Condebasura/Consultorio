@@ -364,26 +364,29 @@ else{
  };
 
  const IngresarUsuario = async (req , res)=>{
-
-    try {
-
-        const validar = await bd.ValidMedico(req.params.id);
-console.log(validar)
-        const usuario = {
-            medico_id: validar.id,
-            nombre:  req.body.nombre,
+     try {
+         const validar = await bd.ValidMedico(req.params.id);
+         
+         console.log("el id", validar);
+         
+        if(!validar){
+         return   res.status(409).json({mensaje: "Error al ingresar el usuario"})
+        }else{
+            
+            const usuario = {
+                medico_id: validar.id,
+            apellido:  req.body.apellido,
             contraseña: req.body.contraseña,
             cargo: req.body.cargo,
             tipo: req.body.tipo
         }
-
-        const data = await bd.InsertUsuario(usuario);
-        if(!data){
-           return res.status(409).json({mensaje: "No fue posible ingresar el usuario"})
-        }
-        else{
- return res.status(200).json({mensaje: "usuario registrado con exito"})
-        }
+        console.log('el Usuario', usuario)
+        
+         await bd.InsertUsuario(usuario);
+        
+ return  res.status(200).json({mensaje: "Se agrego el usuario"})
+        
+    }
     } catch (error) {
         return res.status(500).json({mensaje: "Error interno en el servidor", error})
     }
