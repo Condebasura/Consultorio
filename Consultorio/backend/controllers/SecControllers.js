@@ -369,12 +369,23 @@ else{
          
          console.log("el id", validar);
          
-        if(!validar){
-         return   res.status(409).json({mensaje: "Error al ingresar el usuario"})
-        }else{
+        if(validar){
+          const usuario = {
+            medico_id: validar.id,
+            apellido:  req.body.apellido,
+            contraseña: req.body.contraseña,
+            cargo: req.body.cargo,
+            tipo: req.body.tipo
+        }
+        console.log('el Usuario', usuario)
+        
+         await bd.InsertUsuario(usuario);
+        
+ return  res.status(200).json({mensaje: "Se agrego el usuario"})
+        }if(!validar){
             
             const usuario = {
-                medico_id: validar.id,
+            medico_id: "NoMedico",
             apellido:  req.body.apellido,
             contraseña: req.body.contraseña,
             cargo: req.body.cargo,
