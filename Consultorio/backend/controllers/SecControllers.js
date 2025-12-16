@@ -1,5 +1,6 @@
 import bd from "../model/bd.js";
 import { io } from "../app.js";
+import {v4 as uuidv4} from 'uuid';
 
 
 
@@ -366,30 +367,31 @@ else{
 
  const IngresarUsuario = async (req , res)=>{
      try {
-          // considerar un id por defecto para no medicos.
-         
-        const validar = await bd.ValidMedico(req.params.id);
-         
-         console.log("el id", validar);
-         
-         if(validar){
-             const usuario = {
-                 medico_id: validar.id,
-                 apellido:  req.body.apellido,
-                 contraseña: req.body.contraseña,
-                 cargo: req.body.cargo,
-                 tipo: req.body.tipo
-                }
+          const {apellido,contraseña,cargo, tipo} = req.body;
+
+         let medico_id = "NoMedico";
+
+          if(tipo === "Medico"){
+              const validar = await bd.ValidMedico(req.params.id);
+            
+              if(!validar){
+                return res.status(400).json({mensaje: "Medico no valido"})
+              }
+              medico_id = validar.id;
+          }
+          const usuario = {
+             medico_id,
+             apellido,
+             contraseña,
+             cargo,
+             tipo, 
+            }
                 console.log('el Usuario', usuario)
-                if(usuario.tipo !== "Medico"){
-                    usuario.medico_id = "NoMedico";
-                    console.log("El usuario despues del if",usuario)
-                   
-                }
+                
                 await bd.InsertUsuario(usuario);
                     return  res.status(200).json({mensaje: "Se agrego el usuario"})
  
-        }
+        
     } catch (error) {
         return res.status(500).json({mensaje: "Error interno en el servidor", error})
     }
