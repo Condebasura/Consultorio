@@ -409,8 +409,7 @@ campos={[
   
   />
 )}
-{// configurar el formulario para que se borre completamete luego de enviar datos asi no se sigue enviando el medico_id cuando no es un medico 
-}
+
 {action === 'Agregar' && (<Formulario
  titulo=  "Agregar Usuario"
  

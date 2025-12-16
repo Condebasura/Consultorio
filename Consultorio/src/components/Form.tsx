@@ -62,8 +62,7 @@ const res = await fetch(url,{
 })
 const data: Usuario =  await res.json();
 if(res.ok){
-    console.log("valores antes",valores)
-    // Continuar intentando que despues de ingresar un medico no quede el id relacional del medico al ingresar otro usuario
+// Esto esta haciendo que no me permita iniciar sesion adecuadamente
     setValores({id:"",
         medico_id: "",
         apellido:"",
@@ -71,7 +70,7 @@ if(res.ok){
         rol:"",
         
     })
-    console.log("valores Despues", valores)
+    
     onUserData(data)
 }
 

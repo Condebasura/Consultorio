@@ -348,6 +348,7 @@ else{
         }
      
         const Data = await bd.SesionUsuario(user)
+        console.log("La data",Data)
         if(!Data){
            return res.status(404).json({mensaje: "Credenciales incorrectas"})
         }else{
@@ -365,39 +366,30 @@ else{
 
  const IngresarUsuario = async (req , res)=>{
      try {
-         const validar = await bd.ValidMedico(req.params.id);
+          // considerar un id por defecto para no medicos.
+         
+        const validar = await bd.ValidMedico(req.params.id);
          
          console.log("el id", validar);
          
-        if(validar){
-          const usuario = {
-            medico_id: validar.id,
-            apellido:  req.body.apellido,
-            contraseña: req.body.contraseña,
-            cargo: req.body.cargo,
-            tipo: req.body.tipo
+         if(validar){
+             const usuario = {
+                 medico_id: validar.id,
+                 apellido:  req.body.apellido,
+                 contraseña: req.body.contraseña,
+                 cargo: req.body.cargo,
+                 tipo: req.body.tipo
+                }
+                console.log('el Usuario', usuario)
+                if(usuario.tipo !== "Medico"){
+                    usuario.medico_id = "NoMedico";
+                    console.log("El usuario despues del if",usuario)
+                   
+                }
+                await bd.InsertUsuario(usuario);
+                    return  res.status(200).json({mensaje: "Se agrego el usuario"})
+ 
         }
-        console.log('el Usuario', usuario)
-        
-         await bd.InsertUsuario(usuario);
-        
- return  res.status(200).json({mensaje: "Se agrego el usuario"})
-        }if(!validar){
-            
-            const usuario = {
-            medico_id: "NoMedico",
-            apellido:  req.body.apellido,
-            contraseña: req.body.contraseña,
-            cargo: req.body.cargo,
-            tipo: req.body.tipo
-        }
-        console.log('el Usuario', usuario)
-        
-         await bd.InsertUsuario(usuario);
-        
- return  res.status(200).json({mensaje: "Se agrego el usuario"})
-        
-    }
     } catch (error) {
         return res.status(500).json({mensaje: "Error interno en el servidor", error})
     }
