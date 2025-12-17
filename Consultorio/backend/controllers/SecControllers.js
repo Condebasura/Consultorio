@@ -344,18 +344,17 @@ else{
     try {
         
         const user = {
-            usuario: req.body.Usuario,
-            password: req.body.Contraseña,
+            apellido: req.body.apellido,
+            contraseña: req.body.contraseña,
         }
      
         const Data = await bd.SesionUsuario(user)
-        console.log("La data",Data)
+        
         if(!Data){
            return res.status(404).json({mensaje: "Credenciales incorrectas"})
         }else{
-            console.log("Los datos", Data)
-            console.log("Las contraseñas coinciden");
-            return res.status(200).json(Data)
+           
+         return res.status(200).json(Data)
         
         }
 
@@ -365,35 +364,56 @@ else{
     }
  };
 
- const IngresarUsuario = async (req , res)=>{
+ const IngresarUsuarioMedico = async (req , res)=>{
      try {
-          const {apellido,contraseña,cargo, tipo} = req.body;
-
-         let medico_id = "NoMedico";
-
-          if(tipo === "Medico"){
-              const validar = await bd.ValidMedico(req.params.id);
+          const validar = await bd.ValidMedico(req.params.id);
             
               if(!validar){
                 return res.status(400).json({mensaje: "Medico no valido"})
-              }
-              medico_id = validar.id;
-          }
-          const usuario = {
-             medico_id,
-             apellido,
-             contraseña,
-             cargo,
-             tipo, 
-            }
-                console.log('el Usuario', usuario)
+              
+              
+          }else{
+
+              const usuario = {
+                  medico_id: validar.id,
+                  apellido: req.body.apellido,
+                  contraseña: req.body.contraseña,
+                  cargo: req.body.cargo,
+                  tipo: req.body.tipo, 
+                }
+                if(usuario.tipo !== "Medico"){
+            usuario.medico_id = null;
+        }
                 
                 await bd.InsertUsuario(usuario);
-                    return  res.status(200).json({mensaje: "Se agrego el usuario"})
- 
+                return  res.status(200).json({mensaje: "Se agrego el usuario"})
+                
+            }
         
     } catch (error) {
         return res.status(500).json({mensaje: "Error interno en el servidor", error})
+    }
+ };
+
+ const IngresarUsuario = async (req , res)=>{
+    try {
+        const usuario = {
+            medico_id: null,
+             apellido: req.body.apellido,
+             contraseña: req.body.contraseña,
+             cargo: req.body.cargo,
+             tipo: req.body.tipo, 
+        }
+
+        
+
+        await bd.InsertUsuario(usuario);
+
+        return res.status(200).json({mensaje:'Se agrego el usuario'})
+
+
+    } catch (error) {
+        return res.status(500).json({mensaje: 'Error interno en el servidor', error})
     }
  }
 
@@ -451,6 +471,7 @@ export default {
      EditarMedico, 
      EliminarMedico,
      IngresarUsuario,
+     IngresarUsuarioMedico,
      AgregarHistorial,
      GetHistorial,
      SelectUsuario,

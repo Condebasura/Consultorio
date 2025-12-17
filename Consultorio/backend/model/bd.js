@@ -278,7 +278,9 @@ const ConnsultarUsuario = () =>{
             }
         })
 })
-}
+};
+
+
 
 const InsertUsuario = async(usuario)=>{
     try {
@@ -295,10 +297,10 @@ const InsertUsuario = async(usuario)=>{
 
 const SesionUsuario = (user)=>{
     return new Promise((resolve , reject)=>{
-        let sql = 'SELECT * FROM  usuarios WHERE nombre = ?';
+        let sql = 'SELECT * FROM  usuarios WHERE apellido = ?';
        
-        let usuario = user.usuario;
-        let password = user.password;
+        let usuario = user.apellido;
+        let contraseña = user.contraseña;
         bd.get(sql , [usuario], async (err, row)=>{
            
             if(err){
@@ -312,7 +314,7 @@ const SesionUsuario = (user)=>{
                 
                 try {
                     
-                    const PasswordMatch = await bcrypt.compare(password , row.password);
+                    const PasswordMatch = await bcrypt.compare(contraseña , row.contraseña);
                    if(!PasswordMatch){
 
                       return resolve(false);

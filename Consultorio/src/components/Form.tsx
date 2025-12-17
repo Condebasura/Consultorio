@@ -62,7 +62,7 @@ const res = await fetch(url,{
 })
 const data: Usuario =  await res.json();
 if(res.ok){
-// Esto esta haciendo que no me permita iniciar sesion adecuadamente
+
     setValores({id:"",
         medico_id: "",
         apellido:"",
@@ -73,6 +73,7 @@ if(res.ok){
     
     onUserData(data)
 }
+    onUserData(data)
 
 
  }

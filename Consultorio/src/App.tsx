@@ -46,7 +46,7 @@ function App() {
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
-<Libtn className='disabled list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
+<Libtn className='seccions list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
 
   <Libtn className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
 
@@ -57,7 +57,7 @@ function App() {
  {userData &&(<div className='bg bg-white m-3'>
   <h5>Usuario Activo</h5>
   <ul key={userData.id} className='list-group m-0 '>
-  <li className='list-group-item'>Usuario: {userData.nombre}</li>
+  <li className='list-group-item'>Usuario: {userData.apellido}</li>
   <li className='list-group-item'>Cargo: {userData.cargo}</li>
 
   </ul>
@@ -386,8 +386,8 @@ url='http://localhost:3000/IngresarMedico'
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "Usuario",type: "selector",url:'http://localhost:3000/ConsUsuario', required:true},
-    {name: "Contraseña", type:"password", required: true}
+    {name: "apellido",type: "selector",url:'http://localhost:3000/ConsUsuario', required:true},
+    {name: "contraseña", type:"password", required: true}
   ]}
   
   method='POST'
@@ -399,7 +399,7 @@ url='http://localhost:3000/IngresarMedico'
   
 )}
 
-  {action === 'Cerrar' && (<Formulario
+  {action === 'Cerrar' &&(<Formulario
   
   titulo='Cerrar Sesion'
 campos={[
@@ -408,9 +408,9 @@ campos={[
   nameBtn='Cerrar'
   
   />
-)}
+) }
 
-{action === 'Agregar' && (<Formulario
+{action === 'Agregar' &&(pacienteSeleccionado)? (<Formulario
  titulo=  "Agregar Usuario"
  
  campos={[
@@ -421,12 +421,22 @@ campos={[
  ]}
 
 method='POST'
-url={`http://localhost:3000/IngresarUsuario/${pacienteSeleccionado?.id || ""}`}
+url={`http://localhost:3000/IngresarUsuarioMedico/${pacienteSeleccionado?.id || ""}`}
 valoresIniciales={pacienteSeleccionado || ""}
-/>
+/>): action === "Agregar" && (!pacienteSeleccionado) && (<Formulario
+ titulo=  "Agregar Usuario"
  
-    
-)}
+ campos={[
+  {name: "apellido", required: true},
+  {name: 'contraseña', type: "password" , required: true},
+  {name:'cargo' , required:true },
+  {name: 'tipo', required: true}
+ ]}
+
+method='POST'
+url="http://localhost:3000/IngresarUsuario"
+valoresIniciales={pacienteSeleccionado || ""}
+/>)}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={pacienteSeleccionado || ""}/>)}
 
