@@ -86,6 +86,8 @@ app.use( helmet.contentSecurityPolicy({
     app.get("/VerHistorialPaciente/:id", SecControllers.GetHistorial);
     app.get("/ConsUsuario", SecControllers.SelectUsuario);
     app.post("/PostUsuario", SecControllers.PostUsuario);
+    app.post("/SearchUsuario", SecControllers.searchUser);
+    app.delete("/EliminarUsuario/:id", SecControllers.EliminarUsuario);
 
     server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);

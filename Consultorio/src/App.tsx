@@ -123,7 +123,9 @@ titulo='Sesion'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 onSelect={setAction}
 >
+  {action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchUsuario' />): 
  <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
+}
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
@@ -435,6 +437,23 @@ valoresIniciales={pacienteSeleccionado || ""}
 
 method='POST'
 url="http://localhost:3000/IngresarUsuario"
+valoresIniciales={pacienteSeleccionado || ""}
+/>)}
+
+
+{action === "Quitar" && (<Formulario
+
+titulo='Eliminar Usuario'
+
+campos={[
+  {name: "apellido", required: true},
+  {name:'cargo', required:true}, 
+  {name: 'tipo', required:true}
+]}
+nameBtn='Eliminar'
+
+method='DELETE'
+url={`http://localhost:3000/EliminarUsuario/${pacienteSeleccionado?.id}`}
 valoresIniciales={pacienteSeleccionado || ""}
 />)}
 

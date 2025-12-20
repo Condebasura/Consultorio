@@ -415,6 +415,36 @@ else{
     } catch (error) {
         return res.status(500).json({mensaje: 'Error interno en el servidor', error})
     }
+ };
+
+ const searchUser = async (req,res)=>{
+     try {
+    const {apellido} = req.body;
+   const data = await bd.SearchUsuario(apellido)
+    if(!data){
+        return res.status(404).json({mensaje:'No se encontro ningun medico'})
+    }else{
+        return res.status(200).json(data);
+    }
+    
+   } catch (error) {
+    res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
+   }
+ }
+
+ const EliminarUsuario = async(req , res)=>{
+    
+    try {
+        const id = await req.params.id;
+
+        console.log(id)
+
+        bd.DeleteUsuario(id)
+    return res.status(200).json({mensaje:'Usuario el iminado con exito'})
+    } catch (error) {
+    console.log("error al eliminar", error)    
+    }
+    
  }
 
 const AgregarHistorial = async (req , res)=>{
@@ -475,7 +505,9 @@ export default {
      AgregarHistorial,
      GetHistorial,
      SelectUsuario,
-     PostUsuario
+     PostUsuario, 
+     searchUser,
+     EliminarUsuario
      
 
 }

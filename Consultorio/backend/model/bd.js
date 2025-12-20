@@ -330,6 +330,35 @@ const SesionUsuario = (user)=>{
         })
 
     })
+};
+
+
+const SearchUsuario = (apellido)=>{
+
+    return new Promise((resolve , reject)=>{
+
+        let sql = 'SELECT * FROM usuarios WHERE apellido LIKE ?';
+        bd.all(sql, [`%${apellido}%`], (err , rows)=>{
+            if(err){
+                reject(err.mensaje)
+            }else{
+                resolve(rows)
+            }
+        })
+    })
+
+}
+
+
+const DeleteUsuario = (id)=>{
+    let sql = 'DELETE  FROM usuarios WHERE id = ?';
+    bd.run(sql,[id],(err)=>{
+        if(err){
+            console.log( "error al eliminar")
+        }else{
+            console.log("Usuario eliminado")
+        }
+    })
 }
 
 
@@ -384,7 +413,9 @@ export default {
      InsertPaciHisto,
      ConsHistorial,
      ConnsultarUsuario,
-     SesionUsuario
+     SesionUsuario,
+     DeleteUsuario,
+     SearchUsuario
      
 
 }
