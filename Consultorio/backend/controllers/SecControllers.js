@@ -349,7 +349,7 @@ else{
         }
      
         const Data = await bd.SesionUsuario(user)
-        
+        console.log(Data.tipo)
         if(!Data){
            return res.status(404).json({mensaje: "Credenciales incorrectas"})
         }else{
