@@ -1,6 +1,7 @@
 import bd from "../model/bd.js";
 import { io } from "../app.js";
 import {v4 as uuidv4} from 'uuid';
+import session from "express-session";
 
 
 
@@ -349,12 +350,20 @@ else{
         }
      
         const Data = await bd.SesionUsuario(user)
-        console.log(Data.tipo)
+        
         if(!Data){
-           return res.status(404).json({mensaje: "Credenciales incorrectas"})
-        }else{
            
-         return res.status(200).json(Data)
+            return res.status(404).json({mensaje: "Credenciales incorrectas"})
+        }else{
+            req.session.Usuario = {
+                id:Data.id,
+                apellido: Data.apellido,
+                cargo: Data.cargo,
+                rol: Data.tipo
+            };
+
+
+            return res.status(200).json({ok: true})
         
         }
 
@@ -364,6 +373,8 @@ else{
     }
  };
 
+
+ 
  const IngresarUsuarioMedico = async (req , res)=>{
      try {
           const validar = await bd.ValidMedico(req.params.id);
@@ -437,7 +448,7 @@ else{
     try {
         const id = await req.params.id;
 
-        console.log(id)
+        
 
         bd.DeleteUsuario(id)
     return res.status(200).json({mensaje:'Usuario el iminado con exito'})
