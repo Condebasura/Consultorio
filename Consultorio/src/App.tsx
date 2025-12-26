@@ -12,6 +12,7 @@ import MiniTabla from './components/MiniTabla';
 import Calendario from './components/calendario';
 import Text from './components/texto';
 import TablaHistorial from './components/TablaHistorial';
+import Sesiones from './components/Sesion';
 
 
 function App() {
@@ -19,6 +20,20 @@ function App() {
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
      const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
      const [userData , setUserData] = useState<Usuario |null>(null);
+  
+     function useSesion(url: string){
+     const [usuario , setUsuario] = useState<Usuario |null>(null);
+
+      const [loadng, setLoading] = useState(true);
+
+      useEffect(()=>{
+        fetch(url, {credentials:'include'})
+        .then(res => res.ok ? res.json() : null)
+        .then(data => setUsuario(data))
+        .finally(()=> setLoading(false))
+      }, [url])
+      return {usuario , loadng}
+    }
 
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
       setPacienteSeleccionado(pacienteSeleccionado);
@@ -33,7 +48,7 @@ function App() {
               }
             })};
 
-
+const {usuario , loadng} = useSesion("http://localhost:3000/sesion")
 
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);
@@ -54,14 +69,10 @@ function App() {
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
- {userData &&(<div className='bg bg-white m-3'>
-  <h5>Usuario Activo</h5>
-  <ul key={userData.id} className='list-group m-0 '>
-  <li className='list-group-item'>Usuario: {userData.apellido}</li>
-  <li className='list-group-item'>Cargo: {userData.cargo}</li>
-
-  </ul>
- </div>)}
+{ (<Sesiones
+titulo='Sesion Activa'
+usuario={usuario}
+/>)}
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
       

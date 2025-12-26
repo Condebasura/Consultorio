@@ -456,7 +456,22 @@ else{
     console.log("error al eliminar", error)    
     }
     
- }
+ };
+
+ const GetSesion = (req, res)=>{
+   
+    if(!req.session.usuario){
+        return res.status(401).json({logueado: false})
+    }
+
+    console.log(req.session.usuario)
+   return res.json({
+        logueado: true,
+        usuario: req.session.usuario
+    })
+ };
+
+
 
 const AgregarHistorial = async (req , res)=>{
 try {
@@ -518,7 +533,8 @@ export default {
      SelectUsuario,
      PostUsuario, 
      searchUser,
-     EliminarUsuario
+     EliminarUsuario,
+     GetSesion
      
 
 }
