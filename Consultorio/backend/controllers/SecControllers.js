@@ -355,14 +355,15 @@ else{
            
             return res.status(404).json({mensaje: "Credenciales incorrectas"})
         }else{
-            req.session.Usuario = {
+            req.session.usuario = {
                 id:Data.id,
                 apellido: Data.apellido,
                 cargo: Data.cargo,
                 rol: Data.tipo
             };
 
-
+         console.log(req.session.usuario)
+         io.to(req.session.usuario.id).emit('session:updated')
             return res.status(200).json({ok: true})
         
         }
@@ -373,6 +374,20 @@ else{
     }
  };
 
+
+  const GetSesion = (req, res)=>{
+   
+    if(!req.session.usuario){
+        console.log("no hay usuario",req.session)
+        return res.status(401).json({logueado: false})
+    }
+
+    console.log("Hay usuario",req.session)
+   return res.json({
+        logueado: true,
+        usuario: req.session.usuario
+    })
+ };
 
  
  const IngresarUsuarioMedico = async (req , res)=>{
@@ -458,18 +473,7 @@ else{
     
  };
 
- const GetSesion = (req, res)=>{
-   
-    if(!req.session.usuario){
-        return res.status(401).json({logueado: false})
-    }
 
-    console.log(req.session.usuario)
-   return res.json({
-        logueado: true,
-        usuario: req.session.usuario
-    })
- };
 
 
 

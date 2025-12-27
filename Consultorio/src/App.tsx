@@ -13,6 +13,8 @@ import Calendario from './components/calendario';
 import Text from './components/texto';
 import TablaHistorial from './components/TablaHistorial';
 import Sesiones from './components/Sesion';
+import type { Usuario } from './components/Sesion';
+
 
 
 function App() {
@@ -20,17 +22,27 @@ function App() {
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
      const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
      const [userData , setUserData] = useState<Usuario |null>(null);
-  
+      
+
+
      function useSesion(url: string){
      const [usuario , setUsuario] = useState<Usuario |null>(null);
 
       const [loadng, setLoading] = useState(true);
 
-      useEffect(()=>{
-        fetch(url, {credentials:'include'})
-        .then(res => res.ok ? res.json() : null)
-        .then(data => setUsuario(data))
-        .finally(()=> setLoading(false))
+      useEffect(() =>{
+        const fetchSesion = async()=>{
+        try {
+          
+          await fetch(url, {credentials:'include'})
+           .then(res => res.ok ? res.json() : null)
+           .then(data => setUsuario(data))
+           .finally(()=> setLoading(false))
+        } catch (error) {
+          console.log("error en el fetch", error)
+        }
+        }
+        fetchSesion();
       }, [url])
       return {usuario , loadng}
     }
@@ -69,7 +81,7 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion")
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
-{ (<Sesiones
+{userData && (<Sesiones
 titulo='Sesion Activa'
 usuario={usuario}
 />)}

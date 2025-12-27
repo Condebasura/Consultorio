@@ -2,6 +2,7 @@ import Inputs from "./Input";
 import { useEffect, useState } from "react";
 import Selec from "./Select";
 
+
 type Usuario={
     id: string;
     nombre:string;

@@ -1,6 +1,6 @@
 
 
-type Usuario= {
+export type Usuario= {
     id: string;
     apellido: string;
     cargo: string;
