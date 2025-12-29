@@ -27,10 +27,10 @@ function App() {
 
      function useSesion(url: string){
      const [usuario , setUsuario] = useState<Usuario |null>(null);
+     const [loadng, setLoading] = useState(true);
 
-      const [loadng, setLoading] = useState(true);
-
-      useEffect(() =>{
+     
+     useEffect(() =>{
         const fetchSesion = async()=>{
         try {
           
@@ -46,6 +46,9 @@ function App() {
       }, [url])
       return {usuario , loadng}
     }
+
+   
+     
 
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
       setPacienteSeleccionado(pacienteSeleccionado);
@@ -417,6 +420,7 @@ url='http://localhost:3000/IngresarMedico'
   
   method='POST'
   url='http://localhost:3000/PostUsuario'
+  credentials='include'
   headers={{"Content-Type":"application/json"}} 
   onUserData={setUserData}
   />

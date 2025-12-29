@@ -6,6 +6,7 @@ import Selec from "./Select";
 type Usuario={
     id: string;
     nombre:string;
+    apellido?: string;
     cargo:string;
     rol:string;
 }
@@ -29,6 +30,7 @@ type FormProps={
     method: "GET" | "POST" | "PUT" | "DELETE";
     headers?:HeadersInit;
     body?: string; 
+    credentials?: string;
     children?: React.ReactNode;
     valoresIniciales?:Record<string, string>;
     onUserData?:(usuario: Usuario)=> void ;
@@ -72,7 +74,7 @@ if(res.ok){
         
     })
     
-    onUserData(data)
+
 }
     onUserData(data)
 

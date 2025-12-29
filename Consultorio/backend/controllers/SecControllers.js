@@ -362,8 +362,9 @@ else{
                 rol: Data.tipo
             };
 
-         console.log(req.session.usuario)
+         
          io.to(req.session.usuario.id).emit('session:updated')
+         console.log(io.to(req.session.usuario.id))
             return res.status(200).json({ok: true})
         
         }
