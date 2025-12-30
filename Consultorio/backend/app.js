@@ -21,10 +21,7 @@ const port = process.env.PORT || 3000;
 
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors: {
-        origin: 'http://localhost:5173',
-        methods: ['GET', 'POST']
-    }
+   
 });
 
 io.on('conection', (socket)=>{
@@ -38,6 +35,7 @@ io.on('conection', (socket)=>{
 const corsOptions = {
     origin: 'http://localhost:5173', 
     methods:["GET" , "POST" , "PUT" , "DELETE"],
+    credentials: true ,
     allowedHeaders: ['Content-Type', 'Authorization']
 };
 

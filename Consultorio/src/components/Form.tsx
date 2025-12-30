@@ -30,7 +30,7 @@ type FormProps={
     method: "GET" | "POST" | "PUT" | "DELETE";
     headers?:HeadersInit;
     body?: string; 
-    credentials?: string;
+    credentials: 'omit' | 'same-origin' | 'include';
     children?: React.ReactNode;
     valoresIniciales?:Record<string, string>;
     onUserData?:(usuario: Usuario)=> void ;
@@ -39,7 +39,7 @@ type FormProps={
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales  , onUserData}: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales , credentials = 'omit' , onUserData}: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
 
@@ -60,6 +60,7 @@ useEffect(()=>{
  
 const res = await fetch(url,{
     method,
+    credentials,
     headers: {'Content-Type': 'application/json'},
     body: method !== "GET"? JSON.stringify(valores): undefined
 })

@@ -4,6 +4,7 @@ import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
+import { io } from 'socket.io-client';
 
 
 import SearchInput from './components/Search';
@@ -22,10 +23,23 @@ function App() {
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
      const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
      const [userData , setUserData] = useState<Usuario |null>(null);
-      
+     const [refreshSesion , setRefreshSesion] = useState(0);
+     
+     useEffect(()=>{
+      let socket = io('http://localhost:3000');
+
+      socket.on('session:updated' , ()=>{
+        setRefreshSesion(prev => prev + 1)
+        return userData
+      });
+      return ()=>{
+        socket.off('session:updated');
+        
+      }
+     },[])
 
 
-     function useSesion(url: string){
+     function useSesion(url: string , refreshSesion: number){
      const [usuario , setUsuario] = useState<Usuario |null>(null);
      const [loadng, setLoading] = useState(true);
 
@@ -43,7 +57,7 @@ function App() {
         }
         }
         fetchSesion();
-      }, [url])
+      }, [url ,refreshSesion])
       return {usuario , loadng}
     }
 
@@ -63,7 +77,7 @@ function App() {
               }
             })};
 
-const {usuario , loadng} = useSesion("http://localhost:3000/sesion")
+const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesion)
 
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);

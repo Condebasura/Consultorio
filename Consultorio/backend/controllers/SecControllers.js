@@ -362,9 +362,14 @@ else{
                 rol: Data.tipo
             };
 
-         
-         io.to(req.session.usuario.id).emit('session:updated')
-         console.log(io.to(req.session.usuario.id))
+            
+            io.on('connection', socket =>{
+                socket.on('register-session', userId =>{
+                     socket.join(userId);
+                    });
+                })
+                io.emit('session:updated')
+             console.log(req.session.usuario)
             return res.status(200).json({ok: true})
         
         }
@@ -378,17 +383,20 @@ else{
 
   const GetSesion = (req, res)=>{
    
+console.log("la sesion",req.session.usuario)
     if(!req.session.usuario){
         console.log("no hay usuario",req.session)
         return res.status(401).json({logueado: false})
-    }
+    }else{
 
-    console.log("Hay usuario",req.session)
-   return res.json({
-        logueado: true,
-        usuario: req.session.usuario
-    })
- };
+        
+        console.log("Hay usuario",req.session)
+        return res.json({
+            logueado: true,
+            usuario: req.session.usuario
+        })
+    };
+}
 
  
  const IngresarUsuarioMedico = async (req , res)=>{
