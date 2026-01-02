@@ -21,6 +21,11 @@ const port = process.env.PORT || 3000;
 
 const server = http.createServer(app);
 const io = new Server(server, {
+    cors:{
+        origin: 'http://localhost:5173',
+        credentials: true,
+        methods: ['GET', 'POST']
+    }
    
 });
 
@@ -36,7 +41,6 @@ const corsOptions = {
     origin: 'http://localhost:5173', 
     methods:["GET" , "POST" , "PUT" , "DELETE"],
     credentials: true ,
-    allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 
@@ -87,6 +91,7 @@ app.use( helmet.contentSecurityPolicy({
     app.post("/SearchUsuario", SecControllers.searchUser);
     app.delete("/EliminarUsuario/:id", SecControllers.EliminarUsuario);
     app.get("/sesion", SecControllers.GetSesion);
+    app.post("/logout", SecControllers.Logout)
 
     server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);

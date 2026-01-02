@@ -2,6 +2,7 @@ import bd from "../model/bd.js";
 import { io } from "../app.js";
 import {v4 as uuidv4} from 'uuid';
 import session from "express-session";
+import { error } from "console";
 
 
 
@@ -369,7 +370,6 @@ else{
                     });
                 })
                 io.emit('session:updated')
-             console.log(req.session.usuario)
             return res.status(200).json({ok: true})
         
         }
@@ -383,19 +383,32 @@ else{
 
   const GetSesion = (req, res)=>{
    
-console.log("la sesion",req.session.usuario)
+
     if(!req.session.usuario){
-        console.log("no hay usuario",req.session)
+        
         return res.status(401).json({logueado: false})
     }else{
 
         
-        console.log("Hay usuario",req.session)
+        
         return res.json({
             logueado: true,
             usuario: req.session.usuario
         })
     };
+};
+
+const Logout = (req, res)=>{
+    const userId= req.session?.usuario?.id;
+    req.session.destroy(err =>{
+        if(err){
+            return res.status(500).json({error: 'Error al cerrar sesion'})
+        }
+        if(userId){
+            io.emit('session:updated')
+        }
+        res.json({ok: true})
+    })
 }
 
  
@@ -547,7 +560,8 @@ export default {
      PostUsuario, 
      searchUser,
      EliminarUsuario,
-     GetSesion
+     GetSesion, 
+     Logout 
      
 
 }

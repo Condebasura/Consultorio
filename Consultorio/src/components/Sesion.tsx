@@ -1,5 +1,6 @@
 
 
+
 export type Usuario= {
     id: string;
     apellido: string;
@@ -15,14 +16,20 @@ type SesionProps={
 export default function Sesiones({titulo, usuario}: SesionProps){
 if(!usuario) return <p>No hay Sesion</p>;
 
-return(
-    <>
-    <div className="bg bg-white m-0">
+
+
+    return(
+        <>
+    <div className="text-bg-light m-2">
 <h5>{titulo}</h5>
-<p>{usuario.apellido}</p>
-<p>{usuario.cargo}</p>
+<ul className="list-group " key={usuario.id}>
+
+<li className="list-group-item" >{usuario.apellido}</li>
+<li className="list-group-item">{usuario.cargo}</li>
+</ul>
     </div>
     </>
 )
+
 
 }

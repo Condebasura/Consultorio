@@ -30,11 +30,11 @@ function App() {
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1)
-        return userData
+       
       });
       return ()=>{
         socket.off('session:updated');
-        
+        socket.disconnect();
       }
      },[])
 
@@ -78,6 +78,8 @@ function App() {
             })};
 
 const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesion)
+console.log(usuario)
+
 
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);
@@ -98,10 +100,10 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
 
 <Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
-{userData && (<Sesiones
+{<Sesiones
 titulo='Sesion Activa'
-usuario={usuario}
-/>)}
+usuario={usuario?.usuario ?? null}
+/>}
     </div>
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
       
@@ -208,6 +210,7 @@ onSelect={setAction}
     {name:"obraSocial" , required: true},
     {name:"afiliado", type:"number" , required: true}
   ]}
+  credentials='omit'
   url= "http://localhost:3000/AltaPaciente"
   method="POST"
   
@@ -230,6 +233,7 @@ onSelect={setAction}
  
   valoresIniciales={undefined}
   method='GET'
+  credentials='omit'
   url=''
    />
   ):action === 'Editar Paciente' &&(pacienteSeleccionado) && (<Formulario
@@ -249,6 +253,7 @@ onSelect={setAction}
  
    valoresIniciales={pacienteSeleccionado ||[] }
    method="PUT"
+   credentials='omit'
    url={`http://localhost:3000/UpdatePaciente/${pacienteSeleccionado.id}`}
    />
   )}
@@ -272,6 +277,7 @@ onSelect={setAction}
  
 
   method='POST'
+  credentials='omit'
   url='http://localhost:3000/CrearTurno'
   valoresIniciales={
   pacienteSeleccionado || {}}
@@ -296,6 +302,7 @@ onSelect={setAction}
   valoresIniciales={undefined }
 
   method='GET'
+  credentials='omit'
   url=''
   />):action === 'Editar'&& (pacienteSeleccionado) &&(<Formulario
   titulo='Editar'
@@ -314,6 +321,7 @@ onSelect={setAction}
  
   valoresIniciales={pacienteSeleccionado || []}
   method='PUT'
+  credentials='omit'
   url={`http://localhost:3000/UpdateTurno/${pacienteSeleccionado.id}`}
   
   />)}
@@ -334,6 +342,7 @@ onSelect={setAction}
   nameBtn='Eliminar'
     valoresIniciales={undefined}
   method='GET'
+  credentials='omit'
   url=''
   />): action === 'Cancelar' && (pacienteSeleccionado)&& (<Formulario
   
@@ -351,6 +360,7 @@ onSelect={setAction}
   nameBtn='Eliminar'
     valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
+  credentials='omit'
   url={`http://localhost:3000/EliminarTurno/${pacienteSeleccionado.id}`}
   />)}
 
@@ -365,6 +375,7 @@ onSelect={setAction}
 
   ]}
 method='POST'
+credentials='omit'
 url='http://localhost:3000/IngresarMedico'
 
   />)}
@@ -378,6 +389,7 @@ url='http://localhost:3000/IngresarMedico'
     ]}
     valoresIniciales={undefined}
     method='GET'
+    credentials='omit'
     url=''
   
 />): action === 'Editar_M' && (pacienteSeleccionado)&& (<Formulario
@@ -390,6 +402,7 @@ url='http://localhost:3000/IngresarMedico'
     ]}
     valoresIniciales={pacienteSeleccionado || []}
     method='PUT'
+    credentials='omit'
     url={`http://localhost:3000/UpdateMedico/${pacienteSeleccionado.id}`}
     
   
@@ -407,6 +420,7 @@ url='http://localhost:3000/IngresarMedico'
   ]}
   valoresIniciales={undefined}
   method='GET'
+  credentials='omit'
   url={''}
   
   />): action === 'Eliminar_M' && (pacienteSeleccionado) && (<Formulario
@@ -421,6 +435,7 @@ url='http://localhost:3000/IngresarMedico'
   ]}
   valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
+  credentials='omit'
   url={`http://localhost:3000/EliminarMedico/${pacienteSeleccionado.id}`}
   
   />)}
@@ -436,7 +451,7 @@ url='http://localhost:3000/IngresarMedico'
   url='http://localhost:3000/PostUsuario'
   credentials='include'
   headers={{"Content-Type":"application/json"}} 
-  onUserData={setUserData}
+  onUserData={usuario}
   />
   
   
@@ -449,7 +464,10 @@ campos={[
   {name: 'Contraseña', required: true, type: 'password'}
 ]}
   nameBtn='Cerrar'
-  
+  method='POST'
+  credentials='include'
+  url='http://localhost:3000/logout'
+
   />
 ) }
 
@@ -464,6 +482,7 @@ campos={[
  ]}
 
 method='POST'
+credentials='omit'
 url={`http://localhost:3000/IngresarUsuarioMedico/${pacienteSeleccionado?.id || ""}`}
 valoresIniciales={pacienteSeleccionado || ""}
 />): action === "Agregar" && (!pacienteSeleccionado) && (<Formulario
@@ -477,6 +496,7 @@ valoresIniciales={pacienteSeleccionado || ""}
  ]}
 
 method='POST'
+credentials='omit'
 url="http://localhost:3000/IngresarUsuario"
 valoresIniciales={pacienteSeleccionado || ""}
 />)}
@@ -494,6 +514,7 @@ campos={[
 nameBtn='Eliminar'
 
 method='DELETE'
+credentials='omit'
 url={`http://localhost:3000/EliminarUsuario/${pacienteSeleccionado?.id}`}
 valoresIniciales={pacienteSeleccionado || ""}
 />)}
