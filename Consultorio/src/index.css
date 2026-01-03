@@ -5,6 +5,8 @@ margin: 0;
 }
 .seccions, li{
     cursor: pointer;
+    margin-top: 1px;
+
 
 }
 .seccions:active{
@@ -20,5 +22,7 @@ margin: 0;
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
+    list-style-type: none;
+    margin-top: 1px;
     
 }

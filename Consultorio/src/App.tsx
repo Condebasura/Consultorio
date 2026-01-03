@@ -42,7 +42,9 @@ function App() {
      function useSesion(url: string , refreshSesion: number){
      const [usuario , setUsuario] = useState<Usuario |null>(null);
      const [loadng, setLoading] = useState(true);
-
+     
+    
+console.log(usuario?.usuario.rol)
      
      useEffect(() =>{
         const fetchSesion = async()=>{
@@ -78,27 +80,27 @@ function App() {
             })};
 
 const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesion)
-console.log(usuario)
 
 
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);
+ const [isDisabled , setIsDisabled] = useState(false);
   return(
   <>
   <div className='caja row '>
     <div className='selector ps-0  col-lg-1 m-0  '>
       
-<Libtn className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 
-<Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
-<Libtn className='seccions list-group-item    mt-2 text-white p-1' name='Turnos'onClick={()=> setTipos('Turnos')}/>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Medico' || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} onClick={()=> setTipos('Turnos')}   className={'seccions list-group-item    mt-2 text-white p-1'} name='Turnos'/>
 
-  <Libtn className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
+  <Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Medico' || usuario?.usuario.rol === 'Secretaria' || usuario?.usuario.rol === undefined} className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
 
-    <Libtn name='Sesiones' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
+    <Libtn  name='Sesiones' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
 
-<Libtn className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
+<Libtn  isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === 'Secretaria' || usuario?.usuario.rol === undefined} className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
 {<Sesiones
 titulo='Sesion Activa'
@@ -130,6 +132,7 @@ usuario={usuario?.usuario ?? null}
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
 names={['Alta Paciente', 'Editar Paciente']}
+
 onSelect={setAction}
 
 >
@@ -163,6 +166,7 @@ onSelect={setAction}
 {Tipos === "Sesion" && (<Ul
 titulo='Sesion'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
+isDisabled={(name)=> (name === 'Agregar'&& usuario?.usuario.rol !== 'Administrador') ||  (name === 'Quitar'&& usuario?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
   {action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchUsuario' />): 
