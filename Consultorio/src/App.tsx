@@ -44,7 +44,7 @@ function App() {
      const [loadng, setLoading] = useState(true);
      
     
-console.log(usuario?.usuario.rol)
+
      
      useEffect(() =>{
         const fetchSesion = async()=>{
@@ -90,17 +90,17 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
   <div className='caja row '>
     <div className='selector ps-0  col-lg-1 m-0  '>
       
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
+<Libtn  className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 
 <Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Medico' || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} onClick={()=> setTipos('Turnos')}   className={'seccions list-group-item    mt-2 text-white p-1'} name='Turnos'/>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions list-group-item    mt-2 text-white p-1'} name='Turnos'/>
 
-  <Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Medico' || usuario?.usuario.rol === 'Secretaria' || usuario?.usuario.rol === undefined} className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
+  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
 
     <Libtn  name='Sesiones' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
 
-<Libtn  isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === 'Secretaria' || usuario?.usuario.rol === undefined} className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
+<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
 {<Sesiones
 titulo='Sesion Activa'
@@ -118,9 +118,8 @@ usuario={usuario?.usuario ?? null}
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'
   names={['Pacientes'
-
-  ]}
-  
+]}
+  isDisabled={(name)=> (name === 'Pacientes'&& usuario?.usuario.rol === 'Administrador') || (name === 'Pacientes'&& usuario?.usuario.rol === undefined)}
   onSelect={setAction}
   
   > 
@@ -132,7 +131,6 @@ usuario={usuario?.usuario ?? null}
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
 names={['Alta Paciente', 'Editar Paciente']}
-
 onSelect={setAction}
 
 >
@@ -142,7 +140,7 @@ onSelect={setAction}
 </Ul>) }
 
 {Tipos === 'Turnos' && (<Ul
-titulo='Trunos'
+titulo='Turnos'
 names={['Crear','Editar', 'Cancelar']}
 onSelect={setAction}
 >

@@ -76,6 +76,7 @@ useEffect(()=>{
             socket.on("Turnos-Actualizados", (data: any[])=>{
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const enFormat = data.map( (t: any) =>({
+                
                 ...t,
                 
                 start: new Date(t.start),
