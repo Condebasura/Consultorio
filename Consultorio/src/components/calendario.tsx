@@ -30,8 +30,12 @@ type Evento = {
 
 }
 
+type Props = {
+     credentials: 'omit' | 'same-origin' | 'include';
+}
 
-export default function Calendario(){
+
+export default function Calendario({credentials}: Props){
 
  
 const [enventos , setEventos] = useState<Evento[]>([]);
@@ -39,67 +43,48 @@ const [date, setDate] = useState(new Date());
 const [view , setViews] = useState<View>('month')
 
 useEffect(()=>{
-     
     const fetchTurnos = async ()=>{
-        try{
-            const res = await fetch("http://localhost:3000/ConsTurno");
-            
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const data: any[] = await res.json();
-            
-            // Convertir los string del backend en Data...
-            
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const evFormat = data.map( (t: any) =>({
-                ...t,
-                
-                start: new Date(t.start),
-                end: new Date(t.end),
-            }));
-            console.log(evFormat)
-            setEventos(evFormat);
-           
-          // coneccion Socket 
-
-              const socket = io("http://localhost:3000", {
-        transports: ["websocket"],
-     });
-            
-            socket.on("Conect", ()=>{
-                console.log("🟢 Conectado a Socket.IO");
+        try {
+            const res = await fetch("http://localhost:3000/ConsTurno", {
+                credentials: 'include',
             });
-            
-            
-            
-            // Convertir los string del backend en Data...
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            socket.on("Turnos-Actualizados", (data: any[])=>{
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const enFormat = data.map( (t: any) =>({
-                
+            const data = await res.json();
+            const evFormat = data.map((t: any)=>({
                 ...t,
-                
                 start: new Date(t.start),
                 end: new Date(t.end),
             }));
-            
-            setEventos(enFormat);
-            console.log("📅 Turnos actualizados:", enFormat)
-            })
 
-
-            return ()=>{
-                socket.disconnect();
-                 console.log("🔴 Socket desconectado");
-            }
-            }catch(error){
-                console.error("Error al cargar turnos:", error);
-            }
-            
+            setEventos(evFormat);
+        } catch (error) {
+            console.error("Error al cargar turnos", error);
         }
-        fetchTurnos();
+    };
+    fetchTurnos();
 }, []);
 
+useEffect(()=>{
+    const socket = io("http://localhost:3000", {
+        transports: ["websocket"],
+        withCredentials: true,
+    });
+    socket.on("connect", ()=>{
+        console.log("🟢 Conectado a Socket.IO")
+    });
+
+    socket.on("Turnos-Actualizados", (data: any[])=>{
+        const enFormat = data.map((t:any)=>({
+            ...t,
+            start: new Date(t.start),
+            end: new Date(t.end)
+        }));
+        setEventos(enFormat)
+    });
+    return () => {
+    socket.disconnect();
+    console.log("🔴 Socket desconectado");
+    }
+}, [])
 return(
     <div style={{height: "600px", margin: "20px"}}>
        

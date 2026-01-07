@@ -22,10 +22,107 @@ function FormatearEventos(turnos){
                 title: `${t.nombre} ${t.apellido} - ${t.medico}`,
                 start: fecha,
                 end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
+
+                paciente:{
+                    nombre: t.nombre,
+                    apellido: t.apellido,
+                },
+                medico: t.medico,
+
             }
          });
         
 };
+
+const SelectUsuario = async (req,res)=>{
+
+    try {
+        const Data = await bd.ConnsultarUsuario()
+if(!Data){
+    res.status(404).json({mensaje: "Ocurrio un error al cargar los datos"})
+}
+else{
+    res.status(200).json(Data)
+}
+
+    } catch (error) {
+        res.status(500).json({mensaje: "Error del servidor", error})
+    }
+ };
+
+
+ const PostUsuario = async (req, res)=>{
+
+    try {
+        
+        const user = {
+            apellido: req.body.apellido,
+            contraseña: req.body.contraseña,
+        }
+     
+        const Data = await bd.SesionUsuario(user)
+        
+        if(!Data){
+           
+            return res.status(404).json({mensaje: "Credenciales incorrectas"})
+        }else{
+            req.session.usuario = {
+                id:Data.id,
+                apellido: Data.apellido,
+                cargo: Data.cargo,
+                rol: Data.tipo
+            };
+
+            
+            io.on('connection', socket =>{
+                socket.on('register-session', userId =>{
+                     socket.join(userId);
+                    });
+                })
+                io.emit('session:updated')
+            return res.status(200).json({ok: true})
+        
+        }
+
+    } catch (error) {
+        res.status(500).json({mensaje: 'Error interno del servidor', error})
+        
+    }
+ };
+
+
+  const GetSesion = (req, res)=>{
+   
+
+    if(!req.session.usuario){
+        
+        return res.status(401).json({logueado: false})
+    }else{
+
+       
+        
+        return res.json({
+            logueado: true,
+            usuario: req.session.usuario
+        })
+    };
+};
+
+const Logout = (req, res)=>{
+    const userId= req.session?.usuario?.id;
+    req.session.destroy(err =>{
+        if(err){
+            return res.status(500).json({error: 'Error al cerrar sesion'})
+        }
+        if(userId){
+            io.emit('session:updated')
+        }
+        res.json({ok: true})
+    })
+}
+
+
+
 
 const AltaPaciente =  async(req , res)=>{
     const paci = {
@@ -234,8 +331,16 @@ try {
  const ConsultarTurno = async (req,res)=>{
     try {
        const eventos = FormatearEventos(await bd.ConsultarTurno())
-         
-         return res.status(200).json(eventos)
+
+      const EventVisibles = eventos.filter((e) =>{
+        let rol = req.session.usuario?.rol;
+        let apellido = req.session.usuario?.apellido;
+        if(e.medico === apellido){
+            return e;
+        }
+    })
+    io.emit("Turnos-Actualizados", EventVisibles)
+         return res.status(200).json(EventVisibles)
    
          
     } catch (error) {
@@ -324,93 +429,7 @@ catch (error) {
     }
  };
 
- const SelectUsuario = async (req,res)=>{
-
-    try {
-        const Data = await bd.ConnsultarUsuario()
-if(!Data){
-    res.status(404).json({mensaje: "Ocurrio un error al cargar los datos"})
-}
-else{
-    res.status(200).json(Data)
-}
-
-    } catch (error) {
-        res.status(500).json({mensaje: "Error del servidor", error})
-    }
- };
-
-
- const PostUsuario = async (req, res)=>{
-
-    try {
-        
-        const user = {
-            apellido: req.body.apellido,
-            contraseña: req.body.contraseña,
-        }
-     
-        const Data = await bd.SesionUsuario(user)
-        
-        if(!Data){
-           
-            return res.status(404).json({mensaje: "Credenciales incorrectas"})
-        }else{
-            req.session.usuario = {
-                id:Data.id,
-                apellido: Data.apellido,
-                cargo: Data.cargo,
-                rol: Data.tipo
-            };
-
-            
-            io.on('connection', socket =>{
-                socket.on('register-session', userId =>{
-                     socket.join(userId);
-                    });
-                })
-                io.emit('session:updated')
-            return res.status(200).json({ok: true})
-        
-        }
-
-    } catch (error) {
-        res.status(500).json({mensaje: 'Error interno del servidor', error})
-        
-    }
- };
-
-
-  const GetSesion = (req, res)=>{
-   
-
-    if(!req.session.usuario){
-        
-        return res.status(401).json({logueado: false})
-    }else{
-
-        
-        
-        return res.json({
-            logueado: true,
-            usuario: req.session.usuario
-        })
-    };
-};
-
-const Logout = (req, res)=>{
-    const userId= req.session?.usuario?.id;
-    req.session.destroy(err =>{
-        if(err){
-            return res.status(500).json({error: 'Error al cerrar sesion'})
-        }
-        if(userId){
-            io.emit('session:updated')
-        }
-        res.json({ok: true})
-    })
-}
-
+ 
  
  const IngresarUsuarioMedico = async (req , res)=>{
      try {

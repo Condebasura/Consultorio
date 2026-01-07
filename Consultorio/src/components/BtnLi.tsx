@@ -9,7 +9,7 @@ onClick:()=> void;
 export default function Libtn({name, className,isDisabled, onClick, }: LiProps) {
 
     return(
-        <li className={className} onClick={()=>{
+        <li  onClick={()=>{
             if(isDisabled) return;
             onClick();
         }}

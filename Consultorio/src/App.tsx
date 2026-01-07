@@ -110,7 +110,7 @@ usuario={usuario?.usuario ?? null}
     <div className='inputs row col-lg-11  border border-2   vh-200  '>
       
  <div className=' ListaTurnos shadow  col-lg-12 m-2 bg-white '>
-  <Calendario/>
+  <Calendario credentials={'include'}/>
  </div>
 
  <div className='subSeccions shadow col-lg-3 ms-2 p-3 bg-white '>
