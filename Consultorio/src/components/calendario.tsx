@@ -38,12 +38,13 @@ type Props = {
 export default function Calendario({credentials}: Props){
 
  
-const [enventos , setEventos] = useState<Evento[]>([]);
+const [eventos , setEventos] = useState<Evento[]>([]);
 const [date, setDate] = useState(new Date());
 const [view , setViews] = useState<View>('month')
 
 useEffect(()=>{
     const fetchTurnos = async ()=>{
+        console.log("hago el fetch de los turnos")
         try {
             const res = await fetch("http://localhost:3000/ConsTurno", {
                 credentials: 'include',
@@ -64,6 +65,7 @@ useEffect(()=>{
 }, []);
 
 useEffect(()=>{
+console.log("Me monto")
     const socket = io("http://localhost:3000", {
         transports: ["websocket"],
         withCredentials: true,
@@ -91,7 +93,7 @@ return(
         <Calendar
          
         localizer={localizer}
-        events={enventos}
+        events={eventos}
         date={date}
         culture='es'
         onNavigate={(newDate)=> setDate(newDate)}

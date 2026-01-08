@@ -91,33 +91,64 @@ else{
  };
 
 
-  const GetSesion = (req, res)=>{
+  const GetSesion = async(req, res)=>{
    
 
-    if(!req.session.usuario){
-        
-        return res.status(401).json({logueado: false})
-    }else{
+      const eventos = FormatearEventos(await bd.ConsultarTurno())
 
-       
+  const EventVisibles = eventos.filter((e) =>{
+    let rol = req.session.usuario?.rol;
+    let apellido = req.session.usuario?.apellido;
+    if(e.medico === apellido){
+
+        return e;
+    }if(rol  === "Secretaria"){
+        return eventos
+    }
+})
+    if(req.session.usuario){
+
+    io.emit("Turnos-Actualizados", EventVisibles)
         
         return res.json({
             logueado: true,
             usuario: req.session.usuario
         })
-    };
+    }else{
+    io.emit("Turnos-Actualizados", EventVisibles)
+        
+        return res.status(401).json({logueado: false})
+    }
 };
 
-const Logout = (req, res)=>{
+const Logout = async(req, res)=>{
+    const eventos = FormatearEventos(await bd.ConsultarTurno())
+      const EventVisibles = eventos.filter((e) =>{
+        let rol = req.session.usuario?.rol;
+        let apellido = req.session.usuario?.apellido;
+        if(e.medico === apellido){
+
+            return e;
+        }if(rol  === "Secretaria"){
+            return eventos
+        }
+    });
+
+
     const userId= req.session?.usuario?.id;
+    
     req.session.destroy(err =>{
         if(err){
             return res.status(500).json({error: 'Error al cerrar sesion'})
         }
         if(userId){
+            
             io.emit('session:updated')
+         
         }
-        res.json({ok: true})
+        
+        io.emit("Turnos-Actualizados", EventVisibles)
+    res.json({ok: true})
     })
 }
 
@@ -336,7 +367,10 @@ try {
         let rol = req.session.usuario?.rol;
         let apellido = req.session.usuario?.apellido;
         if(e.medico === apellido){
+
             return e;
+        }if(rol  === "Secretaria"){
+            return eventos
         }
     })
     io.emit("Turnos-Actualizados", EventVisibles)
