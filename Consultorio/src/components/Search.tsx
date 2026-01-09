@@ -26,8 +26,10 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
         })
         const data = await res.json();
        if(query === "" || data.length === 0){
-     console.log("sin resultados")
-       
+        
+           
+           console.log("Sin Resultados")
+           
        }else{
 
         onSearch(data)
