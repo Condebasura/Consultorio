@@ -14,6 +14,8 @@ bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY , medico_id TEXT
 
 bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
 
+bd.run("CREATE TABLE IF NOT EXISTS roles(tipo TEXT)")
+
 const InsertPaciente = async (paci)=>{
     try {
         const id = uuidv4();
@@ -264,6 +266,21 @@ const DeleteTruno =(id)=>{
 };
 
 
+const ConsRol = ()=>{
+    return new Promise((resolve, reject)=>{
+
+        bd.all('SELECT * FROM roles', (err , rows)=>{
+            if(err){
+                console.log(err.mensaje)
+                reject(err)
+            }else{
+               console.log(rows)
+                resolve(rows)
+            }
+        })
+})
+};
+
 const ConnsultarUsuario = () =>{
 
         return new Promise((resolve, reject)=>{
@@ -415,7 +432,8 @@ export default {
      ConnsultarUsuario,
      SesionUsuario,
      DeleteUsuario,
-     SearchUsuario
+     SearchUsuario,
+     ConsRol,
      
 
 }

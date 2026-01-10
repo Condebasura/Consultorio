@@ -480,7 +480,7 @@ campos={[
   {name: "apellido", required: true},
   {name: 'contraseña', type: "password" , required: true},
   {name:'cargo' , required:true },
-  {name: 'tipo', required: true}
+  {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
  ]}
 
 method='POST'
@@ -494,7 +494,7 @@ valoresIniciales={pacienteSeleccionado || ""}
   {name: "apellido", required: true},
   {name: 'contraseña', type: "password" , required: true},
   {name:'cargo' , required:true },
-  {name: 'tipo', required: true}
+  {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
  ]}
 
 method='POST'
@@ -511,7 +511,7 @@ titulo='Eliminar Usuario'
 campos={[
   {name: "apellido", required: true},
   {name:'cargo', required:true}, 
-  {name: 'tipo', required:true}
+  {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
 ]}
 nameBtn='Eliminar'
 

@@ -350,7 +350,7 @@ try {
         console.log("No se encontraron medicos");
         return res.status(409).json({mensaje: "No se encontraron medicos"})
     }else{
-        
+        console.log(datos)
         return  res.status(200).json(datos);
     }
     
@@ -382,6 +382,26 @@ try {
     }
  }
 
+  const ConsultRoles = async (req, res)=>{
+try {
+    
+    
+    
+    const datos = await bd.ConsRol();
+    
+
+    if(!datos){
+        console.log("No se encontraron roles");
+        return res.status(409).json({mensaje: "No se encontraron roles"})
+    }else{
+        console.log(datos)
+        return  res.status(200).json(datos);
+    }
+    
+} catch (error) {
+    res.status(500).json({mensaje: "Error interno del servidor", error})
+}
+ };
  
  const IngresoMedico = async (req, res)=>{
 try {
@@ -614,7 +634,8 @@ export default {
      searchUser,
      EliminarUsuario,
      GetSesion, 
-     Logout 
+     Logout,
+     ConsultRoles 
      
 
 }

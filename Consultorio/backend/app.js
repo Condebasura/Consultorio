@@ -92,6 +92,7 @@ app.use( helmet.contentSecurityPolicy({
     app.delete("/EliminarUsuario/:id", SecControllers.EliminarUsuario);
     app.get("/sesion", SecControllers.GetSesion);
     app.post("/logout", SecControllers.Logout)
+    app.get("/ConsRol", SecControllers.ConsultRoles)
 
     server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);

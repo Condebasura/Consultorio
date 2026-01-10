@@ -7,6 +7,7 @@ type Sujeto = {
     matricula?: string;
     especialidad?: string;
     cargo?: string;
+    tipo?: string;
 }
 
 type SelectMedicoProps ={
@@ -65,7 +66,7 @@ export default function Selec({url,seleccionado, onChange, }: SelectMedicoProps)
                  <option value=''>Seleccione una opcion </option>
                 {sujetos.map((sujeto)=>(
                 
-                <option key={sujeto.id} value={sujeto.apellido || sujeto.nombre} className='form-control ' id='floatingInput' >{sujeto.nombre} {sujeto.apellido} {`(${sujeto.especialidad ?? sujeto.cargo})`}</option>
+                <option key={sujeto.id} value={sujeto.apellido || sujeto.nombre} className='form-control ' id='floatingInput' >{sujeto?.nombre} {sujeto?.apellido} {`${sujeto?.especialidad ?? sujeto?.cargo ?? sujeto?.tipo}`} </option>
                 
     
     ))}
