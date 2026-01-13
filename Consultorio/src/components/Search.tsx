@@ -4,12 +4,14 @@ type SearchProps = {
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
     placeholder?: string;
+    className?: string;
+    isDisabled?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSearch: (result: any )=> void;
     
 };
 
-export default function SearchInput({placeholder = "Buscar...", onSearch , url , method }: SearchProps){
+export default function SearchInput({placeholder = "Buscar...", onSearch ,isDisabled,className, url , method }: SearchProps){
     const [query , setQuery] = useState("");
 
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>)=>{
@@ -44,10 +46,13 @@ export default function SearchInput({placeholder = "Buscar...", onSearch , url ,
         <input
          type="search"
          value={query}
-         onChange={(e)=> setQuery(e.target.value)}
+         onChange={(e)=>{
+             if(isDisabled) return;
+             setQuery(e.target.value)}
+            } 
          onKeyDown={handleKeyDown}
          placeholder={placeholder}
-         className="form-control "
+         className={`${className} ${isDisabled ? 'disabled': 'form-control'}`}
          />
         
        

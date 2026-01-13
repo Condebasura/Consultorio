@@ -124,7 +124,7 @@ usuario={usuario?.usuario ?? null}
   
   > 
   
-  <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url='http://localhost:3000/SearchPaciente' />
+  <SearchInput onSearch={(data) =>setResult(data ||'')} isDisabled={usuario?.usuario.rol === undefined} method='POST'     url='http://localhost:3000/SearchPaciente' />
   
 </Ul> )}
 
