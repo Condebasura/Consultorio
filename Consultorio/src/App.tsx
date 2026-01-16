@@ -85,6 +85,12 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
   const [Tipos, setTipos] = useState('Dashboard');
   const [action , setAction] = useState<string |null>(null);
  const [isDisabled , setIsDisabled] = useState(false);
+
+ useEffect(()=>{
+  setResult([]);
+ },[Tipos]);
+
+ 
   return(
   <>
   <div className='caja row '>
@@ -167,8 +173,8 @@ names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 isDisabled={(name)=> (name === 'Agregar'&& usuario?.usuario.rol !== 'Administrador') ||  (name === 'Quitar'&& usuario?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
-  {action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchUsuario' />): 
- <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url='http://localhost:3000/SearchMedico' />
+  { action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={usuario?.usuario.rol !== 'Administrador'} method='POST'     url='http://localhost:3000/SearchUsuario' />): 
+ <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={usuario?.usuario.rol !== 'Administrador'} method='POST'     url='http://localhost:3000/SearchMedico' />
 }
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
