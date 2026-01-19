@@ -88,7 +88,7 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
 
  useEffect(()=>{
   setResult([]);
- },[Tipos]);
+ },[Tipos ,action]);
 
  
   return(
