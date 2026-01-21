@@ -583,9 +583,10 @@ try {
         paciente_id:validar.id,
         descripcion: req.body.Historial
     }
-
+    
     await bd.InsertPaciHisto(paci)
-
+  
+   
     return res.status(200).json({mensaje: "Se agrego al historial"})
 }
 } catch (error) {
@@ -598,11 +599,12 @@ try {
  const GetHistorial = async (req, res)=>{
 
     try {
-        const historial = await bd.ConsHistorial(req.params.id);
+        const historial =  await bd.ConsHistorial(req.params.id)
     
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})
      }else{
+        
         return res.status(200).json(historial)
      }  
     } catch (error) {

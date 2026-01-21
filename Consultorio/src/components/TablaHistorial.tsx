@@ -93,6 +93,7 @@ campos={[
   {name:'Historial',type:'textarea', required: true}
 ]}
 method="PUT"
+credentials="include"
 url={`http://localhost:3000/AgregarAlHistorial/${valores.id}`}
 />
         </>

@@ -26,7 +26,7 @@ function App() {
      const [refreshSesion , setRefreshSesion] = useState(0);
      
      useEffect(()=>{
-      let socket = io('http://localhost:3000');
+      const socket = io('http://localhost:3000');
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1)
@@ -88,7 +88,7 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
 
  useEffect(()=>{
   setResult([]);
- },[Tipos ,action]);
+ },[Tipos ,action ]);
 
  
   return(
