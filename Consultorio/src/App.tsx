@@ -65,19 +65,24 @@ function App() {
 
    
      
+ 
 
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
       setPacienteSeleccionado(pacienteSeleccionado);
-
-       fetch(`http://localhost:3000/VerHistorialPaciente/${pacienteSeleccionado.id}`).then(res => res.json()).then(data =>{
+      
+       fetch(`http://localhost:3000/VerHistorialPaciente/${pacienteSeleccionado?.id}`).then(res => res.json()).then(data =>{
               if(data && Array.isArray(data)){
-
+              
                 setHistorialPaciente(data);
+        
               }else{
 
                 setHistorialPaciente([]);
               }
-            })};
+            })
+          }
+        
+  
 
 const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesion)
 
@@ -89,6 +94,7 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
  useEffect(()=>{
   setResult([]);
  },[Tipos ,action ]);
+
 
  
   return(
@@ -527,7 +533,7 @@ url={`http://localhost:3000/EliminarUsuario/${pacienteSeleccionado?.id}`}
 valoresIniciales={pacienteSeleccionado || ""}
 />)}
 
-{action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={pacienteSeleccionado || ""}/>)}
+{action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={ pacienteSeleccionado || ""}/>)}
 
 
 

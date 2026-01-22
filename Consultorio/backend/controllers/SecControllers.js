@@ -585,7 +585,7 @@ try {
     }
     
     await bd.InsertPaciHisto(paci)
-  
+ io.emit("Historial-Actualizado", await bd.ConsHistorial(req.params.id))
    
     return res.status(200).json({mensaje: "Se agrego al historial"})
 }
@@ -600,6 +600,7 @@ try {
 
     try {
         const historial =  await bd.ConsHistorial(req.params.id)
+        
     
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})

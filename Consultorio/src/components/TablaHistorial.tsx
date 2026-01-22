@@ -1,5 +1,6 @@
 import { useState , useEffect } from "react";
 import Formulario from "./Form";
+import { io } from 'socket.io-client';
 
 type dataHisto = {
   id: string;
@@ -10,12 +11,15 @@ type dataHisto = {
 type DatProps ={
     data: dataHisto[];
     valoresIniciales?:Record<string, string>;
-    DataHisto?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    DataHisto?: any[];
 }
 
 export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatProps){
    
    const [valores , setValores] = useState<Record<string, string>>(valoresIniciales || {});
+   const [historial, setHistorial] = useState<dataHisto[]>(data);
+
 
    useEffect(() => {
     if(valoresIniciales){
@@ -24,10 +28,13 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
     
    }, [valoresIniciales]);
 
-  
+  useEffect(() => {
+    
+   setHistorial(data)
+  }, [data]);
 
     
-     DataHisto = data.map((item)=>(
+   DataHisto =  historial.map((item)=>(
       <>
       <tr key={item.id} className="row ">
 
@@ -39,7 +46,23 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
       
     ))
   
-    console.log(data.length)
+    useEffect(()=>{
+    const socket = io("http://localhost:3000", {
+        transports: ["websocket"],
+        withCredentials: true,
+    });
+    socket.on("connect", ()=>{
+        console.log("🟢 Conectado a Socket.IO")
+    });
+
+    socket.on("Historial-Actualizado", (data: dataHisto[])=>{
+        setHistorial(data)
+    });
+    return () => {
+    socket.disconnect();
+    console.log("🔴 Socket desconectado");
+    }
+}, [])
        
     return(
         

@@ -12,7 +12,7 @@ bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY , medico_id TEXT , apellido TEXT , contraseña TEXT , cargo TEXT , tipo TEXT, FOREIGN KEY (medico_id) REFERENCES medicos(id))")
 
-bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
+bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now', '-3 hours')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
 
 bd.run("CREATE TABLE IF NOT EXISTS roles(tipo TEXT)")
 
