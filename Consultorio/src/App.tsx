@@ -494,7 +494,7 @@ campos={[
   {name:'cargo' , required:true },
   {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
  ]}
-
+children={<p>Para agregar un medico primero busquelo en el panel lataral</p>}
 method='POST'
 credentials='omit'
 url={`http://localhost:3000/IngresarUsuarioMedico/${pacienteSeleccionado?.id || ""}`}
@@ -508,7 +508,7 @@ valoresIniciales={pacienteSeleccionado || ""}
   {name:'cargo' , required:true },
   {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
  ]}
-
+children={<p>Para agregar un medico primero busquelo en el panel lataral</p>}
 method='POST'
 credentials='omit'
 url="http://localhost:3000/IngresarUsuario"
@@ -526,7 +526,7 @@ campos={[
   {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
 ]}
 nameBtn='Eliminar'
-
+children={<p>Use el buscador para selecionar y eliminar un usuario</p>}
 method='DELETE'
 credentials='omit'
 url={`http://localhost:3000/EliminarUsuario/${pacienteSeleccionado?.id}`}
