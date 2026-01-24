@@ -95,7 +95,9 @@ const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesi
   setResult([]);
  },[Tipos ,action ]);
 
-
+useEffect(()=>{
+  
+},[pacienteSeleccionado])
  
   return(
   <>
@@ -244,7 +246,7 @@ onSelect={setAction}
     {name:"afiliado", type:"number" , required: true}
       
    ]}
- 
+   
   valoresIniciales={undefined}
   method='GET'
   credentials='omit'

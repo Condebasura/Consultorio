@@ -2,7 +2,7 @@ import { useState , useEffect } from "react";
 import Formulario from "./Form";
 import { io } from 'socket.io-client';
 
-type dataHisto = {
+ type dataHisto = {
   id: string;
   fecha: string;
   descripcion: string;

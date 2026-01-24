@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Selec from "./Select";
 
 
+
 type Usuario={
     id: string;
     nombre:string;
@@ -35,13 +36,16 @@ type FormProps={
     valoresIniciales?:Record<string, string>;
     onUserData?:(usuario: Usuario)=> void ;
     
+    
 
 }
 
 
-export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales , credentials = 'omit' , onUserData}: FormProps){
+export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales , credentials = 'omit' , onUserData }: FormProps){
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
+  
+
 
 const handleChange = (campo: string , valor: string)=>{
     setValores((prev) =>({...prev, [campo]: valor}));
@@ -123,6 +127,7 @@ if(res.ok){
             
            
          <button type="submit" className="btn btn-success col-1 m-3 p-1 ">{nameBtn}</button>
+         <button type="reset" className="btn btn-danger col-1 m-3 p-1" onClick={()=> setValores({}) } >Borrar</button>
     </form>
         </>
 )
