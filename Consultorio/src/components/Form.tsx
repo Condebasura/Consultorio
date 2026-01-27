@@ -37,6 +37,7 @@ type FormProps={
     onUserData?:(usuario: Usuario)=> void ;
     
     
+    
 
 }
 
@@ -45,7 +46,7 @@ export default function Formulario({titulo  , campos, children, nameBtn = 'Envia
     // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
   
-
+const [mensaje, setMensaje] = useState<string | null>(null);
 
 const handleChange = (campo: string , valor: string)=>{
     setValores((prev) =>({...prev, [campo]: valor}));
@@ -68,9 +69,10 @@ const res = await fetch(url,{
     headers: {'Content-Type': 'application/json'},
     body: method !== "GET"? JSON.stringify(valores): undefined
 })
-const data: Usuario =  await res.json();
-if(res.ok){
+const data =  await res.json();
 
+setMensaje(data.mensaje)
+if(res.ok){
     setValores({id:"",
         medico_id: "",
         apellido:"",
@@ -78,7 +80,6 @@ if(res.ok){
         rol:"",
         
     })
-    
 
 }
     onUserData?.(data)
@@ -90,7 +91,15 @@ if(res.ok){
 
  return(
         <>
-         
+         {mensaje && <div className="alert alert-success">{mensaje}
+             <button
+            className="btn btn-sm btn-outline-dark ms-3"
+            onClick={() => setMensaje(null)}
+        >
+            OK
+        </button>
+            
+            </div>}
             
         <form onSubmit={handleSubmit} className="form row" >
          <h3 className="text-center">
@@ -127,7 +136,7 @@ if(res.ok){
             
            
          <button type="submit" className="btn btn-success col-1 m-3 p-1 ">{nameBtn}</button>
-         <button type="reset" className="btn btn-danger col-1 m-3 p-1" onClick={()=> setValores({}) } >Borrar</button>
+         <button type="reset" className="btn btn-outline-danger col-1 m-3 p-1" onClick={()=> setValores({}) } >Borrar</button>
     </form>
         </>
 )
