@@ -20,12 +20,12 @@ if(!usuario) return <p>No hay Sesion</p>;
 
     return(
         <>
-    <div className="text-bg-light m-2">
-<h5>{titulo}</h5>
-<ul className="list-group " key={usuario.id}>
+    <div className="text-bg-light mt-3">
+<h5 className="text-success">{titulo}</h5>
+<ul className="list-group mt-3 p-2" key={usuario.id}>
 
-<li className="list-group-item" >{usuario.apellido}</li>
-<li className="list-group-item">{usuario.cargo}</li>
+<li className="list-group-item" ><small>{usuario.apellido}</small></li>
+<li className="list-group-item "><small>{usuario.cargo}</small></li>
 </ul>
     </div>
     </>

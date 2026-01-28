@@ -101,8 +101,8 @@ useEffect(()=>{
  
   return(
   <>
-  <div className='caja row  '>
-    <div className='selector ps-0  col-lg-1 m-0  '>
+  <div className='caja row m-0'>
+    <div className='selector ps-0 text-center col-lg-1 me-3 '>
       
 <Libtn  className=' seccions list-group-item bg-primary p-1 text-white mt-2 ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 

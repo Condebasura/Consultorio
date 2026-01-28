@@ -91,7 +91,7 @@ if(res.ok){
 
  return(
         <>
-         {mensaje && <div className="alert alert-success">{mensaje}
+         {mensaje && <div className="alert alert-success mt-3 sticky-bottom">{mensaje}
              <button
             className="btn btn-sm btn-outline-dark ms-3"
             onClick={() => setMensaje(null)}
@@ -101,7 +101,7 @@ if(res.ok){
             
             </div>}
             
-        <form onSubmit={handleSubmit} className="form row" >
+        <form onSubmit={handleSubmit} className="form row " >
          <h3 className="text-center">
             {titulo}
             </h3>
@@ -135,7 +135,7 @@ if(res.ok){
             
             
            
-         <button type="submit" className="btn btn-success col-1 m-3 p-1 ">{nameBtn}</button>
+         <button type="submit" className="btn btn-success col-1 m-3 p-1 "  >{nameBtn}</button>
          <button type="reset" className="btn btn-outline-danger col-1 m-3 p-1" onClick={()=> setValores({}) } >Borrar</button>
     </form>
         </>
