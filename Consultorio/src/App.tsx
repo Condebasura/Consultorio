@@ -104,7 +104,7 @@ useEffect(()=>{
   <div className='flex flex-row'>
     <div className='  text-start  basis-36 me-3 '>
       
-<Libtn  className=' seccions   text-white  ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
+<Libtn  className=' seccions text-white  ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 
 <Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
@@ -121,13 +121,13 @@ titulo='Sesion Activa'
 usuario={usuario?.usuario ?? null}
 />}
     </div>
-    <div className='inputs flex flex-col  basis-300   '>
+    <div className='inputs flex flex-col  basis-400 '>
       
  <div className=' ListaTurnos shadow  m-2 bg-white '>
   <Calendario credentials={'include'}/>
  </div>
 <div className='flex flex-row'>
- <div className='subSeccions shadow basis-1/3 ms-2 p-3 bg-white '>
+ <div className='subSeccions shadow basis-1/3 m-2 p-3 bg-white '>
   
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'
@@ -204,7 +204,7 @@ onSelect={setAction}
 
 
  </div>
- <div className='inputsDeSubseccions  basis-1/1 shadow col-lg-8 ms-2 bg-white '>
+ <div className='inputsDeSubseccions  basis-1/1 shadow  m-2 bg-white  '>
 
   {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
 
