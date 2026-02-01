@@ -21,7 +21,7 @@ export default function MiniTabla({DatosPaci , onEditar, name}: datosProp){
 
 return(
     <>
-    <table className=" text-center m-3">
+    <table className=" text-center m-3 overflow-y-auto overscroll-contain flex flex-column max-h-50 ">
     <tbody>
         {
            DatosPaci.map((items)=>(
