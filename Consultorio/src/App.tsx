@@ -101,20 +101,20 @@ useEffect(()=>{
  
   return(
   <>
-  <div className='flex flex-row'>
-    <div className='  text-start  basis-36 me-3 '>
+  <div className='flex flex-row '>
+    <div className='  text-start  basis-36  gap-2 p-3  '>
       
-<Libtn  className=' seccions text-white  ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
+<Libtn  className=' seccions  list-none p-2 ps-1 bg-green-400  ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions  list-group-item    mt-2 text-white p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions  list-none  mt-2  p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions list-group-item    mt-2 text-white p-1'} name='Turnos'/>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions list-none    mt-2  p-1'} name='Turnos'/>
 
-  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions list-group-item mt-2 text-white p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
+  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions list-none mt-2  p-1' name='Medicos' onClick={()=> setTipos("Medicos")}/>
 
-    <Libtn  name='Sesiones' className="seccions  list-group-item    mt-2 text-white p-1"  onClick={()=> setTipos('Sesion')}/>
+    <Libtn  name='Sesiones' className="seccions  list-none    mt-2  p-1"  onClick={()=> setTipos('Sesion')}/>
 
-<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions  list-group-item    mt-2 text-white p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
+<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions  list-none     mt-2  p-1' name='Historial'  onClick={()=> setTipos('Historial')} />
     
 {<Sesiones
 titulo='Sesion Activa'
