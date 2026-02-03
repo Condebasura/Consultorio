@@ -101,10 +101,10 @@ useEffect(()=>{
  
   return(
   <>
-  <div className='flex flex-row '>
-    <div className='  text-start  basis-36  gap-2 p-3  '>
+  <div className='flex flex-row py-2 gap-4 '>
+    <ul className='flex flex-col  text-start  basis-36  gap-2   bg-gray-600 '>
       
-<Libtn  className=' seccions  list-none p-2 ps-1 bg-green-400  ' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
+<Libtn  className=' seccions  list-none p-2 ps-1 bg-green-400' name='Dashboard'onClick={()=> setTipos('Dashboard')}/>
 
 <Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions  list-none  mt-2  p-1' name='Pacientes'onClick={()=> setTipos('Pacientes')}/>
 
@@ -120,7 +120,7 @@ useEffect(()=>{
 titulo='Sesion Activa'
 usuario={usuario?.usuario ?? null}
 />}
-    </div>
+    </ul>
     <div className='inputs flex flex-col  basis-400 '>
       
  <div className=' ListaTurnos shadow  m-2 bg-white '>
