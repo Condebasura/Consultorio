@@ -14,14 +14,23 @@ type SesionProps={
 }
 
 export default function Sesiones({titulo, usuario}: SesionProps){
-if(!usuario) return <p>No hay Sesion</p>;
+if(!usuario) return (<>
+<div className="bg-[#e62d0c]  rounded-xs m-2 mt-3">
+
+<p className=" text-white text-center text-sm ">Sesion Inactiva</p>
+</div>
+</>
+);
 
 
 
     return(
         <>
-    <div className="text-bg-light mt-3">
-<h5 className="text-success">{titulo}</h5>
+    <div className="bg-white  rounded-xs m-2 mt-3">
+ <div className="bg-[#22e44c]">
+<h5 className="text-center text-sm ">{titulo}</h5>
+  
+    </div>       
 <ul className="list-group mt-3 p-2" key={usuario.id}>
 
 <li className="list-group-item" ><small>{usuario.apellido}</small></li>

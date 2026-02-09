@@ -3,7 +3,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  background: #f4f4f5;
+  background: rgb(214, 231, 222);
   padding: 0.3rem;
   text-align: center;
 }
@@ -19,6 +19,7 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+ background: #e62d0c;
 }
 
 @keyframes logo-spin {

@@ -87,7 +87,7 @@ function App() {
 const {usuario , loadng} = useSesion("http://localhost:3000/sesion", refreshSesion)
 
 
-  const [Tipos, setTipos] = useState('Dashboard');
+  const [Tipos, setTipos] = useState('Sesiones');
   const [action , setAction] = useState<string |null>(null);
  const [isDisabled , setIsDisabled] = useState(false);
 
@@ -102,30 +102,25 @@ useEffect(()=>{
   return(
   <>
   <div className='flex flex-row  '>
-    <ul className='flex flex-col rounded-l-xl text-start  basis-36  gap-2 bg-[#0B1238] '>
+    <ul className='flex flex-col rounded-l-xl text-start  basis-36  gap-2 bg-[#0B1238] m-2 me-1 '>
       
-<Libtn  className=' seccions rounded-sm  list-none p-2 mx-2 ps-1 mt-6 bg-[#5A5D90]   text-white' name='Dashboard'onClick={()=> setTipos('Dashboard')}
-  
-  >
-    <i className="fa-solid fa-gauge-high me-1 text-sm"></i>
-  </Libtn>
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions rounded-sm list-none  mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions rounded-sm list-none text-sm mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
   >
     <i className="fa-solid fa-user-injured me-2 text-sm"></i>
   </Libtn>
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none    mt-2 mx-2  p-2 bg-[#5A5D90] text-white'} name='Turnos'>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none    mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
     <i className="fa-solid fa-calendar-check me-2 text-sm"></i>
 </Libtn>
 
-  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions rounded-sm list-none mt-2  p-2 bg-[#5A5D90] text-white mx-2' name='Medicos' onClick={()=> setTipos("Medicos")}>  
+  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions rounded-sm list-none mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Medicos' onClick={()=> setTipos("Medicos")}>  
     <i className="fa-solid fa-user-doctor me-2 text-sm"></i>
   </Libtn>
 
-    <Libtn  name='Sesiones' className="seccions rounded-sm list-none    mt-2  p-2 bg-[#5A5D90] text-white mx-2"  onClick={()=> setTipos('Sesion')}> <i className="fa-solid fa-user me-2 text-sm"></i></Libtn>
+    <Libtn  name='Sesiones' className="seccions rounded-sm list-none    mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm"  onClick={()=> setTipos('Sesiones')}> <i className="fa-solid fa-user me-2 text-sm"></i></Libtn>
 
-<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
+<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
     
 {<Sesiones
 titulo='Sesion Activa'
@@ -137,6 +132,8 @@ usuario={usuario?.usuario ?? null}
  <div className=' ListaTurnos shadow  m-2 bg-white '>
   <Calendario credentials={'include'}/>
  </div>
+
+
 <div className='flex flex-row'>
  <div className='subSeccions shadow basis-1/3 m-2 p-3 bg-white '>
   
@@ -155,12 +152,14 @@ usuario={usuario?.usuario ?? null}
 
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
-names={['Alta Paciente', 'Editar Paciente']}
+names={['Listado de Pacientes','Alta Paciente', 'Editar Paciente']}
 onSelect={setAction}
 
+
 >
-<SearchInput onSearch={(data) =>setResult(data)} method='POST' url='http://localhost:3000/SearchPaciente' />
-<MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Editar'}/>
+<SearchInput onSearch={(data) =>setResult(data ||'')}  method='POST'     url='http://localhost:3000/SearchPaciente' />
+  {action !== "Listado de Pacientes" && <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Editar'}/> }
+
 
 </Ul>) }
 
@@ -186,7 +185,7 @@ onSelect={setAction}
 
 </Ul>)}
 
-{Tipos === "Sesion" && (<Ul
+{Tipos === "Sesiones" && (<Ul
 titulo='Sesion'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 isDisabled={(name)=> (name === 'Agregar'&& usuario?.usuario.rol !== 'Administrador') ||  (name === 'Quitar'&& usuario?.usuario.rol !== 'Administrador') }
@@ -219,7 +218,7 @@ onSelect={setAction}
 
   {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
 
-  {action === "Pacientes"  && (<TablePacientes Datos={result || ""} />)}
+  {action === "Listado de Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
  
  
