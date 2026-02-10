@@ -24,17 +24,17 @@ export default function TablePacientes({Datos}: datosProp){
         <div className="m-3">
             <h3>Pacientes</h3>
         </div>
-        <table className=" table table-bordered ">
+        <table className=" border-collapse border border-gray-400 m-3 ">
             <thead >
-                <tr >
-                <th >Nombre</th>
-                <th >Apellido</th>
-                <th >DNI</th>
-                <th >Telefono</th>
-                <th >Email</th>
-                <th >Direccion</th>
-                <th >ObraSocial</th>
-                <th >Afiliado</th>
+                <tr className=" border-collapse border border-gray-400 bg-[#5A5D90] text-white">
+                <th className="p-2"  >Nombre</th>
+                <th className="p-2" >Apellido</th>
+                <th className="p-2" >DNI</th>
+                <th className="p-2" >Telefono</th>
+                <th className="p-2" >Email</th>
+                <th className="p-2" >Direccion</th>
+                <th className="p-2" >ObraSocial</th>
+                <th className="p-2" >Afiliado</th>
                 
 
                 </tr>
@@ -43,15 +43,15 @@ export default function TablePacientes({Datos}: datosProp){
               <tbody>
                 {
                   Datos.map((items )=>(
-                        <tr key={items.dni}>
-                             <td >{items.nombre}</td>
-                             <td >{items.apellido}</td>
-                             <td >{items.dni}</td>
-                             <td >{items.telefono}</td>
-                             <td >{items.email}</td>
-                             <td >{items.direccion}</td>
-                             <td >{items.obraSocial}</td>
-                             <td >{items.afiliado}</td>
+                        <tr className=" border-collapse border border-gray-400 bg-[#5A5D60]  text-white"  key={items.dni}>
+                             <td className="border border-gray-300 p-2">{items.nombre}</td>
+                             <td className="border border-gray-300 p-2">{items.apellido}</td>
+                             <td className="border border-gray-300 p-2">{items.dni}</td>
+                             <td className="border border-gray-300 p-2">{items.telefono}</td>
+                             <td className="border border-gray-300 p-2">{items.email}</td>
+                             <td className="border border-gray-300 p-2">{items.direccion}</td>
+                             <td className="border border-gray-300 p-2">{items.obraSocial}</td>
+                             <td className="border border-gray-300 p-2">{items.afiliado}</td>
                              
                             
 

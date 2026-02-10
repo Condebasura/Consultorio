@@ -102,25 +102,25 @@ useEffect(()=>{
   return(
   <>
   <div className='flex flex-row  '>
-    <ul className='flex flex-col rounded-l-xl text-start  basis-36  gap-2 bg-[#0B1238] m-2 me-1 '>
+    <ul className='flex flex-col rounded-l-xl text-start  basis-36  gap-2 bg-[#0B1238] m-2 me-1  '>
       
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions rounded-sm list-none text-sm mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions flex flex-row items-center rounded-sm list-none text-sm  mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
   >
-    <i className="fa-solid fa-user-injured me-2 text-sm"></i>
+    <i className="fa-solid fa-user-injured me-2 text-sm  "></i>
   </Libtn>
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none    mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none flex flex-row items-center   mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
     <i className="fa-solid fa-calendar-check me-2 text-sm"></i>
 </Libtn>
 
-  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions rounded-sm list-none mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Medicos' onClick={()=> setTipos("Medicos")}>  
+  <Libtn isDisabled={isDisabled || usuario?.usuario.rol !== 'Administrador'} className='seccions flex flex-row items-center rounded-sm list-none mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Medicos' onClick={()=> setTipos("Medicos")}>  
     <i className="fa-solid fa-user-doctor me-2 text-sm"></i>
   </Libtn>
 
-    <Libtn  name='Sesiones' className="seccions rounded-sm list-none    mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm"  onClick={()=> setTipos('Sesiones')}> <i className="fa-solid fa-user me-2 text-sm"></i></Libtn>
+    <Libtn  name='Sesiones' className="seccions flex flex-row items-center rounded-sm list-none    mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm"  onClick={()=> setTipos('Sesiones')}> <i className="fa-solid fa-user me-2 text-sm"></i></Libtn>
 
-<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
+<Libtn  isDisabled={isDisabled || usuario?.usuario.rol !== 'Medico'} className='seccions flex flex-row items-center rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
     
 {<Sesiones
 titulo='Sesion Activa'
@@ -135,7 +135,7 @@ usuario={usuario?.usuario ?? null}
 
 
 <div className='flex flex-row'>
- <div className='subSeccions shadow basis-1/3 m-2 p-3 bg-white '>
+ <div className='subSeccions  shadow basis-1/3 m-2 p-3 bg-white '>
   
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'
@@ -214,7 +214,7 @@ onSelect={setAction}
 
 
  </div>
- <div className='inputsDeSubseccions  basis-1/1 shadow  m-2 bg-white  '>
+ <div className='inputsDeSubseccions flex flex-col basis-1/1 shadow  m-2 bg-white overflow-y-auto overscroll-contain max-h-50  '>
 
   {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
 
