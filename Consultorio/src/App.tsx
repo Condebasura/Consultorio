@@ -105,7 +105,7 @@ useEffect(()=>{
     <ul className='flex flex-col rounded-l-xl text-start  basis-36  gap-2 bg-[#0B1238] m-2 me-1  '>
       
 
-<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions flex flex-row items-center rounded-sm list-none text-sm  mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
+<Libtn isDisabled={isDisabled || usuario?.usuario.rol === 'Administrador' || usuario?.usuario.rol === undefined} className='seccions flex flex-row   items-center rounded-sm list-none text-sm  mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
   >
     <i className="fa-solid fa-user-injured me-2 text-sm  "></i>
   </Libtn>
@@ -135,7 +135,7 @@ usuario={usuario?.usuario ?? null}
 
 
 <div className='flex flex-row'>
- <div className='subSeccions  shadow basis-1/3 m-2 p-3 bg-white '>
+ <div className='subSeccions  shadow basis-1/3 m-2 p-3 bg-white flex flex-col text-center'>
   
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'

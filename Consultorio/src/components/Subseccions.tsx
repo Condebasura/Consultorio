@@ -12,17 +12,17 @@ export default function Ul({titulo, names, isDisabled, onSelect, children}: SubP
 
 return(
     <>
-    <ul className="list-group mt-3">
-<h2>{titulo}</h2>
+    <ul className="flex flex-col mt-3">
+<h2 className=" bg-[#0B1238] text-white p-2  rounded-sm">{titulo}</h2>
 {names.map((n)=> {
 
     const disabled = isDisabled?.(n);
     return(
-<li  className={`${disabled ? 'disabled' : "list-group-item"}`} onClick={()=>{
+<button className={`${disabled ? 'disabled' : " mt-2 m-2 bg-[#5A5D90] focus:bg-[#3A3C60] text-white p-2 rounded-sm cursor-pointer"}`} onClick={()=>{
     if(disabled) return;
     onSelect(n)}}>
 {n}
-</li>
+</button>
 
 );
 })}
