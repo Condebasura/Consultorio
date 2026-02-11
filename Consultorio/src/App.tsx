@@ -135,7 +135,7 @@ usuario={usuario?.usuario ?? null}
 
 
 <div className='flex flex-row'>
- <div className='subSeccions  shadow basis-1/3 m-2 p-3 bg-white flex flex-col text-center'>
+ <div className='subSeccions  shadow basis-1/3 m-2  pt-0 bg-white flex flex-col text-center'>
   
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'
@@ -214,7 +214,7 @@ onSelect={setAction}
 
 
  </div>
- <div className='inputsDeSubseccions flex flex-col basis-1/1 shadow  m-2 bg-white overflow-y-auto overscroll-contain max-h-50  '>
+ <div className='inputsDeSubseccions flex flex-col basis-1/1 shadow  m-2 bg-white   '>
 
   {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
 

@@ -52,7 +52,7 @@ export default function SearchInput({placeholder = "Buscar...", onSearch ,isDisa
             } 
          onKeyDown={handleKeyDown}
          placeholder={placeholder}
-         className={`${className} ${isDisabled ? 'disabled': 'form-control'}`}
+         className={`${className} ${isDisabled ? 'disabled': 'm-2 p-2 rounded-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'}`}
          />
         
        
