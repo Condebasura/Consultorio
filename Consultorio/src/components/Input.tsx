@@ -14,7 +14,7 @@ export default function Inputs ({name  , value , onChange, type = "text" , requi
  <label htmlFor="floatingInput" className="form-label inline-block mb-2 text-gray-700">
      {name}
     </label>
-     <input  className="border rounded px-3 py-2" id="floatingInput" 
+     <input  className="border rounded px-3 py-2 w-full" id="floatingInput" 
       value={value}
       type={type}
       required={required}

@@ -24,7 +24,7 @@ export default function TablePacientes({Datos}: datosProp){
         <div className="m-3">
         </div>
         <table className=" border-collapse border border-gray-400 m-3 ">
-            <caption className="caption-top"> Listado de Pacientes</caption>
+            <caption className="caption-top text-2xl"> Listado de Pacientes</caption>
             <thead >
                 <tr className=" border-collapse border border-gray-400 bg-[#5A5D90] text-white">
                 <th className="p-2"  >Nombre</th>
