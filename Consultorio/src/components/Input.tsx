@@ -10,7 +10,7 @@ type Props = {
 export default function Inputs ({name  , value , onChange, type = "text" , required = false}:Props){
     return (
     <>
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 ">
  <label htmlFor="floatingInput" className="form-label inline-block mb-2 text-gray-700">
      {name}
     </label>

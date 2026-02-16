@@ -94,7 +94,7 @@ if(res.ok){
        
             
             <div className=" flex items-center justify-center bg-gray-100 ">
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow w-full max-w-2xl space-y-4 shadow-lg mt-10 border border-gray-400" >
+        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl  w-full max-w-2xl  space-y-4 shadow-lg mt-10 border border-gray-400" >
          <h3 className="text-2xl font-bold text-center">
             {titulo}
             </h3>

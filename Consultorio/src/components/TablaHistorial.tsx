@@ -2,6 +2,7 @@ import { useState , useEffect } from "react";
 import Formulario from "./Form";
 import { io } from 'socket.io-client';
 
+
  type dataHisto = {
   id: string;
   fecha: string;
@@ -36,7 +37,7 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
     
    DataHisto =  historial.map((item)=>(
       <>
-      <tr key={item.id} className="row ">
+      <tr key={item.id}  className="row bg bg-red-500 text-white">
 
       <td >{item.fecha}</td> 
       <td>{item.descripcion}</td> 
@@ -68,57 +69,45 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
         
         <>
         <div className="m-3">
-           <h3>Historial</h3>
+           <h3 className=" text-3xl">Historial</h3>
+
+
          </div>
-         <table className="table table-borderer">
-            <tbody>
-                
-                    
-                        
-                        <tr key={valores.id}>
-                        
-                             <tr>
-                            <th>Nombre: </th>      
-                         <td>{valores.nombre}</td>
-                            </tr>
-                            
-                            <tr>
-                                <th>Apellido: </th>
-                            <td>{valores.apellido}</td>
-                            </tr>
-                              <tr>
-                              <th>DNI: </th>
-                            <td>{valores.dni}</td>
-                              </tr>
-                              <table>
 
-                                <thead>
-
-                                <tr >
-                                <th>Historial </th>
-                            </tr>
-                                </thead>
-                                <tbody>
-                         
-                          {DataHisto}
-                          
-                          </tbody>
-                            </table>
-
-                        </tr>
-                    
-            </tbody>
-         </table>
-
-         <Formulario 
+                  <Formulario 
 titulo='Agregar Descripcion'
 campos={[
-  {name:'Historial',type:'textarea', required: true}
+  {name:'Historial',type:'textarea', required: true }
 ]}
 method="PUT"
 credentials="include"
 url={`http://localhost:3000/AgregarAlHistorial/${valores.id}`}
 />
+         <table className="border-collapse border border-gray-400 m-3">
+            <thead className=" border-collapse border border-gray-400 bg-[#5A5D90] text-white">
+               <th className="p-2">Nombre</th>
+               <th className="p-2">Apellido</th>
+               <th className="p-2" >DNI</th>
+               <th className="p-2" >Historial</th>
+            </thead>
+            <tbody>  
+               <tr className="border-collapse border border-gray-400 bg-[#5A5D60]  text-white " key={valores.id}>
+                <td className="border border-gray-300 p-2 ">{valores.nombre}</td>
+                <td className="border border-gray-300 p-2">{valores.apellido}</td>
+                <td className="border border-gray-300 p-2">{valores.dni}</td>
+                <td className="border border-gray-300 p-2 ">{data.map((datos)=>(
+                    <tr className="border-collapse border border-gray-400 bg-[#5A5D60] flex flex-cols justify-center gap-3 mt-2 text-white " key={datos.id}>
+                        <td className="p-2">{datos.fecha}</td>
+                        <td className="p-2">{datos.descripcion}</td>
+                        
+
+                    </tr>
+                ))}</td>   
+                </tr>           
+            </tbody>
+         </table>
+
+
         </>
 
     )

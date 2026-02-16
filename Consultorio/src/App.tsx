@@ -127,7 +127,7 @@ titulo='Sesion Activa'
 usuario={usuario?.usuario ?? null}
 />}
     </ul>
-    <div className='inputs flex flex-col  basis-400 '>
+    <div className='inputs flex flex-col w-full'>
       
  <div className=' ListaTurnos shadow  m-2 bg-white '>
   <Calendario credentials={'include'}/>
@@ -135,7 +135,7 @@ usuario={usuario?.usuario ?? null}
 
 
 <div className='flex flex-row'>
- <div className='subSeccions  shadow basis-1/3 m-2  pt-0 bg-gray-100 flex flex-col text-center'>
+ <div className='subSeccions rounded-md shadow basis-1/3 m-2  pt-0 bg-gray-100 flex flex-col text-center'>
   
   {Tipos ===  'Dashboard' &&(<Ul 
   titulo='Buscar'
@@ -214,9 +214,9 @@ onSelect={setAction}
 
 
  </div>
- <div className='inputsDeSubseccions flex flex-col basis-1/1 shadow  m-2 bg-gray-100  '>
+ <div className='inputsDeSubseccions rounded-md flex flex-col basis-1/1 shadow  m-2 bg-gray-100  '>
 
-  {!action && (<Text texto='Seleccione una opcion para ver el formulario' />)}
+  {!action && (<Text  texto='Seleccione una opcion para ver el formulario' />)}
 
   {action === "Listado de Pacientes"  && (<TablePacientes Datos={result || ""} />)}
  
