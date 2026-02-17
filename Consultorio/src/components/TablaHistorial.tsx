@@ -35,13 +35,19 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
    setHistorial(data)
   }, [data]);
 
-        
+         function InvertirFecha(fechaHora: any){
+ 
+             const [fecha , hora] = fechaHora.split(' ');
+           const fechaInvertida =  fecha.split('-').reverse().join('-');
+           return `${fechaInvertida} ${hora}`;
+                }
             
              DataHisto =  historial.map((item)=>(
+               
                  <>
       <tr key={item.id}  className="border-collapse border border-gray-400 bg-[#5A5D60] flex flex-cols justify-center gap-3 mt-2 text-white ">
     
-      <td className="p-2" >{item.fecha}</td> 
+      <td className="p-2" >{InvertirFecha(item.fecha)}</td> 
       <td className="p-2">{item.descripcion}</td> 
       </tr>
       </>
