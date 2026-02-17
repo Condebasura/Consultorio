@@ -24,6 +24,7 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
 
    useEffect(() => {
     if(valoresIniciales){
+        
         setValores(valoresIniciales)
     }
     
@@ -34,18 +35,21 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
    setHistorial(data)
   }, [data]);
 
+        
+            
+             DataHisto =  historial.map((item)=>(
+                 <>
+      <tr key={item.id}  className="border-collapse border border-gray-400 bg-[#5A5D60] flex flex-cols justify-center gap-3 mt-2 text-white ">
     
-   DataHisto =  historial.map((item)=>(
-      <>
-      <tr key={item.id}  className="row bg bg-red-500 text-white">
-
-      <td >{item.fecha}</td> 
-      <td>{item.descripcion}</td> 
+      <td className="p-2" >{item.fecha}</td> 
+      <td className="p-2">{item.descripcion}</td> 
       </tr>
       </>
       
       
     ))
+
+
   
     useEffect(()=>{
     const socket = io("http://localhost:3000", {
@@ -95,14 +99,14 @@ url={`http://localhost:3000/AgregarAlHistorial/${valores.id}`}
                 <td className="border border-gray-300 p-2 ">{valores.nombre}</td>
                 <td className="border border-gray-300 p-2">{valores.apellido}</td>
                 <td className="border border-gray-300 p-2">{valores.dni}</td>
-                <td className="border border-gray-300 p-2 ">{data.map((datos)=>(
-                    <tr className="border-collapse border border-gray-400 bg-[#5A5D60] flex flex-cols justify-center gap-3 mt-2 text-white " key={datos.id}>
-                        <td className="p-2">{datos.fecha}</td>
-                        <td className="p-2">{datos.descripcion}</td>
+                <td className="border border-gray-300 p-2 ">
+                    <tr className="border-collapse  bg-[#5A5D60] flex flex-cols justify-center gap-3 mt-2 text-white ">
+                        <td className="p-2 w-full">{DataHisto}</td>
+                        
                         
 
                     </tr>
-                ))}</td>   
+            </td>   
                 </tr>           
             </tbody>
          </table>
