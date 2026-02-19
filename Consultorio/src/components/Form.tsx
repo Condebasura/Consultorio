@@ -18,6 +18,7 @@ type Campo ={
     required?: boolean;
     opciones?: {id: number, nombre: string}[];
     url?: string;
+     NameSelect?: string;
    
     
     
@@ -35,6 +36,7 @@ type FormProps={
     children?: React.ReactNode;
     valoresIniciales?:Record<string, string>;
     onUserData?:(usuario: Usuario)=> void ;
+   
     
     
     
@@ -106,7 +108,7 @@ if(res.ok){
 
                     <Selec
                    url={campo.url ?? ""}
-                   
+                   NameSelect={campo.NameSelect ?? ""}
                    seleccionado={valores[campo.name] || ""}
                    onChange={(valor)=> handleChange(campo.name , valor)}
                    

@@ -296,7 +296,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:'http://localhost:3000/ConsMedico', required: true}
 
     
   ]}
@@ -321,7 +321,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:'http://localhost:3000/ConsMedico', required: true}
     
   ]}
  
@@ -469,7 +469,7 @@ url='http://localhost:3000/IngresarMedico'
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "apellido",type: "selector",url:'http://localhost:3000/ConsUsuario', required:true},
+    {name: "apellido",type: "selector",NameSelect:"usuario",url:'http://localhost:3000/ConsUsuario', required:true},
     {name: "contraseña", type:"password", required: true}
   ]}
   
@@ -504,7 +504,7 @@ campos={[
   {name: "apellido", required: true},
   {name: 'contraseña', type: "password" , required: true},
   {name:'cargo' , required:true },
-  {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
+  {name: 'tipo',  type: "selector",NameSelect:"rol", url:"http://localhost:3000/ConsRol",required: true}
  ]}
 children={<p>Para agregar un medico primero busquelo en el panel lataral</p>}
 method='POST'
@@ -518,7 +518,7 @@ valoresIniciales={pacienteSeleccionado || ""}
   {name: "apellido", required: true},
   {name: 'contraseña', type: "password" , required: true},
   {name:'cargo' , required:true },
-  {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
+  {name: 'tipo',  type: "selector",NameSelect:"rol", url:"http://localhost:3000/ConsRol",required: true}
  ]}
 children={<p>Para agregar un medico primero busquelo en el panel lataral</p>}
 method='POST'
@@ -535,7 +535,7 @@ titulo='Eliminar Usuario'
 campos={[
   {name: "apellido", required: true},
   {name:'cargo', required:true}, 
-  {name: 'tipo',  type: "selector", url:"http://localhost:3000/ConsRol",required: true}
+  {name: 'tipo',  type: "selector",NameSelect:"rol", url:"http://localhost:3000/ConsRol",required: true}
 ]}
 nameBtn='Eliminar'
 children={<p>Use el buscador para selecionar y eliminar un usuario</p>}
