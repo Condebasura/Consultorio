@@ -10,11 +10,11 @@ export type Usuario= {
 
 type SesionProps={
     titulo: string;
-    usuario: Usuario |null;
+    sesion: {usuario: Usuario} |null;
 }
 
-export default function Sesiones({titulo, usuario}: SesionProps){
-if(!usuario) return (<>
+export default function Sesiones({titulo, sesion}: SesionProps){
+if(!sesion) return (<>
 <div className="bg-[#e62d0c]  rounded-xs mt-3 m-2">
 <h5 className="text-center text-sm ">Sesion Inactiva</h5>
 
@@ -33,15 +33,15 @@ if(!usuario) return (<>
     </div> 
     <table className="border-collapse  text-center m-0 p-0 flex flex-column  ">
         <tbody className="m-0 p-0 flex flex-col ">
-            <tr className="mt-0 " key={usuario.id}>
+            <tr className="mt-0 " key={sesion?.usuario.id}>
                 <tr className="border border-gray-300 ">
 
                 <th className="p-1 text-white bg-gray-800 text-sm">Usuario</th>
-                <td className="p-2 bg-gray-200 text-sm">{usuario.apellido}</td>
+                <td className="p-2 bg-gray-200 text-sm">{sesion?.usuario.apellido}</td>
                 </tr>
                 <tr className="border border-gray-300 ">
                 <th className="p-1 text-white bg-gray-800 text-sm">cargo</th>
-                <td className="p-2 text-xs bg-gray-200">{usuario.cargo}</td>
+                <td className="p-2 text-xs bg-gray-200">{sesion?.usuario.cargo}</td>
                 </tr>
             </tr>
         </tbody>

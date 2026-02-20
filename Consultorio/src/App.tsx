@@ -124,7 +124,7 @@ useEffect(()=>{
     
 {<Sesiones
 titulo='Sesion Activa'
-usuario={sesion?.usuario ?? null}
+sesion={sesion ?? null}
 />}
     </ul>
     <div className='inputs flex flex-col w-full'>
