@@ -46,8 +46,8 @@ useEffect(()=>{
     const fetchTurnos = async ()=>{
         console.log("hago el fetch de los turnos")
         try {
-            const res = await fetch(" /ConsTurno", {
-                credentials: 'include',
+            const res = await fetch("/ConsTurno", {
+                credentials,
             });
             const data = await res.json();
             const evFormat = data.map((t: any)=>({
@@ -120,7 +120,7 @@ return(
         } }
         
         style={{ borderRadius: "10px", boxShadow: "0 0 10px #888383ff" }}
-        />
+       />
     </div>
 )
 

@@ -15,7 +15,7 @@ type SelectMedicoProps ={
    opciones?:Sujeto[];
    seleccionado: string;
    NameSelect: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange: (value: any) => void;
     
 }

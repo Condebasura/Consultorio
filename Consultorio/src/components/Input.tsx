@@ -19,7 +19,7 @@ export default function Inputs ({name  , value , onChange, type = "text" , requi
       type={type}
       required={required}
       onChange={(e)  => onChange(e.target.value)}
-      />
+     />
 
    
       </div>

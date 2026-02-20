@@ -10,7 +10,7 @@ import { error } from "console";
 function FormatearEventos(turnos){
 
     return  turnos.map((t)=>{
-            // crear las fechas en hora local, asi evitamos restas o sumas automaticas
+           // crear las fechas en hora local, asi evitamos restas o sumas automaticas
               const [year, month, day] = t.fecha.split('-').map(Number);
               const [hora, minuto] = t.hora.split(':').map(Number);
               const fecha = new Date(year, month - 1, day, hora, minuto);
@@ -21,7 +21,7 @@ function FormatearEventos(turnos){
                 id: t.id,
                 title: `${t.nombre} ${t.apellido} - ${t.medico}`,
                 start: fecha,
-                end: new Date(fecha.getTime() + 30 * 60000), // 30 minutos
+                end: new Date(fecha.getTime() + 30 * 60000),// 30 minutos
 
                 paciente:{
                     nombre: t.nombre,

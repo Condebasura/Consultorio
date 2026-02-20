@@ -12,7 +12,7 @@ type DataTabProps = {
 
 type datosProp = {
     DatosPaci: DataTabProps[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onEditar: (DatosPaci: any) => void;
     name?: string;
 }

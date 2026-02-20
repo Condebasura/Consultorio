@@ -36,23 +36,23 @@ type FormProps={
     children?: React.ReactNode;
     valoresIniciales?:Record<string, string>;
     onUserData?:(usuario: Usuario)=> void ;
-   
-    
-    
-    
 
 }
 
+type ApiResponse<T> = {
+    mensaje: string;
+    data?: T;
+}
 
 export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales , credentials = 'omit' , onUserData }: FormProps){
-    // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
+   // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
   
 const [mensaje, setMensaje] = useState<string | null>(null);
 
 const handleChange = (campo: string , valor: string)=>{
     setValores((prev) =>({...prev, [campo]: valor}));
-    // ...prev sirve para copiar las propiedades de un objeto
+   // ...prev sirve para copiar las propiedades de un objeto
 }
 
 useEffect(()=>{
@@ -71,7 +71,7 @@ const res = await fetch(url,{
     headers: {'Content-Type': 'application/json'},
     body: method !== "GET"? JSON.stringify(valores): undefined
 })
-const data =  await res.json();
+const data: ApiResponse<Usuario> =  await res.json();
 
 setMensaje(data.mensaje)
 if(res.ok){
@@ -84,7 +84,10 @@ if(res.ok){
     })
 
 }
-    onUserData?.(data)
+if(data.data){
+
+    onUserData?.(data.data)
+}
 
 
  }
@@ -112,7 +115,7 @@ if(res.ok){
                    seleccionado={valores[campo.name] || ""}
                    onChange={(valor)=> handleChange(campo.name , valor)}
                    
-                   />
+                  />
                    
                    
                    
@@ -127,7 +130,7 @@ if(res.ok){
                     
                     value={valores[campo.name] ||''}
                     onChange={(e)=> handleChange(campo.name, e)}
-                    />
+                   />
                     
                     
                 )

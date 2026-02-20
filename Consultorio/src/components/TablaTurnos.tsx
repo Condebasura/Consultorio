@@ -41,8 +41,8 @@ export default function Table({Datos , name}: CampoProps){
                                       
                     <tr  key={index} >
 
-                    <td > {data.fecha} / {data.hora}</td>
-                    <td >{data.apellido} / {data.nombre}</td>
+                    <td > {data.fecha}/ {data.hora}</td>
+                    <td >{data.apellido}/ {data.nombre}</td>
                     <td >{data.dni}</td>
                     <td >{data.medico}</td>
                     <td >{data.observaciones}</td>
