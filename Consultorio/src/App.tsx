@@ -110,7 +110,7 @@ useEffect(()=>{
     <i className="fa-solid fa-user-injured me-2 text-sm  "></i>
   </Libtn>
 
-<Libtn isDisabled={isDisabled || sesion?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none flex flex-row items-center   mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
+<Libtn isDisabled={isDisabled || sesion?.usuario?.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none flex flex-row items-center   mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
     <i className="fa-solid fa-calendar-check me-2 text-sm"></i>
 </Libtn>
 
