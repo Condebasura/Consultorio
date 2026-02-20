@@ -3,6 +3,7 @@ import { _dirname, io } from "../app.js";
 import {v4 as uuidv4} from 'uuid';
 import session from "express-session";
 import { error } from "console";
+import path from "path";
 
 
 
