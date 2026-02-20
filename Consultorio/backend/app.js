@@ -43,7 +43,7 @@ const corsOptions = {
     credentials: true ,
 };
 
-app.use(express.static(path.join(_dirname, 'dist')))
+app.use(express.static(path.join(_dirname, '..','dist')))
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));

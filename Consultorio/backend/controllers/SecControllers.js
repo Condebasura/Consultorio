@@ -36,7 +36,7 @@ function FormatearEventos(turnos){
 };
 
 const getIndex = (req,res)=>{
-    res.sendFile(path.join(_dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(_dirname,'..', 'dist', 'index.html'))
 }
 
 const SelectUsuario = async (req,res)=>{
