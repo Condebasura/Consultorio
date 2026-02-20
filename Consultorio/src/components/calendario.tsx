@@ -46,7 +46,7 @@ useEffect(()=>{
     const fetchTurnos = async ()=>{
         console.log("hago el fetch de los turnos")
         try {
-            const res = await fetch("http://localhost:3000/ConsTurno", {
+            const res = await fetch("/api/ConsTurno", {
                 credentials: 'include',
             });
             const data = await res.json();
@@ -66,7 +66,7 @@ useEffect(()=>{
 
 useEffect(()=>{
 console.log("Me monto")
-    const socket = io("http://localhost:3000", {
+    const socket = io("/", {
         transports: ["websocket"],
         withCredentials: true,
     });
