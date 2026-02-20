@@ -40,7 +40,7 @@ function App() {
 
 
      function useSesion(url: string , refreshSesion: number){
-     const [usuario , setUsuario] = useState<Usuario |null>(null);
+     const [sesion , setSesion] = useState<{ usuario: Usuario}| null> (null);
      const [loadng, setLoading] = useState(true);
      
     
@@ -52,7 +52,7 @@ function App() {
           
           await fetch(url, {credentials:'include'})
            .then(res => res.ok ? res.json() : null)
-           .then(data => setUsuario(data))
+           .then(data => setSesion(data))
            .finally(()=> setLoading(false))
         } catch (error) {
           console.log("error en el fetch", error)
@@ -60,7 +60,7 @@ function App() {
         }
         fetchSesion();
       }, [url ,refreshSesion])
-      return {usuario , loadng}
+      return {sesion , loadng}
     }
 
    
@@ -84,7 +84,7 @@ function App() {
         
   
 
-const {usuario } = useSesion("/sesion", refreshSesion)
+const {sesion } = useSesion("/sesion", refreshSesion)
 
 
   const [Tipos, setTipos] = useState('Sesiones');
@@ -105,26 +105,26 @@ useEffect(()=>{
     <ul className='flex flex-col rounded-l-xl text-start  basis-36  gap-2 bg-[#0B1238] m-2 me-1  '>
       
 
-<Libtn isDisabled={isDisabled || usuario?.rol === 'Administrador' || usuario?.rol === undefined} className='seccions flex flex-row   items-center rounded-sm list-none text-sm  mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
+<Libtn isDisabled={isDisabled || sesion?.usuario.rol === 'Administrador' || sesion?.usuario.rol === undefined} className='seccions flex flex-row   items-center rounded-sm list-none text-sm  mt-2 mx-2 p-2 bg-[#5A5D90] text-white' name='Pacientes'onClick={()=> setTipos('Pacientes')}
   >
     <i className="fa-solid fa-user-injured me-2 text-sm  "></i>
   </Libtn>
 
-<Libtn isDisabled={isDisabled || usuario?.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none flex flex-row items-center   mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
+<Libtn isDisabled={isDisabled || sesion?.usuario.rol !== 'Secretaria'} onClick={()=> setTipos('Turnos')}   className={'seccions rounded-sm list-none flex flex-row items-center   mt-2 mx-2  p-2 bg-[#5A5D90] text-white text-sm'} name='Turnos'>
     <i className="fa-solid fa-calendar-check me-2 text-sm"></i>
 </Libtn>
 
-  <Libtn isDisabled={isDisabled || usuario?.rol !== 'Administrador'} className='seccions flex flex-row items-center rounded-sm list-none mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Medicos' onClick={()=> setTipos("Medicos")}>  
+  <Libtn isDisabled={isDisabled || sesion?.usuario.rol !== 'Administrador'} className='seccions flex flex-row items-center rounded-sm list-none mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Medicos' onClick={()=> setTipos("Medicos")}>  
     <i className="fa-solid fa-user-doctor me-2 text-sm"></i>
   </Libtn>
 
     <Libtn  name='Sesiones' className="seccions flex flex-row items-center rounded-sm list-none    mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm"  onClick={()=> setTipos('Sesiones')}> <i className="fa-solid fa-user me-2 text-sm"></i></Libtn>
 
-<Libtn  isDisabled={isDisabled || usuario?.rol !== 'Medico'} className='seccions flex flex-row items-center rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
+<Libtn  isDisabled={isDisabled || sesion?.usuario.rol !== 'Medico'} className='seccions flex flex-row items-center rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
     
 {<Sesiones
 titulo='Sesion Activa'
-usuario={usuario ?? null}
+usuario={sesion?.usuario ?? null}
 />}
     </ul>
     <div className='inputs flex flex-col w-full'>
@@ -141,12 +141,12 @@ usuario={usuario ?? null}
   titulo='Buscar'
   names={['Pacientes'
 ]}
-  isDisabled={(name)=> (name === 'Pacientes'&& usuario?.rol === 'Administrador') || (name === 'Pacientes'&& usuario?.rol === undefined)}
+  isDisabled={(name)=> (name === 'Pacientes'&& sesion?.usuario.rol === 'Administrador') || (name === 'Pacientes'&& sesion?.usuario.rol === undefined)}
   onSelect={setAction}
   
   > 
   
-  <SearchInput onSearch={(data) =>setResult(data ||'')} isDisabled={usuario?.rol === undefined} method='POST'     url='/SearchPaciente'/>
+  <SearchInput onSearch={(data) =>setResult(data ||'')} isDisabled={sesion?.usuario.rol === undefined} method='POST'     url='/SearchPaciente'/>
   
 </Ul> )}
 
@@ -188,11 +188,11 @@ onSelect={setAction}
 {Tipos === "Sesiones" && (<Ul
 titulo='Sesion'
 names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
-isDisabled={(name)=> (name === 'Agregar'&& usuario?.rol !== 'Administrador') ||  (name === 'Quitar'&& usuario?.rol !== 'Administrador') }
+isDisabled={(name)=> (name === 'Agregar'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Quitar'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
-  { action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={usuario?.rol !== 'Administrador'} method='POST'     url='/SearchUsuario'/>): 
- <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={usuario?.rol !== 'Administrador'} method='POST'     url='/SearchMedico'/>
+  { action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url='/SearchUsuario'/>): 
+ <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url='/SearchMedico'/>
 }
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
