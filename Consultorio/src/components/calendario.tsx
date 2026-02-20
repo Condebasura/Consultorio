@@ -46,7 +46,7 @@ useEffect(()=>{
     const fetchTurnos = async ()=>{
         console.log("hago el fetch de los turnos")
         try {
-            const res = await fetch("/api/ConsTurno", {
+            const res = await fetch(" /ConsTurno", {
                 credentials: 'include',
             });
             const data = await res.json();
