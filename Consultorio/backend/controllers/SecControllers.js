@@ -1,5 +1,5 @@
 import bd from "../model/bd.js";
-import { io } from "../app.js";
+import { _dirname, io } from "../app.js";
 import {v4 as uuidv4} from 'uuid';
 import session from "express-session";
 import { error } from "console";
@@ -33,6 +33,10 @@ function FormatearEventos(turnos){
          });
         
 };
+
+const getIndex = (req,res)=>{
+    res.sendFile(path.join(_dirname, 'dist', 'index.html'))
+}
 
 const SelectUsuario = async (req,res)=>{
 
@@ -615,6 +619,7 @@ try {
  }
 
 export default {
+    getIndex,
     AltaPaciente,
     SearchPaciente,
      ActualizarPaciente,

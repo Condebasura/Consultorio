@@ -43,7 +43,7 @@ const corsOptions = {
     credentials: true ,
 };
 
-
+app.use(express.static(path.join(_dirname, 'dist')))
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
@@ -68,7 +68,7 @@ app.use( helmet.contentSecurityPolicy({
         saveUninitialized: false
     }))
 
-
+     app.get("/", SecControllers.getIndex)
     app.post("/AltaPaciente", SecControllers.AltaPaciente);
     app.post("/SearchPaciente", SecControllers.SearchPaciente);
     app.put("/UpdatePaciente/:id", SecControllers.ActualizarPaciente);
