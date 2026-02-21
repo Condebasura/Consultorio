@@ -55,7 +55,7 @@ function App() {
    
      
     const {sesion } = useSesion("/sesion", refreshSesion)
-    setRefreshSesion(prev => prev + 1)
+    
 
  
 
@@ -457,8 +457,8 @@ url='/IngresarMedico'
   url='/PostUsuario'
   credentials='include'
   headers={{"Content-Type":"application/json"}} 
-  onUserData={(usuario)=>{
-    setUserData(usuario)
+  onUserData={()=>{
+    setRefreshSesion(prev => prev + 1)
   }}
  />
   
