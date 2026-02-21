@@ -113,16 +113,16 @@ else{
     }
 })
     if(req.session.usuario){
-const userId = req.session.usuario.id;
-    io.to(userId).emit("Turnos-Actualizados", EventVisibles)
+
+    io.emit("Turnos-Actualizados", EventVisibles)
         
         return res.json({
             logueado: true,
             usuario: req.session.usuario
         })
     }else{
-        const userId = req.session.usuario.id;
-    io.to(userId).emit("Turnos-Actualizados", EventVisibles)
+        
+    io.emit("Turnos-Actualizados", EventVisibles)
         
         return res.status(401).json({logueado: false})
     }
