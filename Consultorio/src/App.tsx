@@ -39,29 +39,27 @@ function App() {
      },[])
 
 
-     function useSesion(url: string , refreshSesion: number){
-     const [sesion , setSesion] = useState<{ usuario: Usuario}| null> (null);
-     const [loadng, setLoading] = useState(true);
-     
     
+     const [sesion , setSesion] = useState<{ usuario: Usuario}| null> (null);
+     
+     
+    const cargarSesion = async()=>{
+      const res = await fetch("/sesion");
+      const data = await res.json();
+      if(data.logueado){
+        setSesion(data.usuario);
+        refreshSesion;
+      }else{
+        setSesion(null)
+      }
+    };
+
+    useEffect(()=>{
+      cargarSesion();
+    },[]);
 
      
-     useEffect(() =>{
-        const fetchSesion = async()=>{
-        try {
-          
-          await fetch(url, {credentials:'include'})
-           .then(res => res.ok ? res.json() : null)
-           .then(data => setSesion(data))
-           .finally(()=> setLoading(false))
-        } catch (error) {
-          console.log("error en el fetch", error)
-        }
-        }
-        fetchSesion();
-      }, [url ,refreshSesion])
-      return {sesion , loadng}
-    }
+    
 
    
      
@@ -84,7 +82,7 @@ function App() {
         
   
 
-const {sesion } = useSesion("/sesion", refreshSesion)
+
 
 
   const [Tipos, setTipos] = useState('Sesiones');
