@@ -22,7 +22,7 @@ function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
      const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
-     const [ setUserData] = useState<Usuario | any>();
+     //const [ setUserData] = useState<Usuario | any>();
      const [refreshSesion , setRefreshSesion] = useState(0);
      
     
