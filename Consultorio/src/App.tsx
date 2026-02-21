@@ -30,7 +30,7 @@ function App() {
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1)
-       
+       refreshSesion
       });
       return ()=>{
         socket.off('session:updated');
@@ -48,7 +48,7 @@ function App() {
       const data = await res.json();
       if(data.logueado){
         setSesion(data.usuario);
-        refreshSesion;
+        
       }else{
         setSesion(null)
       }
