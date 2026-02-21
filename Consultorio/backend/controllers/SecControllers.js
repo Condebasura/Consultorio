@@ -84,8 +84,7 @@ else{
                      socket.join(userId);
                     });
                 })
-                const userId = req.session.usuario.id;
-                io.to(userId).emit('session:updated')
+               
             return res.status(200).json({ok: true})
         
         }
@@ -114,15 +113,13 @@ else{
 })
     if(req.session.usuario){
 
-    io.emit("Turnos-Actualizados", EventVisibles)
         
         return res.json({
             logueado: true,
             usuario: req.session.usuario
+            
         })
     }else{
-        
-    io.emit("Turnos-Actualizados", EventVisibles)
         
         return res.status(401).json({logueado: false})
     }
@@ -150,7 +147,7 @@ const Logout = async(req, res)=>{
         }
         if(userId){
             
-            io.to(userId).emit('session:updated')
+            io.emit('session:updated')
          
         }
         
