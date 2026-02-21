@@ -154,7 +154,7 @@ const Logout = async(req, res)=>{
          
         }
         
-        io.to(userId).emit("Turnos-Actualizados", EventVisibles)
+        io.emit("Turnos-Actualizados", EventVisibles)
     res.json({ok: true})
     })
 }
