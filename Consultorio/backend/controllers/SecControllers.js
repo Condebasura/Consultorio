@@ -84,6 +84,8 @@ else{
                      socket.join(userId);
                     });
                 })
+                const userId = req.session.usuario;
+                console.log("Me logeo", userId)
                 io.emit('session:updated')
             return res.status(200).json({ok: true})
         
@@ -108,19 +110,21 @@ else{
 
         return e;
     }if(rol  === "Secretaria"){
+        console.log(e.medico)
         return eventos
     }
 })
     if(req.session.usuario){
+const userId = req.session?.usuario?.id;
+console.log("Muestro los turnos del usuario", EventVisibles , userId)
+io.emit("Turnos-Actualizados", EventVisibles)
 
-    io.emit("Turnos-Actualizados", EventVisibles)
-        
-        return res.json({
+ res.status(200).json({
             logueado: true,
             usuario: req.session.usuario
         })
     }else{
-    io.emit("Turnos-Actualizados", EventVisibles)
+    
         
         return res.status(401).json({logueado: false})
     }
