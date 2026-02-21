@@ -44,7 +44,7 @@ const [view , setViews] = useState<View>('month')
 
 useEffect(()=>{
     const fetchTurnos = async ()=>{
-        console.log("hago el fetch de los turnos")
+        
         try {
             const res = await fetch("/ConsTurno", {
                 credentials,
@@ -65,7 +65,7 @@ useEffect(()=>{
 }, []);
 
 useEffect(()=>{
-console.log("Me monto")
+
     const socket = io("/", {
         transports: ["websocket"],
         withCredentials: true,
