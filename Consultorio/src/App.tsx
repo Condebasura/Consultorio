@@ -4,7 +4,7 @@ import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
-import { io } from 'socket.io-client';
+
 
 
 import SearchInput from './components/Search';
@@ -25,44 +25,38 @@ function App() {
      const [ setUserData] = useState<Usuario | any>();
      const [refreshSesion , setRefreshSesion] = useState(0);
      
-     useEffect(()=>{
-      const socket = io('/');
-
-      socket.on('session:updated' , ()=>{
-        setRefreshSesion(prev => prev + 1)
-       refreshSesion
-      });
-      return ()=>{
-        socket.off('session:updated');
-        socket.disconnect();
-      }
-     },[])
-
-
     
+
+
+     function useSesion(url: string , refreshSesion: number){
      const [sesion , setSesion] = useState<{ usuario: Usuario}| null> (null);
-     
-     
-    const cargarSesion = async()=>{
-      const res = await fetch("/sesion");
-      const data = await res.json();
-      if(data.logueado){
-        setSesion(data.usuario);
-        
-      }else{
-        setSesion(null)
-      }
-    };
-
-    useEffect(()=>{
-      cargarSesion();
-    },[]);
-
+     const [loadng, setLoading] = useState(true);
      
     
+
+     
+     useEffect(() =>{
+        const fetchSesion = async()=>{
+        try {
+          
+          await fetch(url, {credentials:'include'})
+           .then(res => res.ok ? res.json() : null)
+           .then(data => setSesion(data))
+           .finally(()=> setLoading(false))
+        } catch (error) {
+          console.log("error en el fetch", error)
+        }
+        }
+        fetchSesion();
+      }, [url ,refreshSesion])
+      return {sesion , loadng}
+    }
 
    
      
+    const {sesion } = useSesion("/sesion", refreshSesion)
+    setRefreshSesion(prev => prev + 1)
+
  
 
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
@@ -81,7 +75,6 @@ function App() {
           }
         
   
-
 
 
 
@@ -135,18 +128,7 @@ sesion={sesion ?? null}
 <div className='flex flex-row'>
  <div className='subSeccions rounded-md shadow basis-1/3 m-2  pt-0 bg-gray-100 flex flex-col text-center'>
   
-  {Tipos ===  'Dashboard' &&(<Ul 
-  titulo='Buscar'
-  names={['Pacientes'
-]}
-  isDisabled={(name)=> (name === 'Pacientes'&& sesion?.usuario.rol === 'Administrador') || (name === 'Pacientes'&& sesion?.usuario.rol === undefined)}
-  onSelect={setAction}
   
-  > 
-  
-  <SearchInput onSearch={(data) =>setResult(data ||'')} isDisabled={sesion?.usuario.rol === undefined} method='POST'     url='/SearchPaciente'/>
-  
-</Ul> )}
 
 {Tipos === 'Pacientes' && (<Ul 
 titulo='Pacientes'
