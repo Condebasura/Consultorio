@@ -458,7 +458,10 @@ url='/IngresarMedico'
   credentials='include'
   headers={{"Content-Type":"application/json"}} 
   onUserData={()=>{
-    setRefreshSesion(prev => prev + 1)
+    useEffect(()=>{
+
+      setRefreshSesion(prev => prev + 1)
+    })
   }}
  />
   
