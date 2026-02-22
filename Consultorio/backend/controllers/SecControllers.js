@@ -99,30 +99,39 @@ else{
 
 
   const GetSesion = async(req, res)=>{
-   
+        let eventos;
 
-      const eventos = FormatearEventos(await bd.ConsultarTurno())
+      if(req.session.usuario){
+          let rol = req.session.usuario?.rol;
+          let apellido = req.session.usuario?.apellido;
 
-  const EventVisibles = eventos.filter((e) =>{
-    let rol = req.session.usuario?.rol;
-    let apellido = req.session.usuario?.apellido;
-    if(e.medico === apellido){
+            if(rol === "Secretaria"){
+      
+               eventos = FormatearEventos(await bd.ConsultarTurno())
+                const userId = req.session.usuario.id;
+                console.log("Eventos de secretaria",apellido , eventos, userId)
+              io.to(userId).emit("Turnos-Actualizados", eventos)
+               
+      
 
-        return e;
-    }if(rol  === "Secretaria"){
-        console.log(e.medico)
-        return eventos
-    }
-})
-    if(req.session.usuario){
-const userId = req.session?.usuario?.id;
-console.log("Muestro los turnos del usuario", EventVisibles , userId)
-io.emit("Turnos-Actualizados", EventVisibles)
+        }if(rol === "Medico"){
+            eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
+            const userId = req.session.usuario.id;
+            console.log("Eventos segun el medico",apellido , eventos, userId)
+              io.to(userId).emit("Turnos-Actualizados", eventos)
+               
+            }
 
- res.status(200).json({
+           return res.status(200).json({
             logueado: true,
-            usuario: req.session.usuario
+            usuario: req.session.usuario, 
+            eventos,
+            
         })
+  
+
+
+
     }else{
     
         
@@ -370,22 +379,29 @@ try {
 
  const ConsultarTurno = async (req,res)=>{
     try {
-       const eventos = FormatearEventos(await bd.ConsultarTurno())
+        let eventos;
+      if(req.session.usuario){
+          let rol = req.session.usuario.rol;
+          let apellido = req.session.usuario.apellido;
 
-      const EventVisibles = eventos.filter((e) =>{
-        let rol = req.session.usuario?.rol;
-        let apellido = req.session.usuario?.apellido;
-        if(e.medico === apellido){
+          if(rol === "Secretaria"){
+      
+               eventos = FormatearEventos(await bd.ConsultarTurno())
+                const userId = req.session.usuario.id;
+              io.to(userId).emit("Turnos-Actualizados", eventos)
+              
+      
 
-            return e;
-        }if(rol  === "Secretaria"){
-            return eventos
-        }
-    })
-    io.emit("Turnos-Actualizados", EventVisibles)
-         return res.status(200).json(EventVisibles)
-   
-         
+        }if(rol === "Medico"){
+            eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
+            const userId = req.session.usuario.id;
+            console.log("Eventos segun el medico",apellido , eventos, userId)
+              io.to(userId).emit("Turnos-Actualizados", eventos)
+              
+            }
+            
+            return res.status(200).json(eventos)
+    } 
     } catch (error) {
         return res.status(500).json({mensaje: 'Error interno en el servidor', error})
     }

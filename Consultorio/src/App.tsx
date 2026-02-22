@@ -30,6 +30,7 @@ function App() {
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1)
+        console.log("el socket refresca la sesion", setRefreshSesion(prev => prev + 1))
        
       });
       return ()=>{
@@ -85,7 +86,7 @@ function App() {
   
 
 const {sesion } = useSesion("http://localhost:3000/sesion", refreshSesion)
-
+console.log("Al logearse se refresca la sesion?", sesion, refreshSesion)
 
   const [Tipos, setTipos] = useState('Sesiones');
   const [action , setAction] = useState<string |null>(null);
