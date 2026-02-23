@@ -29,8 +29,8 @@ function App() {
       const socket = io('http://localhost:3000');
 
       socket.on('session:updated' , ()=>{
-        setRefreshSesion(prev => prev + 1)
-        console.log("el socket refresca la sesion", setRefreshSesion(prev => prev + 1))
+        setRefreshSesion(prev => prev + 1);
+        refreshSesion
        
       });
       return ()=>{
@@ -131,7 +131,12 @@ sesion={sesion ?? null}
     <div className='inputs flex flex-col w-full'>
       
  <div className=' ListaTurnos shadow  m-2 bg-white '>
-  <Calendario credentials={'include'}/>
+  
+  && <Calendario 
+  credentials={'include'}
+  url={`http://localhost:3000/ConsTurno`}
+  usuario={sesion?.usuario}
+   />
  </div>
 
 

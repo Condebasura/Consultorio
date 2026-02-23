@@ -4,6 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import session from "express-session";
 import { error } from "console";
 import path from "path";
+import { isGeneratorObject } from "util/types";
 
 
 
@@ -140,20 +141,11 @@ else{
 };
 
 const Logout = async(req, res)=>{
-    const eventos = FormatearEventos(await bd.ConsultarTurno())
-      const EventVisibles = eventos.filter((e) =>{
-        let rol = req.session.usuario?.rol;
-        let apellido = req.session.usuario?.apellido;
-        if(e.medico === apellido){
-
-            return e;
-        }if(rol  === "Secretaria"){
-            return eventos
-        }
-    });
+      
 
 
     const userId= req.session?.usuario?.id;
+    
     
     req.session.destroy(err =>{
         if(err){
@@ -162,11 +154,12 @@ const Logout = async(req, res)=>{
         if(userId){
             
             io.emit('session:updated')
+             io.to(userId).emit("Turnos-Actualizados")
          
         }
+       return res.json({ok: false})
         
-        io.emit("Turnos-Actualizados", EventVisibles)
-    res.json({ok: true})
+       
     })
 }
 
