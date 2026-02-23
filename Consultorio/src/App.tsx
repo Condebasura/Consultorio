@@ -132,7 +132,7 @@ sesion={sesion ?? null}
       
  <div className=' ListaTurnos shadow  m-2 bg-white '>
   
-  && <Calendario 
+  <Calendario 
   credentials={'include'}
   url={`http://localhost:3000/ConsTurno`}
   usuario={sesion?.usuario}
