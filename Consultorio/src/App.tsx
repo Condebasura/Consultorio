@@ -298,11 +298,13 @@ onSelect={setAction}
  
 
   method='POST'
-  credentials='omit'
+  credentials='include'
   url='http://localhost:3000/CrearTurno'
   valoresIniciales={
   pacienteSeleccionado || {}}
-  
+  onUserData={(usuario)=>{
+    setUserData(usuario)
+  }}
  />)}
 
   {action === 'Editar'&&  (!pacienteSeleccionado) ?(<Formulario
@@ -323,8 +325,11 @@ onSelect={setAction}
   valoresIniciales={undefined }
 
   method='GET'
-  credentials='omit'
+  credentials='include'
   url=''
+  onUserData={(usuario)=>{
+    setUserData(usuario)
+  }}
  />):action === 'Editar'&& (pacienteSeleccionado) &&(<Formulario
   titulo='Editar'
   campos={[
@@ -342,9 +347,11 @@ onSelect={setAction}
  
   valoresIniciales={pacienteSeleccionado || []}
   method='PUT'
-  credentials='omit'
+  credentials='include'
   url={`http://localhost:3000/UpdateTurno/${pacienteSeleccionado.id}`}
-  
+  onUserData={(usuario)=>{
+    setUserData(usuario)
+  }}
  />)}
 
   {action === 'Cancelar'&& (!pacienteSeleccionado) ?(<Formulario
@@ -363,8 +370,11 @@ onSelect={setAction}
   nameBtn='Eliminar'
     valoresIniciales={undefined}
   method='GET'
-  credentials='omit'
+  credentials='include'
   url=''
+  onUserData={(usuario)=>{
+    setUserData(usuario)
+  }}
  />): action === 'Cancelar' && (pacienteSeleccionado)&& (<Formulario
   
   titulo='Cancelar'
@@ -381,8 +391,11 @@ onSelect={setAction}
   nameBtn='Eliminar'
     valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
-  credentials='omit'
+  credentials='include'
   url={`http://localhost:3000/EliminarTurno/${pacienteSeleccionado.id}`}
+  onUserData={(usuario)=>{
+    setUserData(usuario)
+  }}
  />)}
 
   {action === "Ingresar_M" && (<Formulario
@@ -490,7 +503,10 @@ campos={[
   method='POST'
   credentials='include'
   url='http://localhost:3000/logout'
-
+onUserData={(usuario)=>{
+          setUserData(usuario)
+         
+}}
  />
 ) }
 

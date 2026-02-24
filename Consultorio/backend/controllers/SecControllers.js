@@ -86,7 +86,7 @@ else{
                     });
                 })
                 const userId = req.session.usuario;
-                console.log("Me logeo", userId)
+               
                 io.emit('session:updated')
             return res.status(200).json({ok: true})
         
@@ -110,7 +110,7 @@ else{
       
                eventos = FormatearEventos(await bd.ConsultarTurno())
                 const userId = req.session.usuario.id;
-                console.log("Eventos de secretaria",apellido , eventos, userId)
+                
               io.to(userId).emit("Turnos-Actualizados", eventos)
                
       
@@ -118,7 +118,7 @@ else{
         }if(rol === "Medico"){
             eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
             const userId = req.session.usuario.id;
-            console.log("Eventos segun el medico",apellido , eventos, userId)
+
               io.to(userId).emit("Turnos-Actualizados", eventos)
                
             }
@@ -141,25 +141,17 @@ else{
 };
 
 const Logout = async(req, res)=>{
-      
-
-
-    const userId= req.session?.usuario?.id;
-    
-    
+ 
+   
     req.session.destroy(err =>{
         if(err){
             return res.status(500).json({error: 'Error al cerrar sesion'})
         }
-        if(userId){
-            
-            io.emit('session:updated')
-             io.to(userId).emit("Turnos-Actualizados")
-         
-        }
-       return res.json({ok: false})
         
-       
+            res.clearCookie("connect.sid");
+            io.emit('session:updated');
+             return res.redirect("/");
+      
     })
 }
 
@@ -285,12 +277,13 @@ try {
 
     const datos = await bd.AsignarTurno(paci);
     
+    console.log("La secre", req.session.usuario)
     if(!datos){
         return res.status(409).json({mensaje:'No fue posible asignar el turno o esta ocupado'})
     }else{
         const eventos = FormatearEventos(await bd.ConsultarTurno())
-        
-        io.emit("Turnos-Actualizados", eventos);
+        const userId = req.session.usuario.id;
+        io.to(userId).emit("Turnos-Actualizados", eventos);
         return res.status(200).json({mensaje: 'El turno fue asignado correctamente', ok: true})
     }
 
@@ -325,7 +318,8 @@ try {
         console.log("En el back", paciente)
         await bd.UpdateTurno(paciente)
         const evento = FormatearEventos(await bd.ConsultarTurno())
-        io.emit("Turnos-Actualizados", evento)
+          const userId = req.session.usuario.id;
+        io.to(userId).emit("Turnos-Actualizados", evento);
         return res.status(200).json({mensaje: 'Turno actualizado correctamente'})
     } catch (error) {
    return res.status(500).json({ mensaje: "Error interno del servidor", error });
@@ -343,7 +337,8 @@ try {
         bd.DeleteTruno(id)
         
         const eventos = FormatearEventos(await bd.ConsultarTurno())
-        io.emit("Turnos-Actualizados", eventos);
+        const userId = req.session.usuario.id;
+        io.to(userId).emit("Turnos-Actualizados", eventos);
     } catch (error) {
         console.log("error al eliminar")
     }

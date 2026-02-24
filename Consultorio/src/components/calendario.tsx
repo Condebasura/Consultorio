@@ -58,7 +58,13 @@ const [view , setViews] = useState<View>('month')
      
    
 useEffect(()=>{
-    if(!usuario) return
+    
+    if(!usuario){
+    setEventos([])
+        return 
+    } 
+        
+    
     const fetchTurnos = async ()=>{
         console.log("hago el fetch de los turnos")
         try {
