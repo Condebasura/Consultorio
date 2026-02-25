@@ -98,12 +98,16 @@ console.log("Me monto")
     });
 
     socket.on("Turnos-Actualizados", (data: any[])=>{
+        console.log("recibi turnos", data)
         const enFormat = data.map((t:any)=>({
             ...t,
             start: new Date(t.start),
             end: new Date(t.end)
         }));
-        setEventos(enFormat)
+        
+
+            setEventos(enFormat)
+        
     });
     return () => {
     socket.disconnect();

@@ -273,18 +273,40 @@ try {
         observaciones: req.body.observaciones,
         medico:  req.body.medicoApellido
     }
-    console.log(paci)
+    
 
     const datos = await bd.AsignarTurno(paci);
     
-    console.log("La secre", req.session.usuario)
+    
     if(!datos){
         return res.status(409).json({mensaje:'No fue posible asignar el turno o esta ocupado'})
     }else{
-        const eventos = FormatearEventos(await bd.ConsultarTurno())
-        const userId = req.session.usuario.id;
-        io.to(userId).emit("Turnos-Actualizados", eventos);
+        let eventos;
+        let rol = req.session.usuario?.rol;
+          let apellido = req.session.usuario?.apellido;
+
+            if(rol === "Secretaria"){
+      
+               eventos = FormatearEventos(await bd.ConsultarTurno())
+               
+                const userId = req.session.usuario.id;
+            console.log("emiti a", req.session.usuario)
+                
+             io.to(userId).emit("Turnos-Actualizados", eventos)
+               
+      
+
+        }if(rol === "Medico"){
+            eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
+            const userId = req.session.usuario.id;
+            console.log("emiti a", req.session.usuario)
+            
+              io.to(userId).emit("Turnos-Actualizados", eventos)
+               
+            }
+            
         return res.status(200).json({mensaje: 'El turno fue asignado correctamente', ok: true})
+        
     }
 
 
