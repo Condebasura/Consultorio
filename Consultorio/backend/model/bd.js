@@ -198,7 +198,25 @@ const ConsultarTurno = async ()=>{
             }
         })
     })
-} ;
+};
+
+ const ConsultTurnoPorMedico = async (apellido)=>{
+    try {
+        return await new Promise((resolve, reject)=>{
+            let sql = 'SELECT * FROM turnos WHERE medico = ?';
+            
+            bd.all(sql, [apellido], (err, rows)=>{
+                if(err){
+                    reject(err)
+                }else{
+                    resolve(rows)
+                }
+            })
+        })
+    } catch (error) {
+        console.log("se produjo un error en la busqueda de los turnos", error)
+    }
+ }
 
 const consTurno = async (paciente)=>{
     try {
@@ -418,6 +436,7 @@ export default {
      IngresarMedico,
      ConsMedico,
      ConsultarTurno,
+     ConsultTurnoPorMedico,
      consTurno,
      ValidarTurno, 
      UpdateTurno,

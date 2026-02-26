@@ -4,6 +4,12 @@ import { es } from 'date-fns/locale';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import type { Usuario } from './Sesion';
+
+
+
+
+
 
 
 //Localizador de fechas
@@ -32,21 +38,37 @@ type Evento = {
 
 type Props = {
      credentials: 'omit' | 'same-origin' | 'include';
+     url: string;
+     usuario: Usuario | undefined;
 }
 
 
-export default function Calendario({credentials}: Props){
+export default function Calendario({credentials , url, usuario}: Props){
 
  
 const [eventos , setEventos] = useState<Evento[]>([]);
 const [date, setDate] = useState(new Date());
 const [view , setViews] = useState<View>('month')
 
+     
+
+
+
+
+     
+   
 useEffect(()=>{
+    
+    if(!usuario){
+    setEventos([])
+        return 
+    } 
+        
+    
     const fetchTurnos = async ()=>{
         
         try {
-            const res = await fetch("/ConsTurno", {
+            const res = await fetch(url, {
                 credentials,
             });
             const data = await res.json();
@@ -62,11 +84,17 @@ useEffect(()=>{
         }
     };
     fetchTurnos();
-}, []);
+}, [usuario]);
 
 useEffect(()=>{
+<<<<<<< HEAD
 
     const socket = io("/", {
+=======
+console.log("Me monto")
+    const socket = io("http://localhost:3000", {
+
+>>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
         transports: ["websocket"],
         withCredentials: true,
     });
@@ -75,18 +103,22 @@ useEffect(()=>{
     });
 
     socket.on("Turnos-Actualizados", (data: any[])=>{
+        console.log("recibi turnos", data)
         const enFormat = data.map((t:any)=>({
             ...t,
             start: new Date(t.start),
             end: new Date(t.end)
         }));
-        setEventos(enFormat)
+        
+
+            setEventos(enFormat)
+        
     });
     return () => {
     socket.disconnect();
     console.log("🔴 Socket desconectado");
     }
-}, [])
+}, [usuario])
 return(
     <div style={{height: "600px", margin: "20px"}}>
        
