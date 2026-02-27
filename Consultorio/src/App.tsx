@@ -15,6 +15,7 @@ import Text from './components/texto';
 import TablaHistorial from './components/TablaHistorial';
 import Sesiones from './components/Sesion';
 import type { Usuario } from './components/Sesion';
+import { io } from 'socket.io-client';
 
 
 
@@ -22,12 +23,10 @@ function App() {
     const [result , setResult] = useState<any[]>([]);
      const [pacienteSeleccionado, setPacienteSeleccionado] = useState<any | null>(null);
      const [HistorialPaciente, setHistorialPaciente] = useState<any[]>([]);
-     //const [ setUserData] = useState<Usuario | any>();
+     const [ setUserData] = useState<Usuario | any>();
      const [refreshSesion , setRefreshSesion] = useState(0);
      
-<<<<<<< HEAD
-    
-=======
+
      useEffect(()=>{
       const socket = io('http://localhost:3000');
 
@@ -41,7 +40,7 @@ function App() {
         socket.disconnect();
       }
      },[])
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
 
 
      function useSesion(url: string , refreshSesion: number){
@@ -70,9 +69,7 @@ function App() {
 
    
      
-    const {sesion } = useSesion("/sesion", refreshSesion)
-    
-
+  
  
 
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
@@ -92,12 +89,12 @@ function App() {
         
   
 
-<<<<<<< HEAD
 
-=======
+
+
 const {sesion } = useSesion("http://localhost:3000/sesion", refreshSesion)
 console.log("Al logearse se refresca la sesion?", sesion, refreshSesion)
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
 
   const [Tipos, setTipos] = useState('Sesiones');
   const [action , setAction] = useState<string |null>(null);

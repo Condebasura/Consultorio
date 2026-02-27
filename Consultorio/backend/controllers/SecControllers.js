@@ -5,6 +5,7 @@ import session from "express-session";
 import { error } from "console";
 import path from "path";
 import { isGeneratorObject } from "util/types";
+import { Socket } from "socket.io";
 
 
 
@@ -85,13 +86,11 @@ else{
                      socket.join(userId);
                     });
                 })
-<<<<<<< HEAD
-               
-=======
+
                 const userId = req.session.usuario;
                
                 io.emit('session:updated')
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
             return res.status(200).json({ok: true})
         
         }
@@ -123,12 +122,7 @@ else{
             eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
             const userId = req.session.usuario.id;
 
-<<<<<<< HEAD
-        
-        return res.json({
-            logueado: true,
-            usuario: req.session.usuario
-=======
+
               io.to(userId).emit("Turnos-Actualizados", eventos)
                
             }
@@ -137,7 +131,7 @@ else{
             logueado: true,
             usuario: req.session.usuario, 
             eventos,
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
             
         })
   
@@ -145,10 +139,9 @@ else{
 
 
     }else{
-<<<<<<< HEAD
-=======
+
     
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
         
         return res.status(401).json({logueado: false})
     }
@@ -295,29 +288,27 @@ try {
     if(!datos){
         return res.status(409).json({mensaje:'No fue posible asignar el turno o esta ocupado'})
     }else{
-        let eventos;
+        
+        
         let rol = req.session.usuario?.rol;
-          let apellido = req.session.usuario?.apellido;
-
+          let apellido = paci.medico;
+         
+                 const Medico = await bd.SearchMedico(apellido)
+                
             if(rol === "Secretaria"){
       
-               eventos = FormatearEventos(await bd.ConsultarTurno())
-               
+             const  eventos = FormatearEventos(await bd.ConsultarTurno())
+              const enEventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
                 const userId = req.session.usuario.id;
-            console.log("emiti a", req.session.usuario)
-                
-             io.to(userId).emit("Turnos-Actualizados", eventos)
+           
+              const MedicoId =   Medico[0].id;
+                  
+                console.log("el medico del turno", MedicoId , userId)
+                io.to(userId).emit("Turnos-Actualizados", eventos)
+                io.to(MedicoId).emit("Turnos-Actualizados", enEventos)
                
-      
-
-        }if(rol === "Medico"){
-            eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
-            const userId = req.session.usuario.id;
-            console.log("emiti a", req.session.usuario)
-            
-              io.to(userId).emit("Turnos-Actualizados", eventos)
-               
-            }
+    
+        }
             
         return res.status(200).json({mensaje: 'El turno fue asignado correctamente', ok: true})
         
@@ -416,29 +407,17 @@ try {
               
       
 
-<<<<<<< HEAD
-            return e;
-        }if(rol  === "Secretaria"){
-            return eventos
-        }
-    })
-    const userId = req.session.usuario.id;
-    io.to(userId).emit("Turnos-Actualizados", EventVisibles)
-         return res.status(200).json(EventVisibles)
-   
-         
-=======
         }if(rol === "Medico"){
             eventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
             const userId = req.session.usuario.id;
-            console.log("Eventos segun el medico",apellido , eventos, userId)
+           
               io.to(userId).emit("Turnos-Actualizados", eventos)
               
             }
             
             return res.status(200).json(eventos)
     } 
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
     } catch (error) {
         return res.status(500).json({mensaje: 'Error interno en el servidor', error})
     }

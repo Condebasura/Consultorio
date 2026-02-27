@@ -29,10 +29,29 @@ const io = new Server(server, {
    
 });
 
-io.on('conection', (socket)=>{
+const sessionMiddleware = session({
+    secret: process.env.SOCKET_SESSION,
+    resave: false,
+    saveUninitialized:false,
+    cookie:{secure: false}
+});
+
+app.use(sessionMiddleware);
+io.use((socket, next)=>{
+    sessionMiddleware(socket.request, {}, next);
+});
+
+io.on('connection', (socket)=>{
     console.log("🟢 Cliente conectado", socket.id)
+    const session = socket.request.session;
+    const userId = session?.usuario?.id;
+    const user = session?.usuario;
+    if(userId){
+        socket.join(userId);
+        console.log("usuario unido a room", user)
+    }
     
-    io.on("disconect", ()=>{
+    socket.on("disconnect", ()=>{
         console.log("🔴 Cliente desconectado", socket.id)
     })
 })

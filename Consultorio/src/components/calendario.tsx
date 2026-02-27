@@ -77,7 +77,7 @@ useEffect(()=>{
                 start: new Date(t.start),
                 end: new Date(t.end),
             }));
-
+           console.log("El usuario en el fetch turnos", usuario)
             setEventos(evFormat);
         } catch (error) {
             console.error("Error al cargar turnos", error);
@@ -87,30 +87,29 @@ useEffect(()=>{
 }, [usuario]);
 
 useEffect(()=>{
-<<<<<<< HEAD
 
-    const socket = io("/", {
-=======
+
 console.log("Me monto")
     const socket = io("http://localhost:3000", {
 
->>>>>>> 21576d0a665dd171c1c3b6cf6bf20d912f9f5eab
+
         transports: ["websocket"],
         withCredentials: true,
     });
     socket.on("connect", ()=>{
+        
         console.log("🟢 Conectado a Socket.IO")
     });
 
     socket.on("Turnos-Actualizados", (data: any[])=>{
-        console.log("recibi turnos", data)
+        
         const enFormat = data.map((t:any)=>({
             ...t,
             start: new Date(t.start),
             end: new Date(t.end)
         }));
         
-
+console.log("El usuario en el socket")
             setEventos(enFormat)
         
     });
