@@ -77,7 +77,7 @@ useEffect(()=>{
                 start: new Date(t.start),
                 end: new Date(t.end),
             }));
-           console.log("El usuario en el fetch turnos", usuario)
+           
             setEventos(evFormat);
         } catch (error) {
             console.error("Error al cargar turnos", error);
@@ -109,7 +109,7 @@ console.log("Me monto")
             end: new Date(t.end)
         }));
         
-console.log("El usuario en el socket")
+
             setEventos(enFormat)
         
     });

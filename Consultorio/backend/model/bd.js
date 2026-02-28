@@ -77,7 +77,7 @@ const UpdatePaciente =  (paciente)=>{
                 console.log(err.mensaje)
             }else{
                 resolve("el paciente se actualizo correctamente")
-                console.log("el paciente se actualizo correctamente")
+              
             }
         })
         
@@ -168,7 +168,7 @@ const UpdateMed = (medico)=>{
 
                 }else{
                     resolve("Medico actualizado correctamente")
-                    console.log("Medico actualizado correctamente")
+                   
                 }
             }
         )
@@ -247,7 +247,7 @@ const ValidarTurno = (id)=>{
                 console.log(err)
                 reject(err);
             }else{
-                console.log(row)
+                
                 resolve(row)
             }
         })
@@ -265,7 +265,7 @@ const ValidarTurno = (id)=>{
                     console.log(err.mensaje)
                 }else{
                     resolve('Turno modificado correctamente');
-                    console.log('Turno modificado correctamente');
+                    
                 }
             }
          )
@@ -292,7 +292,7 @@ const ConsRol = ()=>{
                 console.log(err.mensaje)
                 reject(err)
             }else{
-               console.log(rows)
+               
                 resolve(rows)
             }
         })

@@ -181,11 +181,11 @@ const AltaPaciente =  async(req , res)=>{
    let data = await bd.InsertPaciente(paci)
 
    if(data){
-    console.log(`El Paciente ${paci.nombre} ingreso correctamente`)
+    
     res.status(200).json({mensaje: `El Paciente ${paci.nombre} ingreso correctamente`})
    }
    else{
-    console.log(`ocurrio un error al ingresar el paciente`)
+   
      res.status(209);
         res.json({mensaje: `ocurrio un error al ingresar el paciente`});
    }
@@ -218,7 +218,7 @@ const SearchTurno  = async (req, res)=>{
         
 
         const data = await bd.consTurno(apellido)
-        console.log(data)
+        
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{
@@ -290,12 +290,11 @@ try {
     }else{
         
         
-        let rol = req.session.usuario?.rol;
+        
           let apellido = paci.medico;
-         
-                 const Medico = await bd.SearchMedico(apellido)
+          const Medico = await bd.SearchUsuario(apellido)
                 
-            if(rol === "Secretaria"){
+            
       
              const  eventos = FormatearEventos(await bd.ConsultarTurno())
               const enEventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
@@ -303,12 +302,12 @@ try {
            
               const MedicoId =   Medico[0].id;
                   
-                console.log("el medico del turno", MedicoId , userId)
+               
                 io.to(userId).emit("Turnos-Actualizados", eventos)
                 io.to(MedicoId).emit("Turnos-Actualizados", enEventos)
                
     
-        }
+        
             
         return res.status(200).json({mensaje: 'El turno fue asignado correctamente', ok: true})
         
@@ -328,9 +327,10 @@ try {
 
         if(!validar){
             return res.status(404).json({mensaje: "Turno no encontrado"});
-        }
+        }else{
 
-        const  paciente = {
+            
+            const  paciente = {
             id: validar.id,
             nombre: req.body.nombre,
             apellido: req.body.apellido,
@@ -341,13 +341,26 @@ try {
             observaciones: req.body.observaciones,
             medico: req.body.medicoApellido,
         }
-
-        console.log("En el back", paciente)
+        
+        
         await bd.UpdateTurno(paciente)
-        const evento = FormatearEventos(await bd.ConsultarTurno())
-          const userId = req.session.usuario.id;
-        io.to(userId).emit("Turnos-Actualizados", evento);
-        return res.status(200).json({mensaje: 'Turno actualizado correctamente'})
+        let apellido = paciente.medico;
+        const Medico = await bd.SearchUsuario(apellido)
+        
+        
+        
+        const  eventos = FormatearEventos(await bd.ConsultarTurno())
+        const enEventos = FormatearEventos(await bd.ConsultTurnoPorMedico(apellido))
+        const userId = req.session.usuario.id;
+        
+        const MedicoId =   Medico[0].id;
+        
+        
+        io.to(userId).emit("Turnos-Actualizados", eventos)
+        io.to(MedicoId).emit("Turnos-Actualizados", enEventos)
+        
+        return res.status(200).json({mensaje: 'El turno se modificó correctamente', ok: true})       
+    }
     } catch (error) {
    return res.status(500).json({ mensaje: "Error interno del servidor", error });
         
@@ -363,9 +376,12 @@ try {
         
         bd.DeleteTruno(id)
         
-        const eventos = FormatearEventos(await bd.ConsultarTurno())
-        const userId = req.session.usuario.id;
-        io.to(userId).emit("Turnos-Actualizados", eventos);
+             const  eventos = FormatearEventos(await bd.ConsultarTurno())
+              
+                const userId = req.session.usuario.id;
+                io.to(userId).emit("Turnos-Actualizados", eventos)
+        return res.status(200).json({mensaje:"Turno eliminado correctamente"})          
+                
     } catch (error) {
         console.log("error al eliminar")
     }
@@ -383,7 +399,7 @@ try {
         console.log("No se encontraron medicos");
         return res.status(409).json({mensaje: "No se encontraron medicos"})
     }else{
-        console.log(datos)
+       
         return  res.status(200).json(datos);
     }
     
@@ -488,7 +504,7 @@ catch (error) {
  const EditarMedico = async(req,res)=>{
   try {
          const Validar = await bd.ValidMedico(req.params.id);
-         console.log(Validar);
+        
          if(!Validar){
             return res.status(404).json({mensaje: 'Medico no encontrado'})
          }else{
@@ -501,7 +517,7 @@ catch (error) {
                  especialidad: req.body.especialidad
                  
                 }
-                console.log("El id coincide" , Validar)
+                
                 console.log(medico)
                 await bd.UpdateMed(medico);
                 return res.status(200).json({mensaje: 'Medico actualizado'})
