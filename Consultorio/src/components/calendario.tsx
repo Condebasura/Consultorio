@@ -90,7 +90,7 @@ useEffect(()=>{
 
 
 console.log("Me monto")
-    const socket = io("http://localhost:3000", {
+    const socket = io("/", {
 
 
         transports: ["websocket"],

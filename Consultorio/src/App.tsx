@@ -28,7 +28,7 @@ function App() {
      
 
      useEffect(()=>{
-      const socket = io('http://localhost:3000');
+      const socket = io('/');
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1);
