@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = new Server(server, {
     cors:{
-        origin: true,
+        origin: "http://localhost:5173/",
         credentials: true,
         methods: ['GET', 'POST']
     }
@@ -57,12 +57,12 @@ io.on('connection', (socket)=>{
 })
 
 const corsOptions = {
-    origin: true, 
+    origin:  "http://localhost:5173/", 
     methods:["GET" , "POST" , "PUT" , "DELETE"],
     credentials: true ,
 };
 
-app.use(express.static(path.join(_dirname, '..','dist')))
+// app.use(express.static(path.join(_dirname, '..','dist')))
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
@@ -87,7 +87,7 @@ app.use( helmet.contentSecurityPolicy({
         saveUninitialized: false
     }))
 
-     app.get("/", SecControllers.getIndex)
+    // app.get("/", SecControllers.getIndex)
     app.post("/AltaPaciente", SecControllers.AltaPaciente);
     app.post("/SearchPaciente", SecControllers.SearchPaciente);
     app.put("/UpdatePaciente/:id", SecControllers.ActualizarPaciente);
@@ -113,7 +113,7 @@ app.use( helmet.contentSecurityPolicy({
     app.post("/logout", SecControllers.Logout)
     app.get("/ConsRol", SecControllers.ConsultRoles)
 
-    server.listen(port ,'0.0.0.0', ()=>{
+    server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })
 

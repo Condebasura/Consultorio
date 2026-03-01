@@ -37,14 +37,15 @@ function FormatearEventos(turnos){
         
 };
 
-const getIndex = (req,res)=>{
+/*const getIndex = (req,res)=>{
     res.sendFile(path.join(_dirname,'..', 'dist', 'index.html'))
-}
+}*/
 
 const SelectUsuario = async (req,res)=>{
 
     try {
         const Data = await bd.ConnsultarUsuario()
+        console.log(Data)
 if(!Data){
     res.status(404).json({mensaje: "Ocurrio un error al cargar los datos"})
 }
@@ -635,7 +636,8 @@ try {
    if(!validar){
     res.status(409).json({mensaje: "Error al ingresar el historial"})
    }else{
-
+     let user = req.session?.usuario;
+     console.log(user)
     const paci ={
         paciente_id:validar.id,
         descripcion: req.body.Historial
@@ -658,7 +660,8 @@ try {
     try {
         const historial =  await bd.ConsHistorial(req.params.id)
         
-    
+    let user = req.session?.usuario;
+     console.log(user)
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})
      }else{
@@ -672,7 +675,7 @@ try {
  }
 
 export default {
-    getIndex,
+    //getIndex,
     AltaPaciente,
     SearchPaciente,
      ActualizarPaciente,
