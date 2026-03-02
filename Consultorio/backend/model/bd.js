@@ -12,7 +12,7 @@ bd.run("CREATE TABLE IF NOT EXISTS medicos(id TEXT PRIMARY KEY , nombre TEXT , a
 
 bd.run("CREATE TABLE IF NOT EXISTS usuarios(id TEXT PRIMARY KEY , medico_id TEXT , apellido TEXT , contraseña TEXT , cargo TEXT , tipo TEXT, FOREIGN KEY (medico_id) REFERENCES medicos(id))")
 
-bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now', '-3 hours')), descripcion TEXT NOT NULL , FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
+bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TEXT NOT NULL, fecha TEXT NOT NULL DEFAULT (datetime('now', '-3 hours')), descripcion TEXT NOT NULL, medico TEXT, FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ) ")
 
 bd.run("CREATE TABLE IF NOT EXISTS roles(tipo TEXT)")
 
@@ -401,8 +401,8 @@ const DeleteUsuario = (id)=>{
 const InsertPaciHisto = async(paci)=>{
     try {
         const id = uuidv4();
-        let stmt = bd.prepare('INSERT INTO historial(id , paciente_id , descripcion) VALUES(?,?,?)');
-        stmt.run(id, paci.paciente_id ,  paci.descripcion);
+        let stmt = bd.prepare('INSERT INTO historial(id , paciente_id , descripcion , medico) VALUES(?,?,?,?)');
+        stmt.run(id, paci.paciente_id ,  paci.descripcion, paci.medico);
         stmt.finalize();
         return "historial agragado  con exito";
     } catch (err) {

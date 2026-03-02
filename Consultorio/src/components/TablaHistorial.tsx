@@ -7,6 +7,7 @@ import { io } from 'socket.io-client';
   id: string;
   fecha: string;
   descripcion: string;
+  medico: string;
 }
 
 type DatProps ={
@@ -47,8 +48,9 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
                  <>
       <tr key={item.id}  className="border-collapse border border-gray-400 bg-[#5A5D60] flex flex-cols justify-center gap-3 mt-2 text-white ">
     
-      <td className="p-2" >{InvertirFecha(item.fecha)}</td> 
-      <td className="p-2">{item.descripcion}</td> 
+      <td className="p-2"  >Fecha: {InvertirFecha(item.fecha)}</td> 
+      <td className="p-2">Descripcion: {item.descripcion}</td> 
+        <td className="p-2">Medico: {item.medico}</td>
       </tr>
       </>
       
@@ -58,7 +60,7 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
 
   
     useEffect(()=>{
-    const socket = io("/", {
+    const socket = io("http://localhost:3000", {
         transports: ["websocket"],
         withCredentials: true,
     });
@@ -91,7 +93,7 @@ campos={[
 ]}
 method="PUT"
 credentials="include"
-url={`/AgregarAlHistorial/${valores.id}`}
+url={`http://localhost:3000/AgregarAlHistorial/${valores.id}`}
 />
          <table className="border-collapse border border-gray-400 m-3">
             <thead className=" border-collapse border border-gray-400 bg-[#5A5D90] text-white">
@@ -99,6 +101,7 @@ url={`/AgregarAlHistorial/${valores.id}`}
                <th className="p-2">Apellido</th>
                <th className="p-2" >DNI</th>
                <th className="p-2" >Historial</th>
+               <th className="p-2">Medico</th>
             </thead>
             <tbody>  
                <tr className="border-collapse border border-gray-400 bg-[#5A5D60]  text-white " key={valores.id}>
@@ -112,7 +115,8 @@ url={`/AgregarAlHistorial/${valores.id}`}
                         
 
                     </tr>
-            </td>   
+            </td> 
+            <td className="border border-gray-300 p-2">{valores.medico}</td>  
                 </tr>           
             </tbody>
          </table>

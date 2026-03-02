@@ -636,11 +636,15 @@ try {
     res.status(409).json({mensaje: "Error al ingresar el historial"})
    }else{
 
+let  medico_apellido = req.session.usuario.apellido;
+
     const paci ={
         paciente_id:validar.id,
-        descripcion: req.body.Historial
+        descripcion: req.body.Historial,
+        medico: medico_apellido,
+        
     }
-    
+  
     await bd.InsertPaciHisto(paci)
  io.emit("Historial-Actualizado", await bd.ConsHistorial(req.params.id))
    
@@ -662,6 +666,7 @@ try {
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})
      }else{
+        
         
         return res.status(200).json(historial)
      }  
