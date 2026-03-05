@@ -638,11 +638,12 @@ try {
 
 let  medico_apellido = req.session.usuario.apellido;
 
+ let medico_cargo = req.session.usuario.cargo;
 
     const paci ={
         paciente_id:validar.id,
         descripcion: req.body.Historial,
-        medico: medico_apellido ,
+        medico: medico_apellido + " - " + medico_cargo,
         
         
     }
@@ -668,7 +669,7 @@ let  medico_apellido = req.session.usuario.apellido;
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})
      }else{
-        
+       
         io.emit("Historial-Actualizado", historial)
         return res.status(200).json(historial)
      }  
