@@ -19,6 +19,7 @@ type Campo ={
     opciones?: {id: number, nombre: string}[];
     url?: string;
      NameSelect?: string;
+    
    
     
     
@@ -125,7 +126,7 @@ if(data.data){
                     
                     name={campo.name}
                     type={campo.type}
-                    
+                   
                     required={campo.required}
                     
                     value={valores[campo.name] ||''}

@@ -21,7 +21,7 @@ export default function MiniTabla({DatosPaci , onEditar, name}: datosProp){
 
 return(
     <>
-    <table className=" border-collapse hover:border border-gray-400 text-center m-3 p-3 overflow-y-auto overscroll-contain flex flex-column max-h-50 ">
+    <table className=" border-collapse hover:border border-gray-400 text-center m-3 p-3 overflow-y-auto overscroll-contain flex flex-column max-h-65 ">
     <tbody className="m-3 p-3 flex flex-col ">
         {
            DatosPaci.map((items)=>(

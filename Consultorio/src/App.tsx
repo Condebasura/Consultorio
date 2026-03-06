@@ -93,7 +93,7 @@ function App() {
 
 
 const {sesion } = useSesion("http://localhost:3000/sesion", refreshSesion)
-console.log("Al logearse se refresca la sesion?", sesion, refreshSesion)
+
 
 
   const [Tipos, setTipos] = useState('Sesiones');
