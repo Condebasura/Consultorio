@@ -218,7 +218,7 @@ const SearchTurno  = async (req, res)=>{
         
 
         const data = await bd.consTurno(apellido)
-        
+        console.log(data)
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{

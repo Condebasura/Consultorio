@@ -349,7 +349,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector", url:'http://localhost:3000/ConsMedico', required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:'http://localhost:3000/ConsMedico', required: true}
     
   ]}
  

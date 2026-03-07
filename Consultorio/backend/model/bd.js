@@ -221,7 +221,7 @@ const ConsultarTurno = async ()=>{
 const consTurno = async (paciente)=>{
     try {
          return await new Promise((resolve,reject)=>{
-            let sql = 'SELECT * FROM turnos WHERE apellido LIKE ?';
+            let sql = 'SELECT * FROM turnos  WHERE apellido LIKE ? ORDER BY fecha DESC';
             let paci = paciente;
             bd.all(sql, [`%${paci}%`], (err,rows)=>{
                 if(err)
