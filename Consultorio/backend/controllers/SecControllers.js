@@ -72,7 +72,10 @@ else{
         if(!Data){
            
             return res.status(404).json({mensaje: "Credenciales incorrectas"})
-        }else{
+        }if(req.session.usuario){
+            return res.status(400).json({mensaje: "Ya hay una sesion activa"})
+        }
+        else{
             req.session.usuario = {
                 id:Data.id,
                 apellido: Data.apellido,
@@ -149,17 +152,29 @@ else{
 
 const Logout = async(req, res)=>{
  
-   
-    req.session.destroy(err =>{
-        if(err){
-            return res.status(500).json({error: 'Error al cerrar sesion'})
-        }
-        
+    const user={
+        apellido: req.session.usuario?.apellido,
+        contraseña: req.body.Contraseña,
+    }
+
+  const  Data = await bd.SesionUsuario(user)
+
+    if(!Data){
+        return res.status(404).json({mensaje: "Contraseña incorrecta"})
+    }
+   else{
+
+       req.session.destroy(err =>{
+           if(err){
+               return res.status(500).json({error: 'Error al cerrar sesion'})
+            }
+            
             res.clearCookie("connect.sid");
             io.emit('session:updated');
-             return res.redirect("/");
-      
-    })
+            return res.redirect("/");
+            
+        })
+    }
 }
 
 
