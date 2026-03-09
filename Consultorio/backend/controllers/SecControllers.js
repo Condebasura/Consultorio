@@ -233,12 +233,19 @@ const SearchTurno  = async (req, res)=>{
         
 
         const data = await bd.consTurno(apellido)
-        console.log(data)
+      
+      const FechaDataFormat = data.map((t)=>{
+        const [year, month , day] = t.fecha.split("-");
+        return{
+            ...t,
+            fecha: `${day}-${month}-${year}`
+        };
+      });
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{
            
-            res.status(200).json(data);
+            res.status(200).json(FechaDataFormat);
         }
     } catch (error) {
         console.log('Error en la busqueda del paciente', error)
@@ -339,7 +346,7 @@ try {
  const ActualizarTurno = async (req, res)=>{
     try {
         const validar = await bd.ValidarTurno(req.params.id)
-
+console.log(validar)
         if(!validar){
             return res.status(404).json({mensaje: "Turno no encontrado"});
         }else{
@@ -358,7 +365,7 @@ try {
         }
         
         
-        await bd.UpdateTurno(paciente)
+        //await bd.UpdateTurno(paciente)
         let apellido = paciente.medico;
         const Medico = await bd.SearchUsuario(apellido)
         

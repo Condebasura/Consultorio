@@ -25,7 +25,7 @@ return(
     <tbody className="m-3 p-3 flex flex-col ">
         {
            DatosPaci.map((items)=>(
-
+            
                <tr className="mt-5"  key={items.id}>
                 <tr className="border border-gray-300 ">
                 <th className="p-1 text-white bg-gray-800">Nombre</th>
