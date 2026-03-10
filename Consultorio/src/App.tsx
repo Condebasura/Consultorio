@@ -105,9 +105,10 @@ const {sesion } = useSesion("http://localhost:3000/sesion", refreshSesion)
  },[Tipos ,action ]);
 
 useEffect(()=>{
-  
+
 },[pacienteSeleccionado])
- 
+
+ console.log("El paciente selecionado",pacienteSeleccionado)
   return(
   <>
   <div className='flex flex-row  '>

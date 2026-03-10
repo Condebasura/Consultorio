@@ -42,7 +42,7 @@ return(
                 </tr>
                 <tr className="border border-gray-300 ">
                     <th className="p-1 text-white bg-gray-800">Fecha</th>
-                    <td className="p-2 bg-gray-200">{items?.fecha ?? "---"} </td>
+                    <td className="p-2 bg-gray-200">{items?.fechaIso ?? "---"} </td>
                 </tr>
                 
                 <tr>

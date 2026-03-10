@@ -238,7 +238,8 @@ const SearchTurno  = async (req, res)=>{
         const [year, month , day] = t.fecha.split("-");
         return{
             ...t,
-            fecha: `${day}-${month}-${year}`
+            fecha: t.fecha,
+            fechaIso: `${day}-${month}-${year}`
         };
       });
         if(apellido === "" ){
