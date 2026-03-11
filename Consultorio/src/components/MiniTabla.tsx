@@ -5,6 +5,7 @@ type DataTabProps = {
     dni?: number;
     matricula?: number;
     fecha?: number;
+    fechaIso?: number;
     
     
     

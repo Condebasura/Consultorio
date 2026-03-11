@@ -4,6 +4,9 @@ type DataTabProps = {
     nombre:string;
     apellido: string;
     dni: number;
+    nacimiento: string;
+    nacimientoIso?: string;
+    edad: number;
     telefono: number;
     email: string;
     direccion: string;
@@ -30,6 +33,8 @@ export default function TablePacientes({Datos}: datosProp){
                 <th className="p-2 "  >Nombre</th>
                 <th className="p-2 " >Apellido</th>
                 <th className="p-2 " >DNI</th>
+                <th className="p-2 " >Nacimiento</th>
+                <th className="p-2 " >Edad</th>
                 <th className="p-2 " >Telefono</th>
                 <th className="p-2 " >Email</th>
                 <th className="p-2 " >Direccion</th>
@@ -47,6 +52,8 @@ export default function TablePacientes({Datos}: datosProp){
                              <td className="border border-gray-300 p-2 ">{items.nombre}</td>
                              <td className="border border-gray-300 p-2 ">{items.apellido}</td>
                              <td className="border border-gray-300 p-2 ">{items.dni}</td>
+                             <td className="border border-gray-300 p-2 ">{items.nacimientoIso}</td>
+                             <td className="border border-gray-300 p-2 ">{items.edad}</td>
                              <td className="border border-gray-300 p-2 ">{items.telefono}</td>
                              <td className="border border-gray-300 p-2">{items.email}</td>
                              <td className="border border-gray-300 p-2 ">{items.direccion}</td>

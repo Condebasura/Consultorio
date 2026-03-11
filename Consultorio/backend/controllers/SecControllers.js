@@ -181,10 +181,18 @@ const Logout = async(req, res)=>{
 
 
 const AltaPaciente =  async(req , res)=>{
+
+    let naci = req.body.nacimiento;
+    const AñoNaci = naci.split("-")[0];
+    const AñoActual = new Date().getFullYear();
+    const edad = AñoActual - AñoNaci;
+    
     const paci = {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         dni: req.body.dni,
+        nacimiento: req.body.nacimiento,
+        edad: edad,
         telefono: req.body.telefono,
         email: req.body.email,
         direccion: req.body.direccion,
@@ -195,7 +203,7 @@ const AltaPaciente =  async(req , res)=>{
 
    let data = await bd.InsertPaciente(paci)
 
-   if(data){
+  if(data){
     
     res.status(200).json({mensaje: `El Paciente ${paci.nombre} ingreso correctamente`})
    }
@@ -218,8 +226,15 @@ const SearchPaciente  = async (req, res)=>{
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{
-           
-            res.status(200).json(data);
+             const FechaDataFormat = data.map((p)=>{
+        const [year, month , day] = p.nacimiento.split("-");
+        return{
+            ...p,
+            nacimiento: p.nacimiento,
+            nacimientoIso: `${day}-${month}-${year}`
+        };
+      });
+            res.status(200).json(FechaDataFormat);
         }
     } catch (error) {
         console.log('Error en la busqueda del paciente', error)
@@ -263,12 +278,17 @@ try {
     if (!validar) {
         return res.status(404).json({ mensaje: "Paciente no encontrado" });
     }
-    
+      let naci = req.body.nacimiento;
+    const AñoNaci = naci.split("-")[0];
+    const AñoActual = new Date().getFullYear();
+    const edad = AñoActual - AñoNaci;
     const paciente = {
         id: validar.id,
         nombre: req.body.nombre, 
         apellido: req.body.apellido,
         dni: req.body.dni,
+        nacimiento: req.body.nacimiento,
+        edad: edad,
         telefono: req.body.telefono,
         email: req.body.email,
         direccion: req.body.direccion,
@@ -366,7 +386,7 @@ console.log(validar)
         }
         
         
-        //await bd.UpdateTurno(paciente)
+        await bd.UpdateTurno(paciente)
         let apellido = paciente.medico;
         const Medico = await bd.SearchUsuario(apellido)
         
