@@ -93,7 +93,7 @@ function App() {
 
 
 const {sesion } = useSesion("/sesion", refreshSesion)
-console.log("Al logearse se refresca la sesion?", sesion, refreshSesion)
+
 
 
   const [Tipos, setTipos] = useState('Sesiones');
@@ -105,9 +105,10 @@ console.log("Al logearse se refresca la sesion?", sesion, refreshSesion)
  },[Tipos ,action ]);
 
 useEffect(()=>{
-  
+
 },[pacienteSeleccionado])
- 
+
+ console.log("El paciente selecionado",pacienteSeleccionado)
   return(
   <>
   <div className='flex flex-row  '>
@@ -233,6 +234,7 @@ onSelect={setAction}
     {name: "nombre" , required: true},
     {name:"apellido" , required: true},
     {name: "dni", type:"number", required: true},
+    {name:"nacimiento", type:"date" , required: true},
     {name:"telefono", type:"number", required: true},
     {name:"email", type:"email" , required: true},
     {name:"direccion" , required: true},
@@ -252,6 +254,7 @@ onSelect={setAction}
   {name: "nombre", required: true },
     {name:"apellido" , required: true},
     {name: "dni", type:"number" , required: true},
+    {name:"nacimiento", type:"date" , required: true},
     {name:"telefono", type:"number" , required: true},
     {name:"email", type:"email" , required: true},
     {name:"direccion" , required: true},
@@ -272,6 +275,7 @@ onSelect={setAction}
   {name: "nombre", required: true },
     {name:"apellido" , required: true},
     {name: "dni", type:"number" , required: true},
+    {name:"nacimiento", type:"date" , required: true},
     {name:"telefono", type:"number" , required: true},
     {name:"email", type:"email" , required: true},
     {name:"direccion" , required: true},
@@ -349,7 +353,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector", url:'/ConsMedico', required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:'/ConsMedico', required: true}
     
   ]}
  

@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
 
-bd.run('CREATE TABLE IF NOT EXISTS  pacientes (id TEXT PRIMARY KEY, nombre TEXT , apellido TEXT , dni INTEGRER , telefono INTEGRER , email TEXT ,  direccion TEXT , obraSocial TEXT , afiliado INTEGRER )');
+bd.run('CREATE TABLE IF NOT EXISTS  pacientes (id TEXT PRIMARY KEY, nombre TEXT , apellido TEXT , dni INTEGRER,nacimiento TEXT,edad TEXT , telefono INTEGRER , email TEXT ,  direccion TEXT , obraSocial TEXT , afiliado INTEGRER )');
 
 bd.run('CREATE TABLE IF NOT EXISTS turnos (id TEXT PRIMARY KEY , nombre TEXT , apellido TEXT , dni TEXT , telefono TEXT, fecha TEXT, hora TEXT , observaciones TEXT , medico TEXT)');
 
@@ -19,8 +19,8 @@ bd.run("CREATE TABLE IF NOT EXISTS roles(tipo TEXT)")
 const InsertPaciente = async (paci)=>{
     try {
         const id = uuidv4();
-        let stmt = bd.prepare('INSERT INTO pacientes(id , nombre , apellido, dni , telefono , email , direccion , obraSocial, afiliado ) VALUES(?,?,?,?,?,?,?,?,?)');
-        stmt.run(id, paci.nombre , paci.apellido , paci.dni , paci.telefono , paci.email , paci.direccion , paci.obrasocial , paci.afiliado);
+        let stmt = bd.prepare('INSERT INTO pacientes(id , nombre , apellido, dni ,nacimiento,edad, telefono , email , direccion , obraSocial, afiliado ) VALUES(?,?,?,?,?,?,?,?,?,?,?)');
+        stmt.run(id, paci.nombre , paci.apellido , paci.dni , paci.nacimiento, paci.edad, paci.telefono , paci.email , paci.direccion , paci.obrasocial , paci.afiliado);
         stmt.finalize();
         return "Paciente ingresado con exito";
     } catch (err) {
@@ -70,8 +70,8 @@ const validarPaciente = (id)=>{
 const UpdatePaciente =  (paciente)=>{
     return new Promise((resolve, reject)=>{
 
-        const sql = 'UPDATE pacientes SET id = ? , nombre = ? , apellido = ? , dni = ? , telefono = ? , email = ? , direccion = ? , obraSocial = ?, afiliado = ?  WHERE id = ?';
-        bd.run(sql, [paciente.id, paciente.nombre , paciente.apellido , paciente.dni, paciente.telefono , paciente.email , paciente.direccion, paciente.obraSocial , paciente.afiliado, paciente.id], (err)=>{
+        const sql = 'UPDATE pacientes SET id = ? , nombre = ? , apellido = ? , dni = ?, nacimiento = ?, edad = ?, telefono = ? , email = ? , direccion = ? , obraSocial = ?, afiliado = ?  WHERE id = ?';
+        bd.run(sql, [paciente.id, paciente.nombre , paciente.apellido , paciente.dni, paciente.nacimiento, paciente.edad, paciente.telefono , paciente.email , paciente.direccion, paciente.obraSocial , paciente.afiliado, paciente.id], (err)=>{
             if(err){
                 reject(err);
                 console.log(err.mensaje)
@@ -221,7 +221,7 @@ const ConsultarTurno = async ()=>{
 const consTurno = async (paciente)=>{
     try {
          return await new Promise((resolve,reject)=>{
-            let sql = 'SELECT * FROM turnos WHERE apellido LIKE ?';
+            let sql = 'SELECT * FROM turnos  WHERE apellido LIKE ? ORDER BY fecha DESC';
             let paci = paciente;
             bd.all(sql, [`%${paci}%`], (err,rows)=>{
                 if(err)

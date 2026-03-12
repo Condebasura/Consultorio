@@ -1,11 +1,7 @@
 import bd from "../model/bd.js";
 import { _dirname, io } from "../app.js";
-import {v4 as uuidv4} from 'uuid';
-import session from "express-session";
-import { error } from "console";
 import path from "path";
-import { isGeneratorObject } from "util/types";
-import { Socket } from "socket.io";
+
 
 
 
@@ -72,7 +68,10 @@ else{
         if(!Data){
            
             return res.status(404).json({mensaje: "Credenciales incorrectas"})
-        }else{
+        }if(req.session.usuario){
+            return res.status(400).json({mensaje: "Ya hay una sesion activa"})
+        }
+        else{
             req.session.usuario = {
                 id:Data.id,
                 apellido: Data.apellido,
@@ -149,27 +148,47 @@ else{
 
 const Logout = async(req, res)=>{
  
-   
-    req.session.destroy(err =>{
-        if(err){
-            return res.status(500).json({error: 'Error al cerrar sesion'})
-        }
-        
+    const user={
+        apellido: req.session.usuario?.apellido,
+        contraseña: req.body.Contraseña,
+    }
+
+  const  Data = await bd.SesionUsuario(user)
+
+    if(!Data){
+        return res.status(404).json({mensaje: "Contraseña incorrecta"})
+    }
+   else{
+
+       req.session.destroy(err =>{
+           if(err){
+               return res.status(500).json({error: 'Error al cerrar sesion'})
+            }
+            
             res.clearCookie("connect.sid");
             io.emit('session:updated');
-             return res.redirect("/");
-      
-    })
+            return res.redirect("/");
+            
+        })
+    }
 }
 
 
 
 
 const AltaPaciente =  async(req , res)=>{
+
+    let naci = req.body.nacimiento;
+    const AñoNaci = naci.split("-")[0];
+    const AñoActual = new Date().getFullYear();
+    const edad = AñoActual - AñoNaci;
+    
     const paci = {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         dni: req.body.dni,
+        nacimiento: req.body.nacimiento,
+        edad: edad,
         telefono: req.body.telefono,
         email: req.body.email,
         direccion: req.body.direccion,
@@ -180,7 +199,7 @@ const AltaPaciente =  async(req , res)=>{
 
    let data = await bd.InsertPaciente(paci)
 
-   if(data){
+  if(data){
     
     res.status(200).json({mensaje: `El Paciente ${paci.nombre} ingreso correctamente`})
    }
@@ -203,8 +222,15 @@ const SearchPaciente  = async (req, res)=>{
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{
-           
-            res.status(200).json(data);
+             const FechaDataFormat = data.map((p)=>{
+        const [year, month , day] = p.nacimiento.split("-");
+        return{
+            ...p,
+            nacimiento: p.nacimiento,
+            nacimientoIso: `${day}-${month}-${year}`
+        };
+      });
+            res.status(200).json(FechaDataFormat);
         }
     } catch (error) {
         console.log('Error en la busqueda del paciente', error)
@@ -218,12 +244,20 @@ const SearchTurno  = async (req, res)=>{
         
 
         const data = await bd.consTurno(apellido)
-        
+      
+      const FechaDataFormat = data.map((t)=>{
+        const [year, month , day] = t.fecha.split("-");
+        return{
+            ...t,
+            fecha: t.fecha,
+            fechaIso: `${day}-${month}-${year}`
+        };
+      });
         if(apellido === "" ){
             res.status(404).json({mensaje:'No existe el paciente'})
         }else{
            
-            res.status(200).json(data);
+            res.status(200).json(FechaDataFormat);
         }
     } catch (error) {
         console.log('Error en la busqueda del paciente', error)
@@ -240,12 +274,18 @@ try {
     if (!validar) {
         return res.status(404).json({ mensaje: "Paciente no encontrado" });
     }
-    
+      let naci = req.body.nacimiento;
+    const AñoNaci = naci.split("-")[0];
+    const AñoActual = new Date().getFullYear();
+    const edad = AñoActual - AñoNaci;
+
     const paciente = {
         id: validar.id,
         nombre: req.body.nombre, 
         apellido: req.body.apellido,
         dni: req.body.dni,
+        nacimiento: req.body.nacimiento,
+        edad: edad,
         telefono: req.body.telefono,
         email: req.body.email,
         direccion: req.body.direccion,
@@ -258,7 +298,7 @@ try {
     
 } catch (error) {
  console.log("error al actualizar el paciente" , error)    
-   return res.status(500).json({ mensaje: "Error interno del servidor" });
+   return res.status(500).json({ mensaje: "Ocurrio un error al actualizar el paciente" });
 }
  };
 
@@ -317,7 +357,7 @@ try {
 }
  catch (error) {
     console.log(error)
-    return res.status(500).json({mensaje: 'Error interno del servidor', error})
+    return res.status(500).json({mensaje: 'Ocurrio un error al crear el turno', error})
  }
  };
 
@@ -383,7 +423,7 @@ try {
         return res.status(200).json({mensaje:"Turno eliminado correctamente"})          
                 
     } catch (error) {
-        console.log("error al eliminar")
+        return res.status(500).json({mensaje: "Error al intentar eliminar el turno", error})
     }
  }
 
@@ -518,7 +558,7 @@ catch (error) {
                  
                 }
                 
-                console.log(medico)
+                
                 await bd.UpdateMed(medico);
                 return res.status(200).json({mensaje: 'Medico actualizado'})
             }
@@ -638,11 +678,12 @@ try {
 
 let  medico_apellido = req.session.usuario.apellido;
 
+ let medico_cargo = req.session.usuario.cargo;
 
     const paci ={
         paciente_id:validar.id,
         descripcion: req.body.Historial,
-        medico: medico_apellido ,
+        medico: medico_apellido + " - " + medico_cargo,
         
         
     }
@@ -668,7 +709,7 @@ let  medico_apellido = req.session.usuario.apellido;
      if(!historial || historial.length === 0 ){
         return res.status(404).json({mensaje: "No hay historial previo "})
      }else{
-        
+       
         io.emit("Historial-Actualizado", historial)
         return res.status(200).json(historial)
      }  

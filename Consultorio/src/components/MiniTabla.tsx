@@ -5,6 +5,7 @@ type DataTabProps = {
     dni?: number;
     matricula?: number;
     fecha?: number;
+    fechaIso?: number;
     
     
     
@@ -21,11 +22,11 @@ export default function MiniTabla({DatosPaci , onEditar, name}: datosProp){
 
 return(
     <>
-    <table className=" border-collapse hover:border border-gray-400 text-center m-3 p-3 overflow-y-auto overscroll-contain flex flex-column max-h-50 ">
+    <table className=" border-collapse hover:border border-gray-400 text-center m-3 p-3 overflow-y-auto overscroll-contain flex flex-column max-h-65 ">
     <tbody className="m-3 p-3 flex flex-col ">
         {
            DatosPaci.map((items)=>(
-
+            
                <tr className="mt-5"  key={items.id}>
                 <tr className="border border-gray-300 ">
                 <th className="p-1 text-white bg-gray-800">Nombre</th>
@@ -42,7 +43,7 @@ return(
                 </tr>
                 <tr className="border border-gray-300 ">
                     <th className="p-1 text-white bg-gray-800">Fecha</th>
-                    <td className="p-2 bg-gray-200">{items?.fecha ?? "---"} </td>
+                    <td className="p-2 bg-gray-200">{items?.fechaIso ?? "---"} </td>
                 </tr>
                 
                 <tr>

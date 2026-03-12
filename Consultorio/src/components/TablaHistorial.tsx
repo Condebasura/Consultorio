@@ -49,18 +49,18 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
                
                  <>
 
-                       <tbody className="border-collapse border border-gray-400 bg-[#5A5D60]  text-white">
+                       <tbody className=" flex flex-row border-collapse border border-gray-400 bg-[#5A5D60]  text-white">
         
             
             
-      <td className="p-2 border "  >{InvertirFecha(item.fecha)}</td> 
+      <td className="p-2 border basis-64"  >{InvertirFecha(item.fecha)}</td> 
         
             
       
-      <td className="p-2 border "> {item.descripcion}</td> 
+      <td className="p-2 border basis-128"> {item.descripcion}</td> 
          
       
-        <td className="p-2 border "> {item.medico }</td>
+        <td className="p-2 border basis-64"> {item.medico }</td>
                      
                    </tbody>
      
@@ -110,25 +110,25 @@ method="PUT"
 credentials="include"
 url={`/AgregarAlHistorial/${valores.id}`}
 />
-         <table className="border-collapse border border-gray-400 m-3">
-            <thead className=" border-collapse border border-gray-400 bg-[#5A5D90] text-white">
-               <th className="p-2">Nombre</th>
-               <th className="p-2">Apellido</th>
-               <th className="p-2" >DNI</th>
-               <th className="p-2" >Historial</th>
+         <table className="  border-collapse border border-gray-400 m-3 ">
+            <thead className="flex flex-row border-collapse border border-gray-400 bg-[#5A5D90] text-white">
+               <th className="p-2 basis-64">Nombre</th>
+               <th className="p-2 basis-64">Apellido</th>
+               <th className="p-2 basis-64" >DNI</th>
+               <th className="p-2 basis-228" >Historial</th>
               
             </thead>
             <tbody>  
-               <tr className="border-collapse border border-gray-400 bg-[#5A5D60]  text-white " key={valores.id}>
-                <td className="border border-gray-300 p-2 ">{valores.nombre}</td>
-                <td className="border border-gray-300 p-2">{valores.apellido}</td>
-                <td className="border border-gray-300 p-2">{valores.dni}</td>
-                <td className="border border-gray-300 p-2 ">
-                     <table className="border-collapse border border-gray-400 m-3">
-                    <thead className=" border-collapse border border-gray-600 bg-[#5A5D90] text-white">
-                        <th className="p-2 ">Fecha/Hora</th>
-                        <th className="p-2">Descripcion</th>
-                        <th className="p-2">Medico</th>
+               <tr className="flex -flex-row border-collapse border border-gray-400 bg-[#5A5D60]  text-white " key={valores.id}>
+                <td className="border border-gray-300 p-2 basis-64 text-xl">{valores.nombre}</td>
+                <td className="border border-gray-300 p-2 basis-64 text-xl">{valores.apellido}</td>
+                <td className="border border-gray-300 p-2 basis-64 text-xl">{valores.dni}</td>
+                <td className="border border-gray-300 p-2 basis-228 overflow-y-auto overscroll-contain  max-h-100 ">
+                     <table className="border-collapse border border-gray-400 m-3  ">
+                    <thead className=" flex flex-row border-collapse border border-gray-600 bg-[#5A5D90] text-white">
+                        <th className="p-2 basis-64 ">Fecha/Hora</th>
+                        <th className="p-2 basis-128">Descripcion</th>
+                        <th className="p-2 basis-64">Medico</th>
         
                        </thead>
                        {DataHisto}
