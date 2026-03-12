@@ -1,11 +1,7 @@
 import bd from "../model/bd.js";
 import { _dirname, io } from "../app.js";
-import {v4 as uuidv4} from 'uuid';
-import session from "express-session";
-import { error } from "console";
 import path from "path";
-import { isGeneratorObject } from "util/types";
-import { Socket } from "socket.io";
+
 
 
 
@@ -282,6 +278,7 @@ try {
     const AñoNaci = naci.split("-")[0];
     const AñoActual = new Date().getFullYear();
     const edad = AñoActual - AñoNaci;
+
     const paciente = {
         id: validar.id,
         nombre: req.body.nombre, 
@@ -301,7 +298,7 @@ try {
     
 } catch (error) {
  console.log("error al actualizar el paciente" , error)    
-   return res.status(500).json({ mensaje: "Error interno del servidor" });
+   return res.status(500).json({ mensaje: "Ocurrio un error al actualizar el paciente" });
 }
  };
 
@@ -360,14 +357,14 @@ try {
 }
  catch (error) {
     console.log(error)
-    return res.status(500).json({mensaje: 'Error interno del servidor', error})
+    return res.status(500).json({mensaje: 'Ocurrio un error al crear el turno', error})
  }
  };
 
  const ActualizarTurno = async (req, res)=>{
     try {
         const validar = await bd.ValidarTurno(req.params.id)
-console.log(validar)
+
         if(!validar){
             return res.status(404).json({mensaje: "Turno no encontrado"});
         }else{
@@ -426,7 +423,7 @@ console.log(validar)
         return res.status(200).json({mensaje:"Turno eliminado correctamente"})          
                 
     } catch (error) {
-        console.log("error al eliminar")
+        return res.status(500).json({mensaje: "Error al intentar eliminar el turno", error})
     }
  }
 
@@ -561,7 +558,7 @@ catch (error) {
                  
                 }
                 
-                console.log(medico)
+                
                 await bd.UpdateMed(medico);
                 return res.status(200).json({mensaje: 'Medico actualizado'})
             }
