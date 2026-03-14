@@ -73,6 +73,19 @@ Esto permite mantener trazabilidad completa sobre quién registró cada informac
 * SQLite
 
 ---
+### Screenshots
+
+### Sesion
+![Sesiones](Imagenes/Consult-0.png)
+
+### Edit Appoinment
+![Editar Turno](Imagenes/Consult-1.png)
+
+### Patient List
+![Lista de Pacientes](Imagenes/Consult-2.png)
+
+### History add
+![Agregar Historial](Imagenes/Consult-3.png)
 
 ## Arquitectura de datos
 
