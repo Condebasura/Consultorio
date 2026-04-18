@@ -41,6 +41,7 @@ function App() {
       }
      },[])
 
+    
 
 
      function useSesion(url: string , refreshSesion: number){
@@ -489,7 +490,7 @@ url='/IngresarMedico'
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "apellido",type: "selector",NameSelect:"usuario",url:'/ConsUsuario', required:true},
+    {name: "apellido",type: "selector",NameSelect:"usuario",url:'http://localhost:3000/ConsUsuario', required:true},
     {name: "contraseña", type:"password", required: true}
   ]}
   
