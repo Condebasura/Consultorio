@@ -115,7 +115,7 @@ app.use( helmet.contentSecurityPolicy({
     app.get("/ConsRol", SecControllers.ConsultRoles);
     app.get("/config", config);
 
-    server.listen(port ,'0.0.0.0', ()=>{
+    server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })
 
