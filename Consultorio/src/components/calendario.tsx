@@ -12,6 +12,7 @@ import type { Usuario } from './Sesion';
 
 
 
+
 //Localizador de fechas
 
 const locales = {
@@ -45,7 +46,7 @@ type Props = {
 
 export default function Calendario({credentials , url, usuario}: Props){
 
- 
+; 
 const [eventos , setEventos] = useState<Evento[]>([]);
 const [date, setDate] = useState(new Date());
 const [view , setViews] = useState<View>('month')
@@ -88,9 +89,9 @@ useEffect(()=>{
 
 useEffect(()=>{
 
-
+url  = `http://localhost:3000/`;
 console.log("Me monto")
-    const socket = io("http://localhost:3000/", {
+    const socket = io(url || '/', {
 
 
         transports: ["websocket"],

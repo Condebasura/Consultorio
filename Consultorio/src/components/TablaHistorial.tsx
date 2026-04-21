@@ -3,6 +3,7 @@ import Formulario from "./Form";
 import { io } from 'socket.io-client';
 
 
+
  type dataHisto = {
   id: string;
   fecha: string;
@@ -75,7 +76,8 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
 
   
     useEffect(()=>{
-    const socket = io("http://localhost:3000/", {
+    let  url  = `http://localhost:3000/`
+    const socket = io(url || `/`, {
         transports: ["websocket"],
         withCredentials: true,
     });
