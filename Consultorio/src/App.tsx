@@ -160,6 +160,11 @@ useEffect(()=>{
     <Libtn  name='Sesiones' className="seccions flex flex-row items-center rounded-sm list-none    mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm"  onClick={()=> setTipos('Sesiones')}> <i className="fa-solid fa-user me-2 text-sm"></i></Libtn>
 
 <Libtn  isDisabled={isDisabled || sesion?.usuario.rol !== 'Medico'} className='seccions flex flex-row items-center rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Historial'  onClick={()=> setTipos('Historial')}>  <i className="fa-solid fa-file-medical me-2 text-sm"></i></Libtn>
+
+<Libtn isDisabled={isDisabled ||sesion?.usuario.rol === 'Medico'  || sesion?.usuario.rol === undefined}
+className='seccions flex flex-row items-center rounded-sm  list-none     mt-2  p-2 bg-[#5A5D90] text-white mx-2 text-sm' name='Horarios' onClick={()=> setTipos('Horarios')}>  <i className="fa-solid fa-users me-2 text-sm"></i>
+
+</Libtn>
     
 {<Sesiones
 titulo='Sesion Activa'
@@ -245,6 +250,16 @@ onSelect={setAction}
   <MiniTabla DatosPaci={result} onEditar={handleSelecionar} name={'Selecionar'}/>
 </Ul> )}
 
+{Tipos === 'Horarios' &&(<Ul
+titulo='Horarios'
+names={[
+  'Ver' , 'Agregar (hs)' , 'Editar (hs)' , 'Quitar (hs)'
+]}
+isDisabled={(name)=> (name === 'Agregar (hs)'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar (hs)'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar (hs)'&& sesion?.usuario.rol !== 'Administrador') }
+onSelect={setAction}
+>
+
+</Ul>)}
 
  </div>
  <div className='inputsDeSubseccions rounded-md flex flex-col basis-1/1 shadow  m-2 bg-gray-100  '>
