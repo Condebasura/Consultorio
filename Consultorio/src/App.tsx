@@ -136,7 +136,7 @@ useEffect(()=>{
 
 },[pacienteSeleccionado])
 
- console.log("El paciente selecionado",pacienteSeleccionado)
+ 
   return(
   <>
   
@@ -258,6 +258,8 @@ names={[
 isDisabled={(name)=> (name === 'Agregar (hs)'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar (hs)'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar (hs)'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
+  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>
+  <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
 
@@ -617,7 +619,20 @@ valoresIniciales={pacienteSeleccionado || ""}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={ pacienteSeleccionado || ""}/>)}
 
-
+{action === 'Agregar (hs)' &&(<Formulario
+titulo='Agregar Horario'
+campos={[
+{name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "matricula", required: true},
+    {name: "especialidad" , required: true},
+    
+]}
+valoresIniciales={pacienteSeleccionado || []}
+method='POST'
+credentials='include'
+url={`${config?.API_URL}//AddHorario/${pacienteSeleccionado?.id || ""}`}
+/>)}
 </div>
  </div>
     </div>

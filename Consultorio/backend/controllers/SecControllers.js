@@ -719,6 +719,15 @@ let  medico_apellido = req.session.usuario.apellido;
     }
  }
 
+ const AddHorario = async (req, res)=>{
+    try {
+        console.log(req.params)
+        
+    } catch (error) {
+        
+    }
+ }
+
 export default {
     getIndex,
     AltaPaciente,
@@ -744,7 +753,8 @@ export default {
      EliminarUsuario,
      GetSesion, 
      Logout,
-     ConsultRoles 
+     ConsultRoles ,
+     AddHorario
      
 
 }
