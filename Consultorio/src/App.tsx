@@ -626,6 +626,7 @@ campos={[
     {name:"apellido", required: true},
     {name: "matricula", required: true},
     {name: "especialidad" , required: true},
+    {name:"dias", type: "selector",NameSelect:"dia", url:`${config?.API_URL}/ConsDias`,required: true},
     
 ]}
 valoresIniciales={pacienteSeleccionado || []}
