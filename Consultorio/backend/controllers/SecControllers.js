@@ -723,10 +723,13 @@ let  medico_apellido = req.session.usuario.apellido;
 const ConsDia = async (req, res)=>{
     try {
           let data = await bd.SelectDia();
+          console.log(data)
           if(!data){
-            return res.status(404).json({mensaje: "No hay dias disponibles"})
+            return res.status(409).json({mensaje: "No hay dias disponibles"})
+          }else{
+
+              return res.status(200).json(data);       
           }
-          return res.status(200).json(data);       
     } catch (error) {
         console.log("error al obtener los dias", error);
     }
