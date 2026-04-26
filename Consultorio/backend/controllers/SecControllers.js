@@ -720,15 +720,15 @@ let  medico_apellido = req.session.usuario.apellido;
  }
 
 // Segir con la consulta de dias
-const ConsDia = async (req, res)=>{
+const GetDia = async (req, res)=>{
     try {
-          let data = await bd.SelectDia();
-          console.log(data)
-          if(!data){
-            return res.status(409).json({mensaje: "No hay dias disponibles"})
-          }else{
+          const datos = await bd.SelectDia();
+          if(!datos){
+              return res.status(409).json({mensaje: "No hay dias disponibles"})
+            }else{
+              console.log("Los dias",datos)
 
-              return res.status(200).json(data);       
+              return res.status(200).json(datos);       
           }
     } catch (error) {
         console.log("error al obtener los dias", error);
@@ -737,8 +737,8 @@ const ConsDia = async (req, res)=>{
 
  const AddHorario = async (req, res)=>{
     try {
-        console.log(req.params)
         
+        console.log(req.body)
     } catch (error) {
         
     }
@@ -770,7 +770,7 @@ export default {
      GetSesion, 
      Logout,
      ConsultRoles,
-     ConsDia,
+     GetDia,
      AddHorario
      
 

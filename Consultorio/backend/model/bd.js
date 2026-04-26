@@ -16,7 +16,7 @@ bd.run("CREATE TABLE IF NOT EXISTS historial(id TEXT PRIMARY KEY ,paciente_id TE
 
 bd.run("CREATE TABLE IF NOT EXISTS roles(tipo TEXT)")
 
-bd.run("CREATE TABLE IF NOT EXISTS dias(dia TEXT NOT NULL)")
+bd.run("CREATE TABLE IF NOT EXISTS dias(dia TEXT)")
 
 const InsertPaciente = async (paci)=>{
     try {
@@ -438,7 +438,7 @@ const SelectDia = ()=>{
                 console.log(err.mensaje)
                 reject(err)
             }else{
-               
+              
                 resolve(rows)
             }
         })

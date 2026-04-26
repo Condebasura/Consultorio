@@ -626,13 +626,13 @@ campos={[
     {name:"apellido", required: true},
     {name: "matricula", required: true},
     {name: "especialidad" , required: true},
-    {name:"dia", type: "selector",NameSelect:"dia", url:`${config?.API_URL}/GetDia`,required: true},
+    {name:"dia", type:"selector",NameSelect:"día", url:`${config?.API_URL}/ConsDia`,required: true},
     
 ]}
 valoresIniciales={pacienteSeleccionado || []}
 method='POST'
-credentials='include'
-url={`${config?.API_URL}//AddHorario/${pacienteSeleccionado?.id || ""}`}
+credentials='omit'
+url={`${config?.API_URL}/AddHorario/${pacienteSeleccionado?.id || ""}`}
 />)}
 </div>
  </div>

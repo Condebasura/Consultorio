@@ -114,7 +114,7 @@ app.use( helmet.contentSecurityPolicy({
     app.post("/logout", SecControllers.Logout)
     app.get("/ConsRol", SecControllers.ConsultRoles);
     app.get("/config", config);
-    app.get("/GetDia", SecControllers.ConsDia);
+    app.get("/ConsDia",SecControllers.GetDia);
     app.post("/AddHorario/:id", SecControllers.AddHorario);
 
     server.listen(port , ()=>{
