@@ -8,6 +8,7 @@ type Sujeto = {
     especialidad?: string;
     cargo?: string;
     tipo?: string;
+    dia?: string;
 }
 
 type SelectMedicoProps ={
@@ -54,6 +55,7 @@ export default function Selec({url,seleccionado, onChange, NameSelect}: SelectMe
                
           
             const  selectedId = e.target.value;
+            
             setValue(selectedId)
             onChange(selectedId)
          }
@@ -68,7 +70,7 @@ export default function Selec({url,seleccionado, onChange, NameSelect}: SelectMe
                  <option className="bg-violet-700 text-white" value=''>Seleccione un {NameSelect} </option>
                 {sujetos.map((sujeto)=>(
                 
-                <option key={sujeto.id} value={sujeto.apellido || sujeto.nombre} className=' bg-violet-700  text-white' id='floatingInput' >{sujeto?.nombre} {sujeto?.apellido} {`${sujeto?.especialidad ?? sujeto?.cargo ?? sujeto?.tipo}`} </option>
+                <option key={sujeto.id} value={sujeto.apellido || sujeto.nombre} className=' bg-violet-700  text-white' id='floatingInput' >{sujeto?.nombre} {sujeto?.apellido} {`${sujeto?.especialidad ?? sujeto?.cargo ?? sujeto?.tipo ?? sujeto?.dia}`} </option>
                 
     
     ))}

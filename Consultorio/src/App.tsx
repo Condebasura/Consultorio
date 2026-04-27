@@ -624,9 +624,10 @@ titulo='Agregar Horario'
 campos={[
 {name: "nombre", required: true},
     {name:"apellido", required: true},
-    {name: "matricula", required: true},
     {name: "especialidad" , required: true},
     {name:"dia", type:"selector",NameSelect:"día", url:`${config?.API_URL}/ConsDia`,required: true},
+    {name: 'desde', type: "time", required: true},
+    {name: 'hasta', type: "time", required: true}
     
 ]}
 valoresIniciales={pacienteSeleccionado || []}

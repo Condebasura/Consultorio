@@ -73,7 +73,6 @@ const res = await fetch(url,{
     body: method !== "GET"? JSON.stringify(valores): undefined
 })
 const data: ApiResponse<Usuario> =  await res.json();
-
 setMensaje(data.mensaje)
 if(res.ok){
     setValores({id:"",
@@ -81,6 +80,7 @@ if(res.ok){
         apellido:"",
         cargo:"",
         rol:"",
+        dia:"",
         
     })
 

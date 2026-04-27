@@ -738,7 +738,7 @@ const GetDia = async (req, res)=>{
  const AddHorario = async (req, res)=>{
     try {
         
-        console.log(req.body)
+        
     } catch (error) {
         
     }
