@@ -719,7 +719,7 @@ let  medico_apellido = req.session.usuario.apellido;
     }
  }
 
-// Segir con la consulta de dias
+
 const GetDia = async (req, res)=>{
     try {
           const datos = await bd.SelectDia();
@@ -737,10 +737,25 @@ const GetDia = async (req, res)=>{
 
  const AddHorario = async (req, res)=>{
     try {
-        
-        
-    } catch (error) {
-        
+    const datos = {
+        medico_id: req.body.id,
+        dia: req.body.dia,
+        mañana_desde: req.body.mañana_desde,
+        mañana_hasta: req.body.mañana_hasta,
+        tarde_desde: req.body.tarde_desde,
+        tarde_hasta: req.body.tarde_hasta,
+    }
+
+    console.log(datos)
+    if(!datos){
+        return res.status(409).json({mensaje: "Error al agregar el horario"})
+    }
+    await bd.insertHorario(datos)
+    return res.status(200).json({mensaje: "Se agrego el horario"})
+    }    
+    
+     catch (error) {
+        console.log("error al agregar el horario", error);
     }
  }
 

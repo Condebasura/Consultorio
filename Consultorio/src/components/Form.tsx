@@ -111,8 +111,10 @@ if(data.data){
                 {campo.type === "selector" ?(
 
                     <Selec
+                
                    url={campo.url ?? ""}
                    NameSelect={campo.NameSelect ?? ""}
+                   
                    seleccionado={valores[campo.name] || ""}
                    onChange={(valor)=> handleChange(campo.name , valor)}
                    

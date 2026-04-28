@@ -626,8 +626,10 @@ campos={[
     {name:"apellido", required: true},
     {name: "especialidad" , required: true},
     {name:"dia", type:"selector",NameSelect:"día", url:`${config?.API_URL}/ConsDia`,required: true},
-    {name: 'desde', type: "time", required: true},
-    {name: 'hasta', type: "time", required: true}
+    {name: 'mañana_desde', type: "time" },
+    {name: 'mañana_hasta', type: "time" },
+    {name: 'tarde_desde', type: "time"  },
+    {name: 'tarde_hasta', type: "time" }
     
 ]}
 valoresIniciales={pacienteSeleccionado || []}
