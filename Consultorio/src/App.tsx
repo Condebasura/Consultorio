@@ -253,7 +253,7 @@ onSelect={setAction}
 {Tipos === 'Horarios' &&(<Ul
 titulo='Horarios'
 names={[
-  'Ver' , 'Agregar (hs)' , 'Editar (hs)' , 'Quitar (hs)'
+  'Ver' , 'Agregar_hs' , 'Editar_hs' , 'Quitar_hs'
 ]}
 isDisabled={(name)=> (name === 'Agregar (hs)'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar (hs)'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar (hs)'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
@@ -619,7 +619,7 @@ valoresIniciales={pacienteSeleccionado || ""}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={ pacienteSeleccionado || ""}/>)}
 
-{action === 'Agregar (hs)' &&(<Formulario
+{action === 'Agregar_hs' &&(<Formulario
 titulo='Agregar Horario'
 campos={[
 {name: "nombre", required: true},
@@ -636,6 +636,26 @@ valoresIniciales={pacienteSeleccionado || []}
 method='POST'
 credentials='omit'
 url={`${config?.API_URL}/AddHorario/${pacienteSeleccionado?.id || ""}`}
+/>)}
+
+{action === 'Editar_hs' &&(<Formulario
+titulo='Editar Horarios'
+campos={[
+  {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "especialidad" , required: true},
+    {name:"dia", type:"selector",NameSelect:"día", url:`${config?.API_URL}/ConsDia`,required: true},
+    {name: 'mañana_desde', type: "time" },
+    {name: 'mañana_hasta', type: "time" },
+    {name: 'tarde_desde', type: "time"  },
+    {name: 'tarde_hasta', type: "time" }
+]}
+
+
+valoresIniciales={pacienteSeleccionado || []}
+method='PUT'
+credentials='omit'
+url={`${config?.API_URL}/EditHorario/${pacienteSeleccionado?.id || ""}`}
 />)}
 </div>
  </div>

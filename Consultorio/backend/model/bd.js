@@ -447,6 +447,20 @@ const SelectDia = ()=>{
 })
 };
 
+const SechHorario = (id)=>{
+    return new Promise((resolve , reject)=>{
+        let sql = 'SELECT * FROM horarios WHERE medico_id = ?';
+        bd.all(sql , [id], (err , rows)=>{
+            if(err){
+                console.log(err.mensaje)
+                reject(err)
+            }else{
+                resolve(rows)
+            }
+        })
+    })
+}
+
 const insertHorario = (datos)=>{
     let id = uuidv4();
     let sql = "INSERT INTO horarios(id ,medico_id, dia , mañana_d , mañana_h , tarde_d , tarde_h) VALUES(?,?,?,?,?,?,?)";
@@ -486,7 +500,8 @@ export default {
      SearchUsuario,
      ConsRol,
      SelectDia,
-     insertHorario
+     insertHorario,
+     SechHorario
      
      
 

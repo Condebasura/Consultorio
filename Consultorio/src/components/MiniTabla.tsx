@@ -6,6 +6,7 @@ type DataTabProps = {
     matricula?: number;
     fecha?: number;
     fechaIso?: number;
+    dia: string;
     
     
     
@@ -29,21 +30,21 @@ return(
             
                <tr className="mt-5"  key={items.id}>
                 <tr className="border border-gray-300 ">
-                <th className="p-1 text-white bg-gray-800">Nombre</th>
-                 <td className=" p-2 bg-gray-200">{items.nombre}</td>
+                <th className="p-1 text-white bg-gray-800">Apellido</th>
+                 <td className=" p-2 bg-gray-200">{items.apellido}</td>
                 </tr>
                 <tr className="border border-gray-300 ">
-                    <th className="p-1 text-white bg-gray-800">Apellido</th>
-                        <td className="p-2 bg-gray-200">{items.apellido}</td>
+                    <th className="p-1 text-white bg-gray-800">Nombre</th>
+                        <td className="p-2 bg-gray-200">{items.nombre}</td>
                 </tr>
             
                 <tr className="border border-gray-300 ">
-                    <th className="p-1 text-white bg-gray-800">Dni/Mat.</th>
+                    <th className="p-1 text-white bg-gray-800">{items?.dni ? "Dni" : "Matricula"}</th>
                         <td className="p-2 bg-gray-200">{items.dni ?? items.matricula}</td>
                 </tr>
                 <tr className="border border-gray-300 ">
-                    <th className="p-1 text-white bg-gray-800">Fecha</th>
-                    <td className="p-2 bg-gray-200">{items?.fechaIso ?? "---"} </td>
+                    <th className="p-1 text-white bg-gray-800">{(items?.fechaIso ?? items?.dia) ? ( items.fechaIso ?"Fecha" : "dia" ) : null}</th>
+                    <td className="p-2 bg-gray-200">{items?.fechaIso ?? items.dia} </td>
                 </tr>
                 
                 <tr>
