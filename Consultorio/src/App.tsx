@@ -258,7 +258,8 @@ names={[
 isDisabled={(name)=> (name === 'Agregar (hs)'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar (hs)'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar (hs)'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
-  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>
+  {action === 'Editar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/searchHorario`}/>):
+  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>}
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
@@ -625,7 +626,7 @@ campos={[
 {name: "nombre", required: true},
     {name:"apellido", required: true},
     {name: "especialidad" , required: true},
-    {name:"dia", type:"selector",NameSelect:"día", url:`${config?.API_URL}/ConsDia`,required: true},
+    {name:"dia", type:"selector",NameSelect:"dia", url:`${config?.API_URL}/ConsDia`,required: true},
     {name: 'mañana_desde', type: "time" },
     {name: 'mañana_hasta', type: "time" },
     {name: 'tarde_desde', type: "time"  },
@@ -644,11 +645,11 @@ campos={[
   {name: "nombre", required: true},
     {name:"apellido", required: true},
     {name: "especialidad" , required: true},
-    {name:"dia", type:"selector",NameSelect:"día", url:`${config?.API_URL}/ConsDia`,required: true},
-    {name: 'mañana_desde', type: "time" },
-    {name: 'mañana_hasta', type: "time" },
-    {name: 'tarde_desde', type: "time"  },
-    {name: 'tarde_hasta', type: "time" }
+    {name:"dia", type:"selector",NameSelect:"dia", url:`${config?.API_URL}/ConsDia`,required: true},
+    {name: 'mañana_d', type: "time" },
+    {name: 'mañana_h', type: "time" },
+    {name: 'tarde_d', type: "time"  },
+    {name: 'tarde_h', type: "time" }
 ]}
 
 

@@ -4,9 +4,11 @@ type DataTabProps = {
     apellido: string;
     dni?: number;
     matricula?: number;
+    especialidad?: string;
     fecha?: number;
     fechaIso?: number;
     dia: string;
+    mañana_d?: string;
     
     
     
@@ -35,12 +37,12 @@ return(
                 </tr>
                 <tr className="border border-gray-300 ">
                     <th className="p-1 text-white bg-gray-800">Nombre</th>
-                        <td className="p-2 bg-gray-200">{items.nombre}</td>
+                        <td className="p-2 bg-gray-200">{items?.nombre}</td>
                 </tr>
             
                 <tr className="border border-gray-300 ">
-                    <th className="p-1 text-white bg-gray-800">{items?.dni ? "Dni" : "Matricula"}</th>
-                        <td className="p-2 bg-gray-200">{items.dni ?? items.matricula}</td>
+                    <th className="p-1 text-white bg-gray-800">{(items?.dni ?? items?.especialidad)?(items?.dni ? "Dni" : "Especialidad"): null}</th>
+                        <td className="p-2 bg-gray-200">{items.dni ?? items.especialidad}</td>
                 </tr>
                 <tr className="border border-gray-300 ">
                     <th className="p-1 text-white bg-gray-800">{(items?.fechaIso ?? items?.dia) ? ( items.fechaIso ?"Fecha" : "dia" ) : null}</th>

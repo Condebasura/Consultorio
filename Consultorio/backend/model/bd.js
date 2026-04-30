@@ -18,7 +18,7 @@ bd.run("CREATE TABLE IF NOT EXISTS roles(tipo TEXT)")
 
 bd.run("CREATE TABLE IF NOT EXISTS dias(dia TEXT)")
 
-bd.run("CREATE TABLE IF NOT EXISTS horarios(id TEXT PRIMARY KEY, medico_id TEXT, dia TEXT, mañana_d TEXT, mañana_h TEXT, tarde_d TEXT, tarde_h TEXT, FOREIGN KEY (medico_id) REFERENCES medicos(id))")
+bd.run("CREATE TABLE IF NOT EXISTS horarios(id TEXT PRIMARY KEY, medico_id TEXT, apellido TEXT,nombre TEXT,especialidad TEXT, dia TEXT, mañana_d TEXT, mañana_h TEXT, tarde_d TEXT, tarde_h TEXT, FOREIGN KEY (medico_id) REFERENCES medicos(id))")
 
 const InsertPaciente = async (paci)=>{
     try {
@@ -447,13 +447,13 @@ const SelectDia = ()=>{
 })
 };
 
-const SechHorario = (id)=>{
+const SechHorario = (apellido)=>{
     return new Promise((resolve , reject)=>{
-        let sql = 'SELECT * FROM horarios WHERE medico_id = ?';
-        bd.all(sql , [id], (err , rows)=>{
+
+        let sql = 'SELECT * FROM horarios WHERE apellido LIKE ?';
+        bd.all(sql, [`%${apellido}%`], (err , rows)=>{
             if(err){
-                console.log(err.mensaje)
-                reject(err)
+                reject(err.mensaje)
             }else{
                 resolve(rows)
             }
@@ -463,8 +463,8 @@ const SechHorario = (id)=>{
 
 const insertHorario = (datos)=>{
     let id = uuidv4();
-    let sql = "INSERT INTO horarios(id ,medico_id, dia , mañana_d , mañana_h , tarde_d , tarde_h) VALUES(?,?,?,?,?,?,?)";
-    bd.run(sql , [id , datos.medico_id ,datos.dia , datos.mañana_desde , datos.mañana_hasta , datos.tarde_desde , datos.tarde_hasta]) , (err)=>{
+    let sql = "INSERT INTO horarios(id ,medico_id, apellido,nombre,especialidad, dia , mañana_d , mañana_h , tarde_d , tarde_h) VALUES(?,?,?,?,?,?,?,?,?,?)";
+    bd.run(sql , [id , datos.medico_id ,datos.apellido ,datos.nombre,datos.especialidad,datos.dia , datos.mañana_desde , datos.mañana_hasta , datos.tarde_desde , datos.tarde_hasta]) , (err)=>{
         if(err){
             console.log(err.mensaje)
         }else{

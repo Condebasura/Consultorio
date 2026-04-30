@@ -739,6 +739,9 @@ const GetDia = async (req, res)=>{
     try {
     const datos = {
         medico_id: req.body.id,
+        apellido: req.body.apellido,
+        nombre: req.body.nombre,
+        especialidad: req.body.especialidad,
         dia: req.body.dia,
         mañana_desde: req.body.mañana_desde,
         mañana_hasta: req.body.mañana_hasta,
@@ -756,6 +759,22 @@ const GetDia = async (req, res)=>{
     
      catch (error) {
         console.log("error al agregar el horario", error);
+    }
+ };
+
+ const BuscarHorario = async (req , res) =>{
+    try {
+        const {apellido} = req.body;
+        const data = await bd.SechHorario(apellido);
+
+        
+        if(!data){
+            return res.status(404).json({mensaje: "No se encontro ningun horario"})
+        }else{
+            return res.status(200).json(data);
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
     }
  }
 
@@ -786,7 +805,8 @@ export default {
      Logout,
      ConsultRoles,
      GetDia,
-     AddHorario
+     AddHorario, 
+     BuscarHorario
      
 
 }
