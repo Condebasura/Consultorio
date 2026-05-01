@@ -255,7 +255,7 @@ titulo='Horarios'
 names={[
   'Ver' , 'Agregar_hs' , 'Editar_hs' , 'Quitar_hs'
 ]}
-isDisabled={(name)=> (name === 'Agregar (hs)'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar (hs)'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar (hs)'&& sesion?.usuario.rol !== 'Administrador') }
+isDisabled={(name)=> (name === 'Agregar_hs'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar_hs'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar_hs'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
   {action === 'Editar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/searchHorario`}/>):
@@ -627,10 +627,10 @@ campos={[
     {name:"apellido", required: true},
     {name: "especialidad" , required: true},
     {name:"dia", type:"selector",NameSelect:"dia", url:`${config?.API_URL}/ConsDia`,required: true},
-    {name: 'mañana_desde', type: "time" },
-    {name: 'mañana_hasta', type: "time" },
-    {name: 'tarde_desde', type: "time"  },
-    {name: 'tarde_hasta', type: "time" }
+    {name: 'mañana_d', type: "time" },
+    {name: 'mañana_h', type: "time" },
+    {name: 'tarde_d', type: "time"  },
+    {name: 'tarde_h', type: "time" }
     
 ]}
 valoresIniciales={pacienteSeleccionado || []}

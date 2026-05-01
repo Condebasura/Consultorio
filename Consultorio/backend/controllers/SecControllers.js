@@ -743,10 +743,10 @@ const GetDia = async (req, res)=>{
         nombre: req.body.nombre,
         especialidad: req.body.especialidad,
         dia: req.body.dia,
-        mañana_desde: req.body.mañana_desde,
-        mañana_hasta: req.body.mañana_hasta,
-        tarde_desde: req.body.tarde_desde,
-        tarde_hasta: req.body.tarde_hasta,
+        mañana_d: req.body.mañana_d,
+        mañana_h: req.body.mañana_h,
+        tarde_d: req.body.tarde_d,
+        tarde_h: req.body.tarde_h,
     }
 
     console.log(datos)
@@ -772,6 +772,36 @@ const GetDia = async (req, res)=>{
             return res.status(404).json({mensaje: "No se encontro ningun horario"})
         }else{
             return res.status(200).json(data);
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
+    }
+ }
+
+ const  EditarHorario = async (req , res) =>{
+    try {
+        
+        const validarId = await bd.ConsHorario(req.params.id);
+
+          
+        const data = {
+            id: validarId[0].id,
+            medico_id: validarId[0].medico_id,
+            apellido: validarId[0].apellido,
+            nombre: validarId[0].nombre,
+            especialidad: validarId[0].especialidad,
+            dia: validarId[0].dia,
+            mañana_d: req.body.mañana_d || '--:-- --',
+            mañana_h: req.body.mañana_h  || '--:-- --',
+            tarde_d: req.body.tarde_d || '--:-- --',
+            tarde_h: req.body.tarde_h || '--:-- --',
+        }
+        console.log(data)
+        if(!data){
+            return res.status(404).json({mensaje: "No se encontro el horario"})
+        }else{
+            await bd.UpdateHorario(data);
+            return res.status(200).json({mensaje: "Se actualizo el horario"});
         }
     } catch (error) {
         return res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
@@ -806,7 +836,8 @@ export default {
      ConsultRoles,
      GetDia,
      AddHorario, 
-     BuscarHorario
+     BuscarHorario,
+     EditarHorario
      
 
 }
