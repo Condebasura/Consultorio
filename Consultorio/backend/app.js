@@ -118,6 +118,8 @@ app.use( helmet.contentSecurityPolicy({
     app.post("/AddHorario/:id", SecControllers.AddHorario);
     app.post("/searchHorario", SecControllers.BuscarHorario);
     app.put("/EditHorario/:id", SecControllers.EditarHorario);
+    app.delete("/EliminarDia/:id", SecControllers.EliminarHorario);
+    app.get("/GetHorarios/:id", SecControllers.GetHorario);
 
     server.listen(port , ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);

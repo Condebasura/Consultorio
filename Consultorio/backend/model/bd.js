@@ -474,6 +474,20 @@ const ConsHorario = (id)=>{
     })
 }
 
+const ConsHorarioPorMedico = (id)=>{
+    return new Promise((resolve , reject)=>{
+        let sql = 'SELECT * FROM horarios WHERE medico_id = ?';
+        bd.all(sql, [id], (err , rows)=>{
+            if(err){
+                reject(err.mensaje)
+            }else{
+                resolve(rows)
+            }
+        })
+    })
+}
+
+
 const insertHorario = (datos)=>{
     let id = uuidv4();
     let sql = "INSERT INTO horarios(id ,medico_id, apellido ,nombre, especialidad, dia , mañana_d , mañana_h , tarde_d , tarde_h) VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -490,6 +504,18 @@ const insertHorario = (datos)=>{
 const UpdateHorario = (datos)=>{
     let sql = "UPDATE horarios SET id = ? , medico_id = ? , apellido = ? , nombre = ? , especialidad = ? , dia = ? , mañana_d = ? , mañana_h = ? , tarde_d = ? , tarde_h = ? WHERE id = ?";
     bd.run(sql , [datos.id , datos.medico_id ,datos.apellido ,datos.nombre,datos.especialidad,datos.dia , datos.mañana_d , datos.mañana_h , datos.tarde_d , datos.tarde_h , datos.id])
+};
+
+
+const DelDia = (id)=>{
+    let sql = 'DELETE  FROM horarios WHERE id = ?';
+    bd.run(sql,[id],(err)=>{
+        if(err){
+            console.log( "error al eliminar")
+        }else{
+            console.log("Dia eliminado")
+        }
+    })
 }
 export default {
     InsertPaciente,
@@ -521,7 +547,9 @@ export default {
      insertHorario,
      SechHorario,
      UpdateHorario, 
-     ConsHorario
+     ConsHorario,
+     ConsHorarioPorMedico, 
+     DelDia
      
      
 

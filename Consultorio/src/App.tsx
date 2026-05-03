@@ -4,6 +4,7 @@ import './App.css'
 import Libtn from './components/BtnLi';
 import Ul from './components/Subseccions';
 import Formulario from './components/Form';
+import HorariosGrid from './components/Horarios';
 
 
 
@@ -258,7 +259,7 @@ names={[
 isDisabled={(name)=> (name === 'Agregar_hs'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar_hs'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar_hs'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
-  {action === 'Editar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/searchHorario`}/>):
+  {action === 'Editar_hs' || action === 'Quitar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/searchHorario`}/>):
   <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>}
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
@@ -620,6 +621,15 @@ valoresIniciales={pacienteSeleccionado || ""}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={ pacienteSeleccionado || ""}/>)}
 
+{action === 'Ver' &&(pacienteSeleccionado)  &&(<HorariosGrid
+url={`${config?.API_URL}/GetHorarios/${pacienteSeleccionado?.id || ""}`}
+method='GET'
+credentials='include'
+
+/>)}
+
+
+
 {action === 'Agregar_hs' &&(<Formulario
 titulo='Agregar Horario'
 campos={[
@@ -645,7 +655,7 @@ campos={[
   {name: "nombre", required: true},
     {name:"apellido", required: true},
     {name: "especialidad" , required: true},
-    {name:"dia", type:"selector",NameSelect:"dia", url:`${config?.API_URL}/ConsDia`,required: true},
+    {name:"dia",required: true},
     {name: 'mañana_d', type: "time" },
     {name: 'mañana_h', type: "time" },
     {name: 'tarde_d', type: "time"  },
@@ -657,6 +667,26 @@ valoresIniciales={pacienteSeleccionado || []}
 method='PUT'
 credentials='omit'
 url={`${config?.API_URL}/EditHorario/${pacienteSeleccionado?.id || ""}`}
+/>)}
+
+{action === 'Quitar_hs' && (<Formulario
+ titulo='Quitar Horarios'
+ campos={[
+  {name: "nombre", required: true},
+    {name:"apellido", required: true},
+    {name: "especialidad" , required: true},
+    {name:"dia",required: true},
+    {name: 'mañana_d', type: "time" },
+    {name: 'mañana_h', type: "time" },
+    {name: 'tarde_d', type: "time"  },
+    {name: 'tarde_h', type: "time" }
+ ]}
+
+
+valoresIniciales={pacienteSeleccionado || []}
+method='DELETE'
+credentials='omit'
+url={`${config?.API_URL}/EliminarDia/${pacienteSeleccionado?.id || ""}`}
 />)}
 </div>
  </div>

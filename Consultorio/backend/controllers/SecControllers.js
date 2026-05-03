@@ -733,6 +733,23 @@ const GetDia = async (req, res)=>{
     } catch (error) {
         console.log("error al obtener los dias", error);
     }
+};
+
+const GetHorario = async (req,res)=>{
+
+    try {
+        
+        const data = await bd.ConsHorarioPorMedico(req.params.id);
+        
+        if(!data){
+            return res.status(409).json({mensaje: "No hay horarios disponibles"})
+        }else{
+            io.emit("Horario-Actualizado", data);
+            return res.status(200).json(data);
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: "Error interno del servidor", error})
+    }
 }
 
  const AddHorario = async (req, res)=>{
@@ -808,6 +825,21 @@ const GetDia = async (req, res)=>{
     }
  }
 
+ const EliminarHorario = async (req , res) => {
+    try {
+        const validarId = await bd.ConsHorario(req.params.id);
+        if(!validarId){
+            return res.status(404).json({mensaje: "No se encontro el horario"})
+        }else{
+            
+            await bd.DelDia(validarId[0].id);
+            return res.status(200).json({mensaje: "Se elimino el horario"})
+        }
+    } catch (error) {
+        return res.status(500).json({mensaje: `Error al intentar la busqueda`, error})
+    }
+ }
+
 export default {
     getIndex,
     AltaPaciente,
@@ -837,7 +869,9 @@ export default {
      GetDia,
      AddHorario, 
      BuscarHorario,
-     EditarHorario
+     EditarHorario,
+     EliminarHorario, 
+     GetHorario
      
 
 }
