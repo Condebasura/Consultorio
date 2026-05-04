@@ -22,9 +22,11 @@ type Horario = {
 
 
 type Props = {
+    
     url: string;
     credentials: 'omit' | 'same-origin' | 'include';
     method: string;
+     valoresIniciales?:Record<string, string>;
     
 }
 
@@ -40,11 +42,18 @@ const columns: Column<Horario>[] = [
   ];
 
 
-  export default function HorariosGrid({url , credentials , method
-  }: Props) {
+  export default function HorariosGrid({ url , credentials , method
+  , valoresIniciales}: Props) {
+    
     
     const [Horarios, setHorarios] = useState<Horario[]>([]);
+const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
 
+useEffect(()=>{
+    if(valoresIniciales){
+        setValores(valoresIniciales);
+    }
+},[valoresIniciales]);
 useEffect(()=>{
     let  url  = `http://localhost:3000/`
     const socket = io(url || `/`, {
@@ -52,7 +61,7 @@ useEffect(()=>{
         withCredentials: true,
     });
     socket.on("connect", ()=>{
-        console.log("🟢 Conectado a Socket.IO")
+        
     });
 
     socket.on("Horario-Actualizado", (data: Horario[]) => {
@@ -61,26 +70,24 @@ useEffect(()=>{
 
     return () => {
     socket.disconnect();
-    console.log("🔴 Socket desconectado");
+    
     }
     
-}, [])
+}, [valores])
 
 
-    useEffect(()=>{
-      
-        const fetchHorarios = async () => {
-         try {
-             await fetch(url, {
-                credentials , method})
-            .then(res => res.json())
-            .then(data => setHorarios(data))
-         } catch (error) {
-            
-         }   
-        }
-        fetchHorarios();
-    }, [])
+     useEffect(() => {
+    const fetchHorarios = async () => {
+      try {
+        const response = await fetch(url, { credentials, method });
+        const data = await response.json();
+        setHorarios(data);
+      } catch (error) {
+        // handle error
+      }
+    };
+    fetchHorarios();
+  }, [valores]);
 
  
 

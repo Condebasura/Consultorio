@@ -621,11 +621,16 @@ valoresIniciales={pacienteSeleccionado || ""}
 
 {action === 'Agregar (Al Hist.)' &&(<TablaHistorial data={HistorialPaciente} valoresIniciales={ pacienteSeleccionado || ""}/>)}
 
-{action === 'Ver' &&(pacienteSeleccionado)  &&(<HorariosGrid
-url={`${config?.API_URL}/GetHorarios/${pacienteSeleccionado?.id || ""}`}
+{action === 'Ver' &&(!pacienteSeleccionado)  ?(<HorariosGrid
+url=''
 method='GET'
 credentials='include'
 
+/>):action === 'Ver' &&(pacienteSeleccionado)  &&(<HorariosGrid
+valoresIniciales={pacienteSeleccionado || ''}
+url={`${config?.API_URL}/GetHorarios/${pacienteSeleccionado?.id || ""}`}
+method='GET'
+credentials='include'
 />)}
 
 
