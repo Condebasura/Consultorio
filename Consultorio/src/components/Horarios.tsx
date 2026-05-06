@@ -83,7 +83,7 @@ useEffect(()=>{
         const data = await response.json();
         setHorarios(data);
       } catch (error) {
-        // handle error
+        console.log("Error al obtener los horarios:", error);
       }
     };
     fetchHorarios();
