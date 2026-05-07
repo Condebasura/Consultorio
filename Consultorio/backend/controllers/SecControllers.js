@@ -744,6 +744,11 @@ const GetHorario = async (req,res)=>{
         if(!data){
             return res.status(409).json({mensaje: "No hay horarios disponibles"})
         }else{
+            let dataDia = data.map((horario) => {
+                return horario.dia;
+            });
+           
+                
             io.emit("Horario-Actualizado", data);
             return res.status(200).json(data);
         }
@@ -765,11 +770,16 @@ const GetHorario = async (req,res)=>{
         tarde_d: req.body.tarde_d,
         tarde_h: req.body.tarde_h,
     }
+     const medicoId = req.body.id;
+     const validateDia = await bd.ConsHorarioPorMedico(medicoId);
+     
+     if(!datos){
+         return res.status(409).json({mensaje: "Error al agregar el horario"})
+        }
+        if(validateDia[0].dia === datos.dia){
+            return res.status(409).json({mensaje: "El horario ya existe"})
+        }
 
-    console.log(datos)
-    if(!datos){
-        return res.status(409).json({mensaje: "Error al agregar el horario"})
-    }
     await bd.insertHorario(datos)
     return res.status(200).json({mensaje: "Se agrego el horario"})
     }    

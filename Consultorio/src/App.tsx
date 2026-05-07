@@ -260,7 +260,7 @@ isDisabled={(name)=> (name === 'Agregar_hs'&& sesion?.usuario.rol !== 'Administr
 onSelect={setAction}
 >
   {action === 'Editar_hs' || action === 'Quitar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/searchHorario`}/>):
-  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>}
+  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador' && sesion?.usuario.rol !== 'Secretaria'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>}
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}

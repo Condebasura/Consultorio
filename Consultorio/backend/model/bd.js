@@ -463,7 +463,7 @@ const SechHorario = (apellido)=>{
 
 const ConsHorario = (id)=>{
     return new Promise((resolve , reject)=>{
-        let sql = 'SELECT * FROM horarios WHERE id = ?';
+        let sql = 'SELECT * FROM horarios WHERE id = ? ';
         bd.all(sql, [id], (err , rows)=>{
             if(err){
                 reject(err.mensaje)
