@@ -1,6 +1,7 @@
 import bd from "../model/bd.js";
 import { _dirname, io } from "../app.js";
 import path from "path";
+import { get } from "http";
 
 
 
@@ -745,12 +746,38 @@ const GetHorario = async (req,res)=>{
             return res.status(409).json({mensaje: "No hay horarios disponibles"})
         }else{
             let dataDia = data.map((horario) => {
-                return horario.dia;
+            let diaA = horario.dia;
+
+             const newData = {
+             medico_id: horario.id,
+        apellido: horario.apellido,
+        nombre: horario.nombre,
+        especialidad: horario.especialidad,
+        dia: diaA,
+        mañana_d: horario.mañana_d,
+        mañana_h: horario.mañana_h,
+        tarde_d: horario.tarde_d,
+        tarde_h: horario.tarde_h,
+           }
+            return newData;
+          
             });
+
+              const order ={
+                Lunes: 1,
+                Martes: 2,
+                Miercoles: 3,
+                Jueves: 4,
+                Viernes: 5,
+                Sabado: 6,
+                Domingo: 7,
+            };
+           const dataOrder = dataDia.sort((a, b) => order[a.dia] - order[b.dia]);
            
-                
-            io.emit("Horario-Actualizado", data);
-            return res.status(200).json(data);
+          
+               
+            io.emit("Horario-Actualizado", dataOrder);
+            return res.status(200).json(dataOrder);
         }
     } catch (error) {
         return res.status(500).json({mensaje: "Error interno del servidor", error})
