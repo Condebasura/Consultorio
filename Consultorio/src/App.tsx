@@ -50,7 +50,7 @@ useEffect(()=>{
       fetchData();
     },[])
 
-console.log(config?.API_URL)     
+     
      useEffect(()=>{
       const url  = `http://localhost:3000/`;
       const socket = io(url || `/`);

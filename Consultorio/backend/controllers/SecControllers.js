@@ -797,7 +797,7 @@ const GetHorario = async (req,res)=>{
         tarde_d: req.body.tarde_d,
         tarde_h: req.body.tarde_h,
     }
-    console.log("Los datos del horario", datos.dia)
+    
      const medicoId = req.body.id;
      const validateDia = await bd.ConsHorarioPorMedico(medicoId);
      const Dia = validateDia.map((d)=> d.dia)
@@ -856,7 +856,7 @@ const GetHorario = async (req,res)=>{
             tarde_d: req.body.tarde_d || '--:-- --',
             tarde_h: req.body.tarde_h || '--:-- --',
         }
-        console.log(data)
+        
         if(!data){
             return res.status(404).json({mensaje: "No se encontro el horario"})
         }else{
