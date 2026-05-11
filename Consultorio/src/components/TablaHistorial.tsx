@@ -38,7 +38,7 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
    setHistorial(data)
   }, [data]);
 
-         function InvertirFecha(fechaHora: any){
+         function InvertirFecha(fechaHora: string): string {
  
              const [fecha , hora] = fechaHora.split(' ');
            const fechaInvertida =  fecha.split('-').reverse().join('-');
@@ -76,7 +76,7 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
 
   
     useEffect(()=>{
-    let  url  = `http://localhost:3000/`
+    const  url  = `http://localhost:3000/`
     const socket = io(url || `/`, {
         transports: ["websocket"],
         withCredentials: true,

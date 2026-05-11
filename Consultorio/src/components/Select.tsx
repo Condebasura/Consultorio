@@ -28,7 +28,10 @@ export default function Selec({url,seleccionado, onChange, NameSelect}: SelectMe
 
          const [sujetos , setSujeto] = useState<Sujeto[]>([]);
          const [value, setValue] = useState(seleccionado ||"");
-         
+         if(value === "default"){
+            setValue("")
+            
+         }
            useEffect(()=>{
            
 
@@ -67,7 +70,7 @@ export default function Selec({url,seleccionado, onChange, NameSelect}: SelectMe
      value={value} 
       onChange={handleSelect} 
       className="form-select grid-cols-1 size-full"  >
-                 <option className="bg-violet-700 text-white" value=''>Seleccione un {NameSelect} </option>
+                 <option className="bg-violet-700 text-white" value='default'  hidden >Seleccione un {NameSelect} </option>
                 {sujetos.map((sujeto)=>(
                 
                 <option key={sujeto.id} value={sujeto.apellido || sujeto.nombre} className=' bg-violet-700  text-white' id='floatingInput' >{sujeto?.nombre} {sujeto?.apellido} {`${sujeto?.especialidad ?? sujeto?.cargo ?? sujeto?.tipo ?? sujeto?.dia}`} </option>

@@ -43,7 +43,7 @@ useEffect(()=>{
       }
       const fetchData =  async ()=>{
         
-        let api = await getURL();
+        const api = await getURL();
         setConfig(api);
         
       };
@@ -52,7 +52,7 @@ useEffect(()=>{
 
 console.log(config?.API_URL)     
      useEffect(()=>{
-      let url  = `http://localhost:3000/`;
+      const url  = `http://localhost:3000/`;
       const socket = io(url || `/`);
 
       socket.on('session:updated' , ()=>{
