@@ -76,8 +76,8 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
 
   
     useEffect(()=>{
-    const  url  = `http://localhost:3000/`
-    const socket = io(url || `/`, {
+   
+    const socket = io('/', {
         transports: ["websocket"],
         withCredentials: true,
     });
@@ -110,7 +110,7 @@ campos={[
 ]}
 method="PUT"
 credentials="include"
-url={`http://localhost:3000/AgregarAlHistorial/${valores.id}`}
+url={`/AgregarAlHistorial/${valores.id}`}
 />
          <table className="  border-collapse border border-gray-400 m-3 ">
             <thead className="flex flex-row border-collapse border border-gray-400 bg-[#5A5D90] text-white">

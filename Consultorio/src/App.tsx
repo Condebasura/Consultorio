@@ -31,10 +31,10 @@ function App() {
 
 useEffect(()=>{
       
-      const getURL = async (url?: string)=>{
+      const getURL = async ()=>{
          try {
-          url  = `http://localhost:3000/config`;
-          const res = await fetch(url || "/config");
+          
+          const res = await fetch("/config");
           const data = await res.json();
           setConfig(data);
         } catch (error) {
@@ -46,8 +46,8 @@ useEffect(()=>{
 
      
      useEffect(()=>{
-      const url  = `http://localhost:3000/`;
-      const socket = io(url || `/`);
+      
+      const socket = io('/');
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1);

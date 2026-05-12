@@ -55,8 +55,8 @@ useEffect(()=>{
     }
 },[valoresIniciales]);
 useEffect(()=>{
-    let  url  = `http://localhost:3000/`
-    const socket = io(url || `/`, {
+    
+    const socket = io( '/', {
         transports: ["websocket"],
         withCredentials: true,
     });
