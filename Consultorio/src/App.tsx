@@ -98,7 +98,7 @@ useEffect(()=>{
     const handleSelecionar =  (pacienteSeleccionado: any)=>{
       setPacienteSeleccionado(pacienteSeleccionado);
       
-       fetch(`${config?.API_URL}/VerHistorialPaciente/${pacienteSeleccionado?.id}`).then(res => res.json()).then(data =>{
+       fetch(`${config?.API_URL || ""}/VerHistorialPaciente/${pacienteSeleccionado?.id}`).then(res => res.json()).then(data =>{
               if(data && Array.isArray(data)){
               
                 setHistorialPaciente(data);
@@ -115,7 +115,7 @@ useEffect(()=>{
 
 
 
-const {sesion } = useSesion(`${config?.API_URL}/sesion`, refreshSesion)
+const {sesion } = useSesion(`${config?.API_URL ||  ""}/sesion`, refreshSesion)
 
 
 
@@ -172,7 +172,7 @@ sesion={sesion ?? null}
   
   <Calendario 
   credentials={'include'}
-  url={`${config?.API_URL}/ConsTurno`}
+  url={`${config?.API_URL ||  ""}/ConsTurno`}
   usuario={sesion?.usuario}
    />
  </div>
@@ -190,7 +190,7 @@ onSelect={setAction}
 
 
 >
-<SearchInput onSearch={(data) =>setResult(data ||'')}  method='POST'     url={`${config?.API_URL}/SearchPaciente`}/>
+<SearchInput onSearch={(data) =>setResult(data ||'')}  method='POST'     url={`${config?.API_URL ||  ""}/SearchPaciente`}/>
   {action !== "Listado de Pacientes" && <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Editar'}/> }
 
 
@@ -201,7 +201,7 @@ titulo='Turnos'
 names={['Crear','Editar', 'Cancelar']}
 onSelect={setAction}
 >
-{action === "Crear" ? <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url={`${config?.API_URL}/SearchPaciente`}/>: <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url={`${config?.API_URL}/SearchTurno`}/>}
+{action === "Crear" ? <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url={`${config?.API_URL ||  ""}/SearchPaciente`}/>: <SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url={`${config?.API_URL ||  ""}/SearchTurno`}/>}
 <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
@@ -212,7 +212,7 @@ titulo='Medicos'
 names={['Ingresar_M','Editar_M', 'Eliminar_M' ]}
 onSelect={setAction}
 >
-<SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>
+<SearchInput onSearch={(data) =>setResult(data || '')} method='POST'     url={`${config?.API_URL ||  ""}/SearchMedico`}/>
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 
@@ -224,8 +224,8 @@ names={['Iniciar','Cerrar', 'Agregar', 'Quitar']}
 isDisabled={(name)=> (name === 'Agregar'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Quitar'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
-  { action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchUsuario`}/>): 
- <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>
+  { action === "Quitar" ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL ||  ""}/SearchUsuario`}/>): 
+ <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL ||  ""}/SearchMedico`}/>
 }
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
@@ -241,7 +241,7 @@ onSelect={setAction}
   
   > 
   
-  <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url={`${config?.API_URL}/SearchPaciente`}/>
+  <SearchInput onSearch={(data) =>setResult(data ||'')} method='POST'     url={`${config?.API_URL ||  ""}/SearchPaciente`}/>
   <MiniTabla DatosPaci={result} onEditar={handleSelecionar} name={'Selecionar'}/>
 </Ul> )}
 
@@ -253,8 +253,8 @@ names={[
 isDisabled={(name)=> (name === 'Agregar_hs'&& sesion?.usuario.rol !== 'Administrador') ||  (name === 'Editar_hs'&& sesion?.usuario.rol !== 'Administrador') || (name === 'Quitar_hs'&& sesion?.usuario.rol !== 'Administrador') }
 onSelect={setAction}
 >
-  {action === 'Editar_hs' || action === 'Quitar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL}/searchHorario`}/>):
-  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador' && sesion?.usuario.rol !== 'Secretaria'} method='POST'     url={`${config?.API_URL}/SearchMedico`}/>}
+  {action === 'Editar_hs' || action === 'Quitar_hs' ? (<SearchInput onSearch={(data) =>setResult(data || '')} isDisabled={sesion?.usuario.rol !== 'Administrador'} method='POST'     url={`${config?.API_URL ||  ""}/searchHorario`}/>):
+  <SearchInput onSearch={(data) =>setResult(data || '')}isDisabled={sesion?.usuario.rol !== 'Administrador' && sesion?.usuario.rol !== 'Secretaria'} method='POST'     url={`${config?.API_URL ||  ""}/SearchMedico`}/>}
   <MiniTabla DatosPaci={result} onEditar={(DatosPaci)=> setPacienteSeleccionado(DatosPaci) } name={'Selecionar'}/>
 
 </Ul>)}
@@ -284,7 +284,7 @@ onSelect={setAction}
     {name:"afiliado", type:"number" , required: true}
   ]}
   credentials='omit'
-  url= {`${config?.API_URL}/AltaPaciente`}
+  url= {`${config?.API_URL ||  ""}/AltaPaciente`}
   method="POST"
   
  />)}
@@ -329,7 +329,7 @@ onSelect={setAction}
    valoresIniciales={pacienteSeleccionado ||[] }
    method="PUT"
    credentials='omit'
-   url={`h${config?.API_URL}/UpdatePaciente/${pacienteSeleccionado.id}`}
+   url={`h${config?.API_URL ||  ""}/UpdatePaciente/${pacienteSeleccionado.id}`}
   />
   )}
   
@@ -345,7 +345,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:`${config?.API_URL}/ConsMedico`, required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:`${config?.API_URL ||  ""}/ConsMedico`, required: true}
 
     
   ]}
@@ -353,7 +353,7 @@ onSelect={setAction}
 
   method='POST'
   credentials='include'
-  url={`${config?.API_URL}/CrearTurno`}
+  url={`${config?.API_URL ||  ""}/CrearTurno`}
   valoresIniciales={
   pacienteSeleccionado || {}}
   onUserData={(usuario)=>{
@@ -372,7 +372,7 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:`${config?.API_URL}/ConsMedico`, required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:`${config?.API_URL ||  ""}/ConsMedico`, required: true}
     
   ]}
  
@@ -395,14 +395,14 @@ onSelect={setAction}
     {name:'fecha', type:'Date' , required: true},
     {name:'hora', type:'time' , required: true},
     {name:'observaciones', type:'textarea' , required: true},
-    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:`${config?.API_URL}/ConsMedico`, required: true}
+    {name: "medicoApellido", type:"selector",NameSelect:"medico", url:`${config?.API_URL ||  ""}/ConsMedico`, required: true}
     
   ]}
  
   valoresIniciales={pacienteSeleccionado || []}
   method='PUT'
   credentials='include'
-  url={`${config?.API_URL}/UpdateTurno/${pacienteSeleccionado.id}`}
+  url={`${config?.API_URL ||  ""}/UpdateTurno/${pacienteSeleccionado.id}`}
   onUserData={(usuario)=>{
     setUserData(usuario)
   }}
@@ -446,7 +446,7 @@ onSelect={setAction}
     valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
   credentials='include'
-  url={`${config?.API_URL}/EliminarTurno/${pacienteSeleccionado.id}`}
+  url={`${config?.API_URL ||  ""}/EliminarTurno/${pacienteSeleccionado.id}`}
   onUserData={(usuario)=>{
     setUserData(usuario)
   }}
@@ -464,7 +464,7 @@ onSelect={setAction}
   ]}
 method='POST'
 credentials='omit'
-url={`${config?.API_URL}/IngresarMedico`}
+url={`${config?.API_URL ||  ""}/IngresarMedico`}
 
  />)}
 {action === 'Editar_M' && (!pacienteSeleccionado)? (<Formulario
@@ -491,7 +491,7 @@ url={`${config?.API_URL}/IngresarMedico`}
     valoresIniciales={pacienteSeleccionado || []}
     method='PUT'
     credentials='omit'
-    url={`${config?.API_URL}/UpdateMedico/${pacienteSeleccionado.id}`}
+    url={`${config?.API_URL ||  ""}/UpdateMedico/${pacienteSeleccionado.id}`}
     
   
 />)}
@@ -524,7 +524,7 @@ url={`${config?.API_URL}/IngresarMedico`}
   valoresIniciales={pacienteSeleccionado || []}
   method='DELETE'
   credentials='omit'
-  url={`${config?.API_URL}/EliminarMedico/${pacienteSeleccionado.id}`}
+  url={`${config?.API_URL ||  ""}/EliminarMedico/${pacienteSeleccionado.id}`}
   
  />)}
 
@@ -536,7 +536,7 @@ url={`${config?.API_URL}/IngresarMedico`}
   ]}
   
   method='POST'
-  url={`${config?.API_URL}/PostUsuario`}
+  url={`${config?.API_URL ||  ""}/PostUsuario`}
   credentials='include'
   headers={{"Content-Type":"application/json"}} 
  onUserData={(usuario)=>{
@@ -557,7 +557,7 @@ campos={[
   nameBtn='Cerrar'
   method='POST'
   credentials='include'
-  url={`${config?.API_URL}/logout`}
+  url={`${config?.API_URL ||  ""}/logout`}
 onUserData={(usuario)=>{
           setUserData(usuario)
          
@@ -572,12 +572,12 @@ onUserData={(usuario)=>{
   {name: "apellido", required: true},
   {name: 'contraseña', type: "password" , required: true},
   {name:'cargo' , required:true },
-  {name: 'tipo',  type: "selector",NameSelect:"rol", url:`${config?.API_URL}/ConsRol`,required: true}
+  {name: 'tipo',  type: "selector",NameSelect:"rol", url:`${config?.API_URL ||  ""}/ConsRol`,required: true}
  ]}
 children={<p>Para agregar un medico primero busquelo en el panel lataral</p>}
 method='POST'
 credentials='omit'
-url={`${config?.API_URL}/IngresarUsuarioMedico/${pacienteSeleccionado?.id || ""}`}
+url={`${config?.API_URL ||  ""}/IngresarUsuarioMedico/${pacienteSeleccionado?.id || ""}`}
 valoresIniciales={pacienteSeleccionado || ""}
 />): action === "Agregar" && (!pacienteSeleccionado) && (<Formulario
  titulo=  "Agregar Usuario"
@@ -586,12 +586,12 @@ valoresIniciales={pacienteSeleccionado || ""}
   {name: "apellido", required: true},
   {name: 'contraseña', type: "password" , required: true},
   {name:'cargo' , required:true },
-  {name: 'tipo',  type: "selector",NameSelect:"rol", url:`${config?.API_URL}/ConsRol`,required: true}
+  {name: 'tipo',  type: "selector",NameSelect:"rol", url:`${config?.API_URL ||  ""}/ConsRol`,required: true}
  ]}
 children={<p>Para agregar un medico primero busquelo en el panel lataral</p>}
 method='POST'
 credentials='omit'
-url={`${config?.API_URL}/IngresarUsuario`}
+url={`${config?.API_URL ||  ""}/IngresarUsuario`}
 valoresIniciales={pacienteSeleccionado || ""}
 />)}
 
@@ -603,13 +603,13 @@ titulo='Eliminar Usuario'
 campos={[
   {name: "apellido", required: true},
   {name:'cargo', required:true}, 
-  {name: 'tipo',  type: "selector",NameSelect:"rol", url:`${config?.API_URL}/ConsRol`,required: true}
+  {name: 'tipo',  type: "selector",NameSelect:"rol", url:`${config?.API_URL ||  ""}/ConsRol`,required: true}
 ]}
 nameBtn='Eliminar'
 children={<p>Use el buscador para selecionar y eliminar un usuario</p>}
 method='DELETE'
 credentials='omit'
-url={`${config?.API_URL}/EliminarUsuario/${pacienteSeleccionado?.id}`}
+url={`${config?.API_URL ||  ""}/EliminarUsuario/${pacienteSeleccionado?.id}`}
 valoresIniciales={pacienteSeleccionado || ""}
 />)}
 
@@ -622,7 +622,7 @@ credentials='include'
 
 />):action === 'Ver' &&(pacienteSeleccionado)  &&(<HorariosGrid
 valoresIniciales={pacienteSeleccionado || ''}
-url={`${config?.API_URL}/GetHorarios/${pacienteSeleccionado?.id || ""}`}
+url={`${config?.API_URL ||  ""}/GetHorarios/${pacienteSeleccionado?.id || ""}`}
 method='GET'
 credentials='include'
 />)}
@@ -635,7 +635,7 @@ campos={[
 {name: "nombre", required: true},
     {name:"apellido", required: true},
     {name: "especialidad" , required: true},
-    {name:"dia", type:"selector",NameSelect:"dia", url:`${config?.API_URL}/ConsDia`,required: true},
+    {name:"dia", type:"selector",NameSelect:"dia", url:`${config?.API_URL ||  ""}/ConsDia`,required: true},
     {name: 'mañana_d', type: "time" },
     {name: 'mañana_h', type: "time" },
     {name: 'tarde_d', type: "time"  },
@@ -645,7 +645,7 @@ campos={[
 valoresIniciales={pacienteSeleccionado || []}
 method='POST'
 credentials='omit'
-url={`${config?.API_URL}/AddHorario/${pacienteSeleccionado?.id || ""}`}
+url={`${config?.API_URL ||  ""}/AddHorario/${pacienteSeleccionado?.id || ""}`}
 />)}
 
 {action === 'Editar_hs' &&(<Formulario
@@ -665,7 +665,7 @@ campos={[
 valoresIniciales={pacienteSeleccionado || []}
 method='PUT'
 credentials='omit'
-url={`${config?.API_URL}/EditHorario/${pacienteSeleccionado?.id || ""}`}
+url={`${config?.API_URL ||  ""}/EditHorario/${pacienteSeleccionado?.id || ""}`}
 />)}
 
 {action === 'Quitar_hs' && (<Formulario
@@ -685,7 +685,7 @@ url={`${config?.API_URL}/EditHorario/${pacienteSeleccionado?.id || ""}`}
 valoresIniciales={pacienteSeleccionado || []}
 method='DELETE'
 credentials='omit'
-url={`${config?.API_URL}/EliminarDia/${pacienteSeleccionado?.id || ""}`}
+url={`${config?.API_URL ||  ""}/EliminarDia/${pacienteSeleccionado?.id || ""}`}
 />)}
 </div>
  </div>
