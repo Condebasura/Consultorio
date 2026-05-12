@@ -36,18 +36,12 @@ useEffect(()=>{
           url  = `http://localhost:3000/config`;
           const res = await fetch(url || "/config");
           const data = await res.json();
-          return data;
+          setConfig(data);
         } catch (error) {
           console.log("error en el fetch", error)
         }
       }
-      const fetchData =  async ()=>{
-        
-        const api = await getURL();
-        setConfig(api);
-        
-      };
-      fetchData();
+    getURL()
     },[])
 
      
