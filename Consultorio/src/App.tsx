@@ -531,7 +531,7 @@ url={`${config?.API_URL}/IngresarMedico`}
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "apellido",type: "selector",NameSelect:"usuario",url:`${config?.API_URL}/ConsUsuario`, required:true},
+    {name: "apellido",type: "selector",NameSelect:"usuario",url:`/ConsUsuario`, required:true},
     {name: "contraseña", type:"password", required: true}
   ]}
   
