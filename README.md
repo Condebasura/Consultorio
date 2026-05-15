@@ -52,6 +52,31 @@ Esto permite mantener trazabilidad completa sobre quién registró cada informac
 
 ---
 
+## 🆕 Últimas mejoras (v1.0.0)
+
+- ✅ Sistema completo de **gestión de horarios de médicos**
+  - Crear horarios
+  - Editar horarios
+  - Eliminar horarios
+  - Visualización clara de disponibilidad
+![Sesiones](Imagenes/Consultorio-horario.png)
+
+- 🔄 Mejora en la **visualización de la lista de pacientes**
+  - Interfaz más limpia
+  - Mejor experiencia de usuario
+
+![Sesiones](Imagenes/Consultorio-list.png)
+---
+
+## 🧪 Estado del proyecto
+
+🟢 Versión actual: **1.0.0**  
+✔️ Proyecto funcional y terminado  
+🔧 Posibles mejoras futuras en UI/UX y optimización
+
+---
+
+
 ## Tecnologías utilizadas
 
 ### Frontend
