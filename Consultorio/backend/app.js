@@ -62,7 +62,7 @@ const corsOptions = {
     credentials: true ,
 };
 
- app.use(express.static(path.join(_dirname, '..','dist')))
+ //app.use(express.static(path.join(_dirname, '..','dist')))
 
  app.use(helmet());
 app.use(morgan('dev'));
@@ -88,7 +88,7 @@ app.use( helmet.contentSecurityPolicy({
         saveUninitialized: false
     }))
 
-    app.get("/", SecControllers.getIndex)
+   // app.get("/", SecControllers.getIndex)
     app.post("/AltaPaciente", SecControllers.AltaPaciente);
     app.post("/SearchPaciente", SecControllers.SearchPaciente);
     app.put("/UpdatePaciente/:id", SecControllers.ActualizarPaciente);
@@ -121,7 +121,7 @@ app.use( helmet.contentSecurityPolicy({
     app.delete("/EliminarDia/:id", SecControllers.EliminarHorario);
     app.get("/GetHorarios/:id", SecControllers.GetHorario);
 
-    server.listen(port ,"0.0.0.0", ()=>{
+    server.listen(port ,/*"0.0.0.0",*/ ()=>{
         console.log(`El backend esta corriendo en el puerto ${port}`);
     })
 

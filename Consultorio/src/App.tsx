@@ -33,21 +33,22 @@ useEffect(()=>{
       
       const getURL = async ()=>{
          try {
-          
-          const res = await fetch("/config");
+          const   url = "http://localhost:3000/config";
+          const res = await fetch(url || "/config");
           const data = await res.json();
           setConfig(data);
         } catch (error) {
           console.log("error en el fetch", error)
         }
       }
-    getURL()
+      getURL()
+      
     },[])
 
      
      useEffect(()=>{
-      
-      const socket = io('/');
+      const url = "http://localhost:3000";
+      const socket = io(url ||'/');
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1);
@@ -531,7 +532,7 @@ url={`${config?.API_URL ||  ""}/IngresarMedico`}
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "apellido",type: "selector",NameSelect:"usuario",url:`/ConsUsuario`, required:true},
+    {name: "apellido",type: "selector",NameSelect:"usuario",url:`${config?.API_URL ||  ""}/ConsUsuario`, required:true},
     {name: "contraseña", type:"password", required: true}
   ]}
   

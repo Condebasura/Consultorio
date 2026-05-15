@@ -89,7 +89,7 @@ useEffect(()=>{
 
 useEffect(()=>{
 
-url  = `/`;
+const url  = "http://localhost:3000";
 console.log("Me monto")
     const socket = io(url || '/', {
 
