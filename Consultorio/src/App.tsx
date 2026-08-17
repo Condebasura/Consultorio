@@ -34,7 +34,7 @@ useEffect(()=>{
       const getURL = async ()=>{
          try {
           
-          const res = await fetch("/config");
+          const res = await fetch("http://localhost:3000/config");
           const data = await res.json();
           setConfig(data);
         } catch (error) {
@@ -46,8 +46,8 @@ useEffect(()=>{
 
      
      useEffect(()=>{
-      
-      const socket = io('/');
+      console.log(config?.API_URL)
+      const socket = io('http://localhost:3000');
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1);
@@ -329,7 +329,7 @@ onSelect={setAction}
    valoresIniciales={pacienteSeleccionado ||[] }
    method="PUT"
    credentials='omit'
-   url={`h${config?.API_URL ||  ""}/UpdatePaciente/${pacienteSeleccionado.id}`}
+   url={`${config?.API_URL ||  ""}/UpdatePaciente/${pacienteSeleccionado.id}`}
   />
   )}
   
@@ -531,7 +531,7 @@ url={`${config?.API_URL ||  ""}/IngresarMedico`}
   {action === 'Iniciar' && (<Formulario
   titulo='Iniciar Sesion'
   campos={[
-    {name: "apellido",type: "selector",NameSelect:"usuario",url:`/ConsUsuario`, required:true},
+    {name: "apellido",type: "selector",NameSelect:"usuario",url:`${config?.API_URL ||  ""}/ConsUsuario`, required:true},
     {name: "contraseña", type:"password", required: true}
   ]}
   

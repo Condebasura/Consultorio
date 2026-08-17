@@ -46,6 +46,7 @@ if(!Data){
     res.status(404).json({mensaje: "Ocurrio un error al cargar los datos"})
 }
 else{
+    
     res.status(200).json(Data)
 }
 

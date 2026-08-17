@@ -1,6 +1,7 @@
 import Inputs from "./Input";
 import { useEffect, useState } from "react";
 import Selec from "./Select";
+import Modal from "./modal";
 
 
 
@@ -45,7 +46,13 @@ type ApiResponse<T> = {
     data?: T;
 }
 
+
 export default function Formulario({titulo  , campos, children, nameBtn = 'Enviar' ,url, method, valoresIniciales , credentials = 'omit' , onUserData }: FormProps){
+    const [isOpen, setOpen] = useState(false);
+    
+  
+
+    
    // Record pertenece a TypeScript y dice: 'mi objeto tiene clave de tipo string y  valores de tipo string'
 const [valores , setValores] = useState<Record<string, string>>(valoresIniciales ||{});
   
@@ -62,6 +69,8 @@ useEffect(()=>{
     }
 }, [valoresIniciales]);
 
+
+
  const handleSubmit = async (e: React.FormEvent)=>{
  e.preventDefault();
 
@@ -74,6 +83,8 @@ const res = await fetch(url,{
 })
 const data: ApiResponse<Usuario> =  await res.json();
 setMensaje(data.mensaje)
+if(data.mensaje){
+setOpen(true);}
 if(res.ok){
     setValores({id:"",
         medico_id: "",
@@ -155,17 +166,13 @@ if(data.data){
     </form>
 
     </div>
-      {mensaje && <div className="bg-green-500 mt-3 p-3  text-center">{mensaje}
-        <button
-            className="bg-[#0B1238] p-1 rounded hover:bg-[#0B1238]/80 text-white ms-3"
-            onClick={() => {  setMensaje(null);
-               
-            }}
-        >
-            OK
-        </button>
-            
-            </div> }
+    {isOpen && (
+     < Modal
+    isOpen={isOpen}
+    title={mensaje || ""}
+    onClose={()=> setOpen(false)}
+    onConfirm={()=> setOpen(false)}
+    />)}
         </>
 )
 }
