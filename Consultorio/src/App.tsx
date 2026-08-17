@@ -34,7 +34,7 @@ useEffect(()=>{
       const getURL = async ()=>{
          try {
           
-          const res = await fetch("http://localhost:3000/config");
+          const res = await fetch("/config");
           const data = await res.json();
           setConfig(data);
         } catch (error) {
@@ -47,7 +47,7 @@ useEffect(()=>{
      
      useEffect(()=>{
       console.log(config?.API_URL)
-      const socket = io('http://localhost:3000');
+      const socket = io('/');
 
       socket.on('session:updated' , ()=>{
         setRefreshSesion(prev => prev + 1);

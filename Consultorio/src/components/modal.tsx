@@ -1,12 +1,11 @@
 type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
-    onConfirm: () => void;
     children?: React.ReactNode;
     title?: string;
 }
 
-export default function Modal({isOpen, onClose, onConfirm, children, title}: ModalProps){
+export default function Modal({isOpen, onClose, children, title}: ModalProps){
 
 return(
     isOpen && (
@@ -15,10 +14,8 @@ return(
                  <h2 className="text-xl font-bold mb-4">{title}</h2>
                 {children}
                 <div className="flex justify-center gap-2 mt-4">
-                    <button className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" onClick={onClose}>
-                        Cancelar
-                    </button>
-                    <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onClick={onConfirm}>
+                   
+                    <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onClick={onClose}>
                         Confirmar
                     </button>
                 </div>

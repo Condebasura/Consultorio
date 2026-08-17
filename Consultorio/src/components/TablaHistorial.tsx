@@ -77,7 +77,7 @@ export default function TablaHistorial({valoresIniciales, data, DataHisto}: DatP
   
     useEffect(()=>{
    
-    const socket = io('"http://localhost:3000/', {
+    const socket = io('/', {
         transports: ["websocket"],
         withCredentials: true,
     });

@@ -171,7 +171,6 @@ if(data.data){
     isOpen={isOpen}
     title={mensaje || ""}
     onClose={()=> setOpen(false)}
-    onConfirm={()=> setOpen(false)}
     />)}
         </>
 )
